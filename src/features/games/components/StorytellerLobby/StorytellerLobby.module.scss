@@ -1,0 +1,25 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.count_row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.count {
+  @include title-1;
+}
+
+.script {
+  @include body-small;
+}
+
+.footnote {
+  @include body-small;
+  text-align: center;
+}

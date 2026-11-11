@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Jetons de joueur</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 26px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+/* jeton joueur */
+.pj{width:112px;display:flex;flex-direction:column;align-items:center;gap:9px;background:none;border:0;padding:0;margin:0;color:inherit;font-family:var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pj:focus-visible{outline:2px solid #F1E6C8;outline-offset:4px;border-radius:12px}
+.disc{position:relative;width:64px;height:64px;border-radius:50%;box-sizing:border-box;background:radial-gradient(circle at 50% 28%,#2A3042,#171A23 78%);border:2px solid #B98E45;display:flex;align-items:center;justify-content:center;transition:transform 80ms var(--ease),box-shadow 140ms var(--ease)}
+.ini{font:600 28px/1 var(--serif);color:#E9DFC7}
+.pn{font:500 14px/18px var(--sans);color:#E9DFC7;max-width:104px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bd{position:absolute;width:22px;height:22px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+.bd svg{width:13px;height:13px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tr{top:-6px;right:-6px}.br{bottom:-6px;right:-6px}
+.gv.on{background:#E9DFC7}.gv.on:after{content:"";width:8px;height:8px;border-radius:50%;background:#0E1016}
+.gv.off{background:#0E1016;border:1.5px solid #8B8FA3}.gv.off:after{content:"";width:8px;height:1.5px;background:#8B8FA3}
+.eyeb{background:#14161D;border:1.5px solid #3A3F52}.eyeb svg{stroke:#8B8FA3}
+.okb{background:#B98E45}.okb svg{stroke:#0E1016}
+.kob{background:#2A1219;border:1.5px solid #EE7F8B}.kob svg{stroke:#EE7F8B}
+.pj.dead .disc{border:2px dashed #3A3F52;background:#14161D}
+.pj.dead .ini,.pj.dead .pn{color:#8B8FA3}
+.pj.pressed .disc{transform:scale(.93);background:radial-gradient(circle at 50% 28%,#232838,#12151D 78%)}
+.pj.disabled{opacity:.4}
+.pj.selected .disc{box-shadow:0 0 0 3px #0E1016,0 0 0 5px #B98E45,0 0 22px rgba(185,142,69,.3)}
+.pj.error .disc{border-color:#EE7F8B}
+.pj.error .pn{color:#EE7F8B}
+/* statuts */
+.stb{position:absolute;bottom:-6px;width:22px;height:22px;border-radius:50%;box-sizing:border-box;background:#0A0C11;border:1.5px solid #B98E45;display:flex;align-items:center;justify-content:center}
+.stb svg{width:12px;height:12px;fill:none;stroke:#CFA55A;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.stb.more{font:700 10px/1 var(--mono);color:#CFA55A}
+.chip{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px 0 10px;border-radius:999px;background:#0A0C11;border:1px solid rgba(185,142,69,.6);font:500 14px/1 var(--sans);color:#E9DFC7}
+.chip svg{width:18px;height:18px;fill:none;stroke:#CFA55A;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.sc{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.sc .ic{width:44px;height:44px;border-radius:50%;background:#0A0C11;border:1.5px solid #B98E45;display:flex;align-items:center;justify-content:center;flex:none}
+.sc .ic svg{width:24px;height:24px;fill:none;stroke:#CFA55A;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* compact grimoire */
+.ct{height:56px;display:flex;align-items:center;gap:10px;padding:0 12px 0 9px;background:#171A23;border:1px solid #2C3345;border-radius:12px;box-sizing:border-box;min-width:0}
+.ct .gl{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(185,142,69,.8);background:#202534;flex:none;display:flex;align-items:center;justify-content:center}
+.ct .gl svg{width:22px;height:22px;fill:none;stroke:#E9DFC7;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ct .tx{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.ct .a{font:600 14px/16px var(--sans);color:#E9DFC7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct .b{font:400 12px/14px var(--sans);color:#AAA38E;display:flex;gap:5px;align-items:center}
+.ct .b svg{width:13px;height:13px;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ct .ms{display:flex;gap:4px;align-items:center;flex:none}
+.ct .ms .m{width:20px;height:20px;border-radius:50%;box-sizing:border-box;background:#0A0C11;border:1.3px solid #B98E45;display:flex;align-items:center;justify-content:center}
+.ct .ms .m svg{width:11px;height:11px;fill:none;stroke:#CFA55A;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ct .gvm{width:18px;height:18px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center}
+.ct.dead{background:#14161D;border:1px dashed #3A3F52}
+.ct.dead .gl{border-color:#3A3F52;background:#171A23}.ct.dead .gl svg{stroke:#8B8FA3}
+.ct.dead .a{color:#8B8FA3}
+.ct.dead .b{color:#8B8FA3}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1300px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">04 · Jetons de joueur</span>
+  <h1 class="h1">Un disque, un nom, une information</h1>
+  <p class="p" style="max-width:780px;font-size:15px">Le jeton représente un joueur à la table, vivant ou mort. Il montre seulement ce que tout le monde sait déjà : l'état vivant ou mort et le vote fantôme. Les statuts secrets n'existent que dans la vue conteur.</p>
+</div>
+
+<div class="panel" style="display:flex;flex-direction:column;gap:22px">
+  <h2 class="h3">États du jeton (vue joueur)</h2>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between">
+    <sc-for list="{{states}}" as="t" hint-placeholder-count="8">
+      <div style="display:flex;flex-direction:column;gap:14px;width:124px;align-items:center">
+        <button class="pj {{t.cls}}" aria-label="{{t.aria}}">
+          <div class="disc">
+            <span class="ini">{{t.ini}}</span>
+            <sc-if value="{{t.ghostOn}}" hint-placeholder-val="{{false}}"><i class="bd tr gv on"></i></sc-if>
+            <sc-if value="{{t.ghostOff}}" hint-placeholder-val="{{false}}"><i class="bd tr gv off"></i></sc-if>
+            <sc-if value="{{t.eye}}" hint-placeholder-val="{{false}}"><i class="bd br eyeb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></i></sc-if>
+            <sc-if value="{{t.ok}}" hint-placeholder-val="{{false}}"><i class="bd tr okb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i></sc-if>
+            <sc-if value="{{t.ko}}" hint-placeholder-val="{{false}}"><i class="bd tr kob"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg></i></sc-if>
+          </div>
+          <span class="pn">{{t.name}}</span>
+        </button>
+        <div style="display:flex;flex-direction:column;gap:3px;align-items:center;text-align:center"><b style="font:600 13px/1.2 var(--sans);color:#E9DFC7">{{t.label}}</b><span class="tk">{{t.token}}</span></div>
+      </div>
+    </sc-for>
+  </div>
+  <p class="p">Disque 64 px dans une zone tactile de 112 × 96 px. La pastille de vote fantôme est pleine quand la voix est disponible, vide et barrée quand elle est utilisée : la forme porte l'information, la couleur ne fait que la renforcer. Le nom est tronqué à 10 lettres avec « … » ; deux initiales identiques ne sont jamais ambiguës car le nom complet reste visible.</p>
+</div>
+
+<div style="display:flex;gap:32px;align-items:stretch">
+  <div class="panel" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+    <h2 class="h3" style="margin-bottom:8px">Statuts (vue conteur uniquement)</h2>
+    <sc-for list="{{statuses}}" as="s" hint-placeholder-count="4">
+      <div class="sc">
+        <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{s.d}}"/></svg></div>
+        <div style="display:flex;flex-direction:column;gap:3px"><b style="font:600 15px/1.2 var(--sans);color:#E9DFC7">{{s.label}}</b><span class="p" style="font-size:13px">{{s.note}}</span></div>
+        <span class="tk" style="margin-left:auto">{{s.token}}</span>
+      </div>
+    </sc-for>
+    <p class="p" style="margin-top:8px">Les statuts sont des pastilles de 22 px au bas du disque, de gauche à droite : trois au plus, puis « +N ». Chaque statut a sa forme propre, aucune couleur dédiée.</p>
+  </div>
+
+  <div class="panel" style="flex:1;min-width:0;display:flex;flex-direction:column;gap:22px">
+    <h2 class="h3">Jeton étendu (conteur)</h2>
+    <div style="display:flex;gap:22px;align-items:center">
+      <div class="pj" style="width:96px;cursor:default">
+        <div class="disc" style="width:76px;height:76px">
+          <span class="ini" style="font-size:34px">É</span>
+          <i class="stb" style="left:-6px"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8.5 15h7"/></svg></i>
+          <i class="stb" style="left:14px"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg></i>
+          <i class="stb more" style="left:34px">+1</i>
+        </div>
+        <span class="pn">Éloïse</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+        <div style="display:flex;align-items:center;gap:10px"><span style="font:600 24px/1 var(--serif);color:#E9DFC7">Veilleur</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#AAA38E"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7F93B5" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>Bonne équipe</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8.5 15h7"/></svg>Empoisonné</span>
+          <span class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg>Protégé</span>
+          <span class="chip" style="opacity:.8"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l-1 6a4 4 0 0 1-8 0z M12 14v6 M8 20h8"/></svg>Ivre</span>
+        </div>
+      </div>
+    </div>
+    <p class="p">Sur la fiche du conteur, les statuts s'écrivent en toutes lettres. Les pastilles de l'écran compact ne sont qu'un résumé.</p>
+    <div style="height:1px;background:var(--line)"></div>
+    <h2 class="h3" style="font-size:22px">Ce que voit chaque vue</h2>
+    <div style="display:grid;grid-template-columns:auto 1fr 1fr;gap:10px 18px;align-items:center;font:400 13px/1.3 var(--sans);color:#AAA38E">
+      <span></span><b style="color:#E9DFC7;font-weight:600">Joueur</b><b style="color:#E9DFC7;font-weight:600">Conteur</b>
+      <span>Vivant / mort</span><span>Oui</span><span>Oui</span>
+      <span>Vote fantôme</span><span>Oui</span><span>Oui</span>
+      <span>Rôle et équipe</span><span>Le sien seulement</span><span>Tous</span>
+      <span>Statuts</span><span>Jamais</span><span>Tous</span>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;gap:32px;align-items:flex-start">
+  <div class="panel" style="flex:1.5;min-width:0;display:flex;flex-direction:column;gap:18px">
+    <h2 class="h3">Version compacte, pour le grimoire</h2>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+      <sc-for list="{{tiles}}" as="r" hint-placeholder-count="8">
+        <div class="ct {{r.cls}}" role="group" aria-label="{{r.aria}}">
+          <div class="gl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{r.glyph}}"/></svg></div>
+          <div class="tx">
+            <span class="a">{{r.name}}</span>
+            <span class="b"><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{r.teamColor}}"><path d="{{r.teamPath}}"/></svg>{{r.role}}</span>
+          </div>
+          <div class="ms">
+            <sc-if value="{{r.poison}}" hint-placeholder-val="{{false}}"><i class="m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8.5 15h7"/></svg></i></sc-if>
+            <sc-if value="{{r.drunk}}" hint-placeholder-val="{{false}}"><i class="m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l-1 6a4 4 0 0 1-8 0z M12 14v6 M8 20h8"/></svg></i></sc-if>
+            <sc-if value="{{r.protect}}" hint-placeholder-val="{{false}}"><i class="m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg></i></sc-if>
+            <sc-if value="{{r.gvOn}}" hint-placeholder-val="{{false}}"><i class="gvm" style="background:#E9DFC7"><i style="width:7px;height:7px;border-radius:50%;background:#0E1016;display:block"></i></i></sc-if>
+            <sc-if value="{{r.gvOff}}" hint-placeholder-val="{{false}}"><i class="gvm" style="background:#0E1016;border:1.5px solid #8B8FA3"><i style="width:7px;height:1.5px;background:#8B8FA3;display:block"></i></i></sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:18px">
+    <h2 class="h3">Règles du compact</h2>
+    <p class="p">Hauteur 56 px, au-dessus des 44 px minimum. À gauche le pictogramme du rôle, au centre le pseudo puis le rôle précédé de l'icône d'équipe (croissant ou pointe), à droite les statuts et le vote fantôme.</p>
+    <p class="p">Le joueur mort passe en pointillés et en gris ; son rôle reste lisible, car le conteur en a besoin pour arbitrer.</p>
+    <p class="p">Sur un petit écran (320 px) la liste reste en colonne unique ; les statuts au-delà de deux se replient en « +N ».</p>
+    <p class="p">Un appui ouvre la <b style="color:#E9DFC7;font-weight:600">fiche de correction</b> de ce joueur (planche 09).</p>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const LANTERN = 'M9 3h6 M10 3v2 M14 3v2 M8 7c0-1 1-2 4-2s4 1 4 2v9c0 1-1 2-4 2s-4-1-4-2z M8 11h8 M12 18v3';
+    const BELL = 'M6 17h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v5z M10 20a2 2 0 0 0 4 0 M12 4V3';
+    const FEATHER = 'M19 5c-8 0-12 4-12 10v4 M19 5c0 8-4 11-12 10 M7 19l-2 2 M10 12h5';
+    const KEY = 'M5 12a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0 M12 12h9 M17 12v3 M20 12v2';
+    const RAVEN = 'M4 15c3 0 4-3 6-5s5-2 7 0l3 1-3 1c0 4-3 7-8 7-3 0-5-2-5-4z M15 9.5h.01';
+    const HAND = 'M12 21v-7 M10 12l2-3 2 3-2 2z M12 7V3';
+    const B = '#7F93B5', R = '#EE7F8B', D = '#8B8FA3';
+    const st = (cls, ini, name, label, token, extra, aria) => Object.assign({ cls, ini, name, label, token, aria, ghostOn: false, ghostOff: false, eye: false, ok: false, ko: false }, extra);
+    const states = [
+      st('', 'É', 'Éloïse', 'Vivant', 'jeton.vivant', {}, 'Éloïse, vivante'),
+      st('dead', 'M', 'Marc', 'Mort', 'jeton.mort', { eye: true }, 'Marc, mort'),
+      st('dead', 'I', 'Inès', 'Voix disponible', 'jeton.voix-dispo', { eye: true, ghostOn: true }, 'Inès, morte, vote fantôme disponible'),
+      st('dead', 'Y', 'Yanis', 'Voix utilisée', 'jeton.voix-usee', { eye: true, ghostOff: true }, 'Yanis, mort, vote fantôme utilisé'),
+      st('pressed', 'C', 'Camille', 'Appuyé', 'jeton.appuye', {}, 'Camille, appuyé'),
+      st('disabled', 'T', 'Théo', 'Désactivé', 'jeton.desactive', {}, 'Théo, non sélectionnable'),
+      st('selected', 'N', 'Nour', 'Sélectionné', 'jeton.selectionne', { ok: true }, 'Nour, sélectionnée'),
+      st('error', 'L', 'Lou', 'Erreur', 'jeton.erreur', { ko: true }, 'Lou, choix invalide')
+    ];
+    const statuses = [
+      { label: 'Empoisonné', note: 'Capacité faussée cette nuit. Fiole.', token: 'statut.poison', d: 'M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8.5 15h7' },
+      { label: 'Ivre', note: 'Capacité faussée jusqu’à nouvel ordre. Coupe.', token: 'statut.ivre', d: 'M7 4h10l-1 6a4 4 0 0 1-8 0z M12 14v6 M8 20h8' },
+      { label: 'Protégé', note: 'Ne peut pas mourir cette nuit. Bouclier.', token: 'statut.protege', d: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z' },
+      { label: 'Marqué', note: 'Rappel libre du conteur pour la nuit. Cible.', token: 'statut.marque', d: 'M4 12a8 8 0 1 0 16 0 8 8 0 1 0-16 0 M9 12a3 3 0 1 0 6 0 3 3 0 1 0-6 0 M12 2v3 M12 19v3' }
+    ];
+    const t = (name, role, glyph, team, extra, aria) => Object.assign({
+      cls: '', name, role, glyph, aria, teamPath: team === 'b' ? MOON : TIP, teamColor: team === 'b' ? B : R,
+      poison: false, drunk: false, protect: false, gvOn: false, gvOff: false
+    }, extra);
+    const tiles = [
+      t('Éloïse', 'Veilleur', LANTERN, 'b', { protect: true }, 'Éloïse, Veilleur, bonne équipe, protégée'),
+      t('Marc', 'Sonneur', BELL, 'b', { drunk: true }, 'Marc, Sonneur, bonne équipe, ivre'),
+      t('Inès', 'Corbeau', RAVEN, 'm', {}, 'Inès, Corbeau, mauvaise équipe'),
+      t('Yanis', 'Archiviste', FEATHER, 'b', { poison: true }, 'Yanis, Archiviste, bonne équipe, empoisonné'),
+      t('Camille', 'Démon', HAND, 'm', {}, 'Camille, Démon, mauvaise équipe'),
+      t('Théo', 'Gardien', KEY, 'b', { cls: 'dead', gvOn: true }, 'Théo, Gardien, bonne équipe, mort, vote fantôme disponible'),
+      t('Nour', 'Corbeau', RAVEN, 'm', { cls: 'dead', gvOff: true }, 'Nour, Corbeau, mauvaise équipe, morte, vote fantôme utilisé'),
+      t('Lou', 'Veilleur', LANTERN, 'b', {}, 'Lou, Veilleur, bonne équipe')
+    ];
+    // joueurs morts : équipe grisée
+    tiles.forEach((x) => { if (x.cls === 'dead') x.teamColor = D; });
+    return { states, statuses, tiles };
+  }
+}
+</script>
+</body>
+</html>

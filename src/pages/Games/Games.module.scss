@@ -1,0 +1,22 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.text {
+  @include body-small;
+}
+
+.pseudo {
+  color: $text;
+  font-weight: 600;
+}
+
+.empty {
+  align-items: flex-start;
+}
+
+.empty_title {
+  @include title-3;
+}

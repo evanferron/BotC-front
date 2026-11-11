@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Rôles du script</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0E1016}
+.ib{width:44px;height:44px;border-radius:12px;border:1px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;color:#AAA38E;font:500 10px/12px Inter,sans-serif;flex:none}
+.ib svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ib.on{color:#CFA55A;border-color:#B98E45;background:#171A23}
+.rw{display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 12px;border:1px solid #2C3345;border-radius:12px;background:#171A23;box-sizing:border-box;margin-bottom:6px;width:100%}
+.rw .md{width:36px;height:36px;border-radius:50%;border:1.2px solid #B98E45;display:flex;align-items:center;justify-content:center;flex:none;background:#0A0C11}
+.rw .md svg{width:22px;height:22px;fill:none;stroke:#CFA55A;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.rw b{flex:1;font:600 18px/22px 'Cormorant Garamond',serif;color:#E9DFC7}
+.rw .te{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.rw.se{border-color:#CFA55A;box-shadow:0 0 0 2px #0E1016,0 0 0 3.5px #CFA55A}
+.rw.ig{border-color:#B98E45}
+.rw.mk b{letter-spacing:.3em;color:#AAA38E}
+.gh{display:flex;align-items:center;gap:8px;margin:10px 0 6px}
+.gh svg{width:16px;height:16px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gh span{font:600 11px/16px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#E9DFC7}
+.gh small{font:400 12px/16px Inter,sans-serif;color:#AAA38E}
+.bd{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;border:1px solid;font:600 12px/16px Inter,sans-serif}
+.bd svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bg{color:#7F93B5;border-color:#7F93B5;background:#182033}
+.bm{color:#EE7F8B;border-color:#EE7F8B;background:#2A1219}
+.bt{color:#E9DFC7;border-color:#6A7291}
+.lst{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 88%,transparent);mask-image:linear-gradient(#000 88%,transparent)}
+.rb{display:flex;flex-direction:column;gap:10px;padding:0 16px}
+</style>
+</helmet>
+<div class="sheet" style="width:2270px;min-height:2220px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Écran vitrine · Rôles du script</span>
+    <h1 class="h1">Ce que le script permet, rien de plus</h1>
+    <p class="p" style="max-width:940px;font-size:15px">Les joueurs ouvrent cette feuille à tout moment depuis l'icône « Rôles » de l'en-tête, même pendant l'attente de nuit, sans que l'écran en dessous change. Elle liste les 22 rôles possibles du script, jamais la composition réelle. Le rôle du joueur est épinglé en haut et reste masqué : on le révèle par appui long. La variante conteur ajoute les rôles réellement en jeu. La liste est locale, donc consultable hors connexion.</p>
+  </div>
+
+  <div class="grid g5">
+
+    <div class="cell">
+      <div class="lb"><span class="no">R1</span><div><b>Liste · vue joueur</b><small><span class="tg a">Action</span>Phase : toutes. Votre rôle masqué en haut.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div class="rw mk" style="margin:0"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Maintenir</span></div>
+          <input class="txt" type="search" placeholder="Rechercher un rôle" readonly="{{true}}" aria-label="Rechercher un rôle">
+          <div class="chips" role="group" aria-label="Filtrer par type"><button class="cp on">Tous</button><button class="cp">Villageois</button><button class="cp">Étrangers</button><button class="cp">Sbires</button><button class="cp">Démon</button></div>
+          <div class="lst">
+            <sc-for list="{{p1}}" as="it" hint-placeholder-count="10">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw {{it.cls}}"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R2</span><div><b>Appui long · rôle révélé</b><small><span class="tg a">Action</span>Phase : toutes. La ligne s'allume seulement pendant l'appui.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div class="rw se" style="margin:0"><span class="md"><svg viewBox="0 0 24 24"><path d="{{ic.emp}}"/></svg></span><b>Empathique</b><span class="bd bg"><svg viewBox="0 0 24 24"><path d="{{ic.moon}}"/></svg>Bonne équipe</span></div>
+          <p class="sm" style="text-align:center">Relâchez pour masquer</p>
+          <div class="lst">
+            <sc-for list="{{p2}}" as="it" hint-placeholder-count="10">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw {{it.cls}}"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R3</span><div><b>Recherche « em »</b><small><span class="tg a">Action</span>Phase : toutes. 3 résultats.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div class="rw mk" style="margin:0"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Maintenir</span></div>
+          <input class="txt" type="search" value="em" readonly="{{true}}" aria-label="Rechercher un rôle">
+          <div class="chips" role="group" aria-label="Filtrer par type"><button class="cp on">Tous</button><button class="cp">Villageois</button><button class="cp">Étrangers</button><button class="cp">Sbires</button><button class="cp">Démon</button></div>
+          <p class="sm">3 rôles trouvés</p>
+          <div class="lst">
+            <sc-for list="{{p3}}" as="it" hint-placeholder-count="6">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw {{it.cls}}"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R4</span><div><b>Filtre « Étrangers »</b><small><span class="tg a">Action</span>Phase : toutes. 4 rôles.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div class="rw mk" style="margin:0"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Maintenir</span></div>
+          <input class="txt" type="search" placeholder="Rechercher un rôle" readonly="{{true}}" aria-label="Rechercher un rôle">
+          <div class="chips" role="group" aria-label="Filtrer par type"><button class="cp">Tous</button><button class="cp">Villageois</button><button class="cp on">Étrangers</button><button class="cp">Sbires</button><button class="cp">Démon</button></div>
+          <div class="lst">
+            <sc-for list="{{p4}}" as="it" hint-placeholder-count="6">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw {{it.cls}}"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R5</span><div><b>Aucun résultat</b><small><span class="tg">Vide</span>Phase : toutes. Recherche sans réponse.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div class="rw mk" style="margin:0"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Maintenir</span></div>
+          <input class="txt" type="search" value="zzz" readonly="{{true}}" aria-label="Rechercher un rôle">
+          <div class="chips" role="group" aria-label="Filtrer par type"><button class="cp on">Tous</button><button class="cp">Villageois</button><button class="cp">Étrangers</button><button class="cp">Sbires</button><button class="cp">Démon</button></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#AAA38E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ic.enq}}"/></svg>
+            <h2 class="t2">Aucun rôle ne correspond.</h2>
+            <p class="sm" style="max-width:240px">Vérifiez l'orthographe ou retirez le filtre.</p>
+            <button class="b b-s">Effacer la recherche</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R6</span><div><b>Fiche · bonne équipe</b><small><span class="tg a">Action</span>Phase : toutes. Un appui sur une ligne.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;opacity:.35;padding-top:8px">
+          <div class="lst">
+            <sc-for list="{{p6}}" as="it" hint-placeholder-count="8">
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw {{it.cls}}"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+        <div class="scrim"></div>
+        <div class="sheetp" role="dialog" aria-label="Moine" style="gap:12px">
+          <i class="grab"></i>
+          <div style="display:flex;gap:14px;align-items:center"><span style="width:72px;height:72px;border-radius:50%;border:1.5px solid #B98E45;display:flex;align-items:center;justify-content:center;background:#0A0C11;flex:none"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#CFA55A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ic.moi}}"/></svg></span><div><div style="font:600 30px/34px 'Cormorant Garamond',serif;color:#E9DFC7">Moine</div><span class="bd bt" style="margin-top:4px">Villageois</span></div></div>
+          <span class="bd bg" style="align-self:flex-start"><svg viewBox="0 0 24 24"><path d="{{ic.moon}}"/></svg>Bonne équipe</span>
+          <p class="tx" style="font-size:15px;line-height:22px">Chaque nuit, protège un autre joueur des griffes du Démon.</p>
+          <button class="b b-s b-xl">Fermer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R7</span><div><b>Fiche · mauvaise équipe</b><small><span class="tg a">Action</span>Phase : toutes. Le rouge reste un badge.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;opacity:.35;padding-top:8px">
+          <div class="lst">
+            <sc-for list="{{p7}}" as="it" hint-placeholder-count="8">
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw {{it.cls}}"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+        <div class="scrim"></div>
+        <div class="sheetp" role="dialog" aria-label="Diable : fiche du rôle" style="gap:12px">
+          <i class="grab"></i>
+          <div style="display:flex;gap:14px;align-items:center"><span style="width:72px;height:72px;border-radius:50%;border:1.5px solid #B98E45;display:flex;align-items:center;justify-content:center;background:#0A0C11;flex:none"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#CFA55A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ic.dia}}"/></svg></span><div><div style="font:600 30px/34px 'Cormorant Garamond',serif;color:#E9DFC7">Diable</div><span class="bd bt" style="margin-top:4px">Démon</span></div></div>
+          <span class="bd bm" style="align-self:flex-start"><svg viewBox="0 0 24 24"><path d="{{ic.tip}}"/></svg>Mauvaise équipe</span>
+          <p class="tx" style="font-size:15px;line-height:22px">Chaque nuit, tue un joueur ; peut se sacrifier pour se transmettre.</p>
+          <button class="b b-s b-xl">Fermer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R8</span><div><b>Par-dessus l'attente de nuit</b><small><span class="tg">Attente</span>Phase : Nuit. L'écran dessous reste identique.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span>
+          <button class="ib" aria-label="Mon rôle"><svg viewBox="0 0 24 24"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg>Mon rôle</button>
+          <button class="ib" aria-label="Joueurs"><svg viewBox="0 0 24 24"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg>Joueurs</button>
+          <button class="ib on" aria-label="Rôles du script"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg>Rôles</button>
+        </div>
+        <div class="body ctr" style="gap:18px;opacity:.5"><i class="dl xl" style="--a:14deg"></i><h2 class="t1">La nuit est tombée.</h2><p class="sm">Gardez les yeux fermés. Attendez le conteur.</p></div>
+        <div class="scrim"></div>
+        <div class="sheetp" role="dialog" aria-label="Rôles du script" style="top:68px;bottom:0;height:auto;max-height:none;border-radius:20px 20px 0 0;gap:10px">
+          <i class="grab"></i>
+          <h2 class="t2">Rôles du script</h2>
+          <div class="rw mk" style="margin:0"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Maintenir</span></div>
+          <div class="lst" style="overflow:hidden">
+            <sc-for list="{{p1}}" as="it" hint-placeholder-count="9">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R9</span><div><b>Hors connexion</b><small><span class="tg e">Erreur de connexion</span>Phase : toutes. La liste reste disponible.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="ban" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 4-2.3 M22 8.8a15 15 0 0 0-8-3.3 M5 12.9a10 10 0 0 1 3-1.8 M19 12.9a10 10 0 0 0-5-2.7 M9 16.5a5 5 0 0 1 6 0 M12 20h.01 M3 3l18 18"/></svg><span>Connexion perdue. Cette liste reste disponible.</span></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div class="rw mk" style="margin:0"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Maintenir</span></div>
+          <input class="txt" type="search" placeholder="Rechercher un rôle" readonly="{{true}}" aria-label="Rechercher un rôle">
+          <div class="lst">
+            <sc-for list="{{p1}}" as="it" hint-placeholder-count="10">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><svg class="te" viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">R10</span><div><b>Variante conteur · rôles en jeu</b><small><span class="tg a">Action</span>Phase : toutes. 10 en jeu sur 22.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Rôles du script</span><button class="ib" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="rb" style="flex:1;min-height:0;padding-top:8px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between"><span class="mi">Vue conteur</span><span class="mo" style="font-size:14px">10 / 22 en jeu</span></div>
+          <input class="txt" type="search" placeholder="Rechercher un rôle" readonly="{{true}}" aria-label="Rechercher un rôle">
+          <div class="chips" role="group" aria-label="Filtrer"><button class="cp">Tous</button><button class="cp on">En jeu</button><button class="cp">Absents</button></div>
+          <div class="lst">
+            <sc-for list="{{p10}}" as="it" hint-placeholder-count="10">
+              <sc-if value="{{it.hd}}" hint-placeholder-val="{{false}}"><div class="gh"><svg viewBox="0 0 24 24" style="stroke: {{it.tc}}"><path d="{{it.td}}"/></svg><span>{{it.title}} · {{it.count}}</span><small>{{it.team}}</small></div></sc-if>
+              <sc-if value="{{it.row}}" hint-placeholder-val="{{true}}"><div class="rw ig"><span class="md"><svg viewBox="0 0 24 24"><path d="{{it.d}}"/></svg></span><b>{{it.name}}</b><span class="pill">{{it.who}}</span></div></sc-if>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2270,"height":2220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const c = (x, y, r) => `M${x - r} ${y}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0`;
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const ic = {
+      moon: MOON, tip: TIP,
+      lav: 'M4 12h16l-1.5 8h-13z ' + c(9, 7, 1.6) + ' ' + c(14, 5.5, 1.2) + ' ' + c(15.5, 9, 1),
+      bib: 'M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13C17 4 14 4.5 12 6z M12 6v13',
+      enq: c(10, 10, 6) + ' M14.5 14.5 20 20',
+      cui: 'M5 11h14v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z M3 11h18 M9 8c0-2 1-3 3-3s3 1 3 3',
+      emp: 'M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z',
+      dis: c(12, 10, 6) + ' M7 19h10 M9 16l-1 3 M15 16l1 3',
+      cro: 'M16 3l5 5 M14 5l5 5-3 3-5-5z M11 13l-7 7',
+      moi: 'M12 3c-4 0-7 3-7 7v11h14V10c0-4-3-7-7-7z M9 11c0-2 1-3 3-3s3 1 3 3v3H9z',
+      gar: 'M4 16c3-1 5-4 6-8 2 1 4 1 6 0 0 5 2 7 4 8-4 1-7 1-8 4-1-3-4-4-8-4z M17 8l3-1',
+      vie: 'M12 21V11 M12 11c-4-1-6-4-6-8 4 0 6 3 6 8 M12 11c4-1 6-4 6-8-4 0-6 3-6 8 M8 21h8',
+      tue: 'M12 3l2.5 3.5-2.5 9-2.5-9z M8 15h8 M12 15v6',
+      sol: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z M12 8v8',
+      mai: 'M4 18h16 M5 18l-1-10 5 4 3-6 3 6 5-4-1 10',
+      maj: 'M4 17h16 M6 17a6 6 0 0 1 12 0 M12 8v3 M10 8h4 M3 20h18',
+      ivr: 'M10 3h4 M11 3v5l-3 4v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-8l-3-4V3 M8 14h8',
+      rec: 'M4 11l8-7 8 7 M6 10v10h12V10 M10 20v-5h4v5',
+      sai: c(12, 14, 5) + ' M7 6c0-1.5 2.2-2.5 5-2.5s5 1 5 2.5-2.2 2.5-5 2.5-5-1-5-2.5z',
+      poi: 'M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8 15h8 M12 17v1',
+      esp: 'M3 9c3-2 6-2 9 0 3-2 6-2 9 0l-1 5a3.5 3.5 0 0 1-6 1.5L12 14l-2 1.5A3.5 3.5 0 0 1 4 14z',
+      fem: c(12, 9, 4) + ' M12 13v8 M12 17c-3 0-4-1-5-3 M12 18c2 0 3-1 4-2',
+      bar: c(11, 12, 6) + ' M17 16c2 2 2 4 1 6',
+      dia: 'M5 4c0 4 2 6 4 7 M19 4c0 4-2 6-4 7 M7 12h10l-1 6c-.5 2-2 3-4 3s-3.5-1-4-3z'
+    };
+    const groups = [
+      { t: 'Villageois', team: 'Bonne équipe', good: true, r: [['Lavandière', 'lav'], ['Bibliothécaire', 'bib'], ['Enquêteur', 'enq'], ['Cuisinier', 'cui'], ['Empathique', 'emp'], ['Diseuse de bonne aventure', 'dis'], ['Croque-mort', 'cro'], ['Moine', 'moi'], ['Gardien du corbeau', 'gar'], ['Vierge', 'vie'], ['Tueur', 'tue'], ['Soldat', 'sol'], ['Maire', 'mai']] },
+      { t: 'Étrangers', team: 'Bonne équipe', good: true, r: [['Majordome', 'maj'], ['Ivrogne', 'ivr'], ['Reclus', 'rec'], ['Saint', 'sai']] },
+      { t: 'Sbires', team: 'Mauvaise équipe', good: false, r: [['Empoisonneur', 'poi'], ['Espion', 'esp'], ['Femme écarlate', 'fem'], ['Baron', 'bar']] },
+      { t: 'Démon', team: 'Mauvaise équipe', good: false, r: [['Diable', 'dia']] }
+    ];
+    const norm = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const inplay = { 'Lavandière': 'Rémi', 'Bibliothécaire': 'Marc', 'Enquêteur': 'Inès', 'Cuisinier': 'Yanis', 'Empathique': 'Éva', 'Diseuse de bonne aventure': 'Alix', 'Croque-mort': 'Sam', 'Empoisonneur': 'Camille', 'Espion': 'Nour', 'Diable': 'Lou' };
+    const build = (o) => {
+      o = o || {};
+      const out = [];
+      groups.forEach((g) => {
+        if (o.type && o.type !== g.t) return;
+        let rows = g.r.filter(([n]) => (!o.q || norm(n).indexOf(o.q) >= 0) && (!o.play || inplay[n]));
+        if (!rows.length) return;
+        const tc = g.good ? '#7F93B5' : '#EE7F8B', td = g.good ? MOON : TIP;
+        out.push({ hd: true, row: false, title: g.t, count: String(rows.length), team: g.team, tc, td });
+        rows.forEach(([n, k]) => out.push({ hd: false, row: true, name: n, d: ic[k], tc, td, cls: o.hl === n ? 'se' : '', who: inplay[n] || '' }));
+      });
+      return o.skip ? out.slice(o.skip) : out;
+    };
+    const flat = (o) => build(o).filter((x) => x.row);
+    return {
+      ic,
+      p1: build(),
+      p2: build({ hl: 'Empathique', skip: 5 }),
+      p3: build({ q: 'em' }),
+      p4: build({ type: 'Étrangers' }),
+      p6: flat({ skip: 0 }).slice(4, 12),
+      p7: flat({ skip: 0 }).slice(14, 22),
+      p10: build({ play: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

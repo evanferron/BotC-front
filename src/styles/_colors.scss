@@ -1,0 +1,46 @@
+// Couleurs sémantiques du design system « Cadran » (voir design/Couleurs.dc.html)
+// Les composants n'utilisent jamais un hexadécimal : seulement ces tokens.
+
+// Fonds et surfaces
+$bg-base: #0e1016; // Fond de l'application, partout
+$bg-sunken: #0a0c11; // Champs de saisie, zones en retrait
+$surface: #171a23; // Cartes, feuilles, bandeaux
+$surface-raised: #202534; // Éléments posés sur une surface, toasts
+$surface-modal: #262b3b; // Modales et feuilles du bas
+
+// Texte
+$text: #e9dfc7; // Parchemin : titres, corps, libellés
+$text-muted: #aaa38e; // Aides, métadonnées
+$text-faint: #9a9480; // Indices, placeholders
+$text-on-accent: #0e1016; // Libellé posé sur laiton
+
+// Accent laiton
+$accent: #b98e45; // Bouton principal, filets, sélection
+$accent-hi: #cfa55a; // Survol, texte accentué, titres de section
+$accent-pressed: #a8803c; // État appuyé du bouton principal
+
+// Danger et sang (moments forts seulement : mort, démon, vote)
+$danger: #8e1d2c; // Aplat
+$danger-text: #ee7f8b; // Texte et icône rouges sur fond sombre
+$danger-veil: #2a1219; // Teinte de fond des zones rouges
+$text-on-danger: #f6eedb; // Libellé posé sur danger
+
+// Équipes
+$team-good: #7f93b5;
+$team-good-veil: #182033;
+$team-evil: #8e1d2c;
+$team-evil-text: #ee7f8b;
+
+// Mort, filets, focus
+$dead-text: #8b8fa3;
+$dead-bg: #14161d;
+$dead-line: #3a3f52;
+$line: #2c3345; // Séparateurs décoratifs
+$line-control: #6a7291; // Bordure des champs et boutons (3:1 minimum)
+$disabled-bg: #232838;
+$focus: #f1e6c8; // Anneau de focus 2 px, décalé de 2 px
+
+// Bandeaux de phase
+$phase-line: #4a5169;
+$phase-day-bg: #1a1812;
+$phase-vote-bg: #1d1217;

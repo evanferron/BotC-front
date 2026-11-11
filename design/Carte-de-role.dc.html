@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Carte de rôle</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 26px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.cap{display:flex;flex-direction:column;gap:5px;margin-top:14px;width:260px}
+.cap b{font:600 15px/1.2 var(--sans);color:var(--text)}
+
+/* ---- carte de rôle ---- */
+.rc{position:relative;width:260px;height:364px;border-radius:18px;box-sizing:border-box;background:linear-gradient(170deg,#1C202C 0%,#12151D 100%);border:1px solid rgba(185,142,69,.6);box-shadow:0 2px 8px rgba(0,0,0,.5),inset 0 1px 0 rgba(233,223,199,.05);color:var(--text);font-family:var(--sans);text-align:center;padding:0;margin:0;display:block;transition:transform 140ms var(--ease),filter 140ms var(--ease),box-shadow 140ms var(--ease)}
+.rc .in{position:absolute;inset:8px;border:1px solid rgba(185,142,69,.3);border-radius:12px;pointer-events:none}
+.rc .c{position:absolute;width:16px;height:16px;border:1.5px solid #B98E45;pointer-events:none}
+.rc .tl{top:14px;left:14px;border-right:0;border-bottom:0;border-top-left-radius:7px}
+.rc .tr{top:14px;right:14px;border-left:0;border-bottom:0;border-top-right-radius:7px}
+.rc .bl{bottom:14px;left:14px;border-right:0;border-top:0;border-bottom-left-radius:7px}
+.rc .br{bottom:14px;right:14px;border-left:0;border-top:0;border-bottom-right-radius:7px}
+.rc .body{position:absolute;inset:0;padding:30px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:14px;box-sizing:border-box}
+.ts{width:100%;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:8px;font:600 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#E9DFC7;box-sizing:border-box;flex:none}
+.ts svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.good .ts{background:#182033;border:1px solid #7F93B5}.good .ts svg{color:#7F93B5}
+.evil .ts{background:#2A1219;border:1px solid #8E1D2C}.evil .ts svg{color:#EE7F8B}
+.med{width:124px;height:124px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,#2C3346,#171A23 70%);border:1px solid rgba(185,142,69,.75);box-shadow:0 0 0 4px #12151D,0 0 0 5px rgba(185,142,69,.45)}
+.evil .med{background:radial-gradient(circle at 50% 30%,#3D1822,#1B1015 70%)}
+.med svg{width:62px;height:62px;fill:none;stroke:#E9DFC7;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.nm{font:600 32px/34px var(--serif);color:#E9DFC7;margin-top:6px}
+.dv{width:110px;height:9px;position:relative;flex:none}
+.dv:before{content:"";position:absolute;left:0;right:0;top:4px;height:1px;background:rgba(185,142,69,.5)}
+.dv:after{content:"";position:absolute;left:50%;top:0;width:7px;height:7px;margin-left:-4px;background:#B98E45;transform:rotate(45deg);outline:3px solid #14171F}
+.ab{font:400 14px/20px var(--sans);color:#AAA38E;margin:0;max-width:200px}
+.evil.glow{border-color:#8E1D2C;box-shadow:0 0 0 1px #8E1D2C,0 0 32px rgba(142,29,44,.5),0 2px 8px rgba(0,0,0,.5)}
+/* dos */
+.back-dial{position:absolute;left:50%;top:50%;width:170px;height:170px;margin:-85px 0 0 -85px}
+.back{background:radial-gradient(circle at 50% 45%,#1F2330 0%,#10131A 75%)}
+/* morte */
+.dead{background:#14161D;border:1px dashed #3A3F52;box-shadow:none}
+.dead .in{border-color:#2C3345}.dead .c{border-color:#3A3F52}
+.dead .ts{background:#14161D;border:1px solid #3A3F52;color:#8B8FA3}.dead .ts svg{color:#8B8FA3}
+.dead .med{background:#171A23;border-color:#3A3F52;box-shadow:0 0 0 4px #14161D,0 0 0 5px #2C3345}
+.dead .med svg{stroke:#8B8FA3}.dead .nm{color:#8B8FA3}
+.rib{width:100%;height:38px;margin-top:2px;border-top:1px solid #3A3F52;border-bottom:1px solid #3A3F52;display:flex;align-items:center;justify-content:center;gap:10px;font:600 13px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:#8B8FA3;flex:none}
+.rib svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* masquée */
+.mask{cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation;background:radial-gradient(circle at 50% 40%,#171A23,#0C0E13 80%);outline-offset:3px}
+.mask:focus-visible,.fl:focus-visible{outline:2px solid #F1E6C8}
+.mask .veil{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:30px;box-sizing:border-box;transition:opacity 80ms linear}
+.mask .eye{width:84px;height:84px;border-radius:50%;border:1.5px dashed rgba(185,142,69,.8);display:flex;align-items:center;justify-content:center}
+.mask .eye svg{width:38px;height:38px;fill:none;stroke:#CFA55A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.mask .t1{font:600 16px/20px var(--sans);color:#E9DFC7}
+.mask .t2{font:400 13px/18px var(--sans);color:#AAA38E}
+.mask .reveal{position:absolute;inset:0;border-radius:inherit;opacity:0;background:linear-gradient(170deg,#1C202C 0%,#12151D 100%);transition:opacity 80ms linear}
+.mask:active .reveal{opacity:1;transition:opacity 240ms var(--ease)}
+.mask:active .veil{opacity:0;transition:opacity 240ms var(--ease)}
+.mask:active{transform:none}
+/* états */
+.rc.pressed{transform:scale(.97);filter:brightness(.88)}
+.rc.disabled{opacity:.42;filter:saturate(.35)}
+.rc.selected{box-shadow:0 0 0 2px #B98E45,0 0 22px rgba(185,142,69,.28)}
+.rc.error{border:2px solid #EE7F8B}
+.bdg{position:absolute;top:-10px;right:-10px;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2}
+.bdg svg{width:16px;height:16px;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bdg.ok{background:#B98E45}.bdg.ok svg{stroke:#0E1016}
+.bdg.ko{background:#2A1219;border:1.5px solid #EE7F8B}.bdg.ko svg{stroke:#EE7F8B}
+/* retournement */
+.fl{position:relative;width:260px;height:364px;perspective:1200px;background:none;border:0;padding:0;margin:0;cursor:pointer;border-radius:18px;-webkit-tap-highlight-color:transparent}
+.fl-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 640ms var(--ease)}
+.fl.is-flipped .fl-in{transform:rotateY(180deg)}
+.fl .rc{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fl .face{transform:rotateY(180deg)}
+/* boutons de doc */
+.btn2{height:56px;padding:0 24px;border-radius:10px;background:transparent;border:1.5px solid #B98E45;color:#E9DFC7;font:600 16px/20px var(--sans);cursor:pointer}
+.btn2:focus-visible{outline:2px solid #F1E6C8;outline-offset:2px}
+.btn2:active{background:rgba(185,142,69,.16)}
+/* pictos */
+.pg{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.pg svg.g{width:52px;height:52px;fill:none;stroke:#E9DFC7;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.pg .n{font:600 20px/1 var(--serif);color:#E9DFC7}
+.pg .tm{display:flex;align-items:center;gap:5px;font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#AAA38E}
+.pg .tm svg{width:14px;height:14px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#0E1016;font:700 12px/1 var(--mono);flex:none}
+@media (prefers-reduced-motion:reduce){
+ .fl-in{transition:none;transform:none !important}
+ .fl .face{transform:none;backface-visibility:visible;-webkit-backface-visibility:visible;opacity:0;transition:opacity 160ms linear}
+ .fl .rc{backface-visibility:visible;-webkit-backface-visibility:visible}
+ .fl .back{transition:opacity 160ms linear}
+ .fl.is-flipped .face{opacity:1}
+ .fl.is-flipped .back{opacity:0}
+ .mask:active .reveal,.mask:active .veil{transition-duration:160ms}
+}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1500px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:44px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">03 · Carte de rôle — l'élément signature</span>
+  <h1 class="h1">Une carte que l'on garde contre soi</h1>
+  <p class="p" style="max-width:780px;font-size:15px">Format 5:7, bords laiton, coins en équerre, médaillon central. Le rôle y est dit trois fois : par un pictogramme, par un nom en Cormorant, par une équipe écrite en toutes lettres. Quatre états : dos, face, masquée, morte.</p>
+</div>
+
+<!-- Rangée 1 : les quatre états -->
+<div style="display:flex;gap:24px;align-items:flex-start">
+
+  <div>
+    <div class="rc back" role="img" aria-label="Carte de rôle, dos">
+      <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+      <svg class="back-dial" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="96" fill="none" stroke="#B98E45" stroke-width="1.4"/>
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#B98E45" stroke-width=".6" opacity=".7"/>
+        <circle cx="100" cy="100" r="78" fill="none" stroke="#B98E45" stroke-width="3" stroke-dasharray="0.8 7.2" opacity=".8"/>
+        <g stroke="#B98E45" stroke-width="2" stroke-linecap="round"><line x1="100" y1="12" x2="100" y2="28"/><line x1="100" y1="12" x2="100" y2="28" transform="rotate(90 100 100)"/><line x1="100" y1="12" x2="100" y2="28" transform="rotate(180 100 100)"/><line x1="100" y1="12" x2="100" y2="28" transform="rotate(270 100 100)"/></g>
+        <path d="M100 100 L96.5 94 L100 48 L103.5 94 Z" fill="#E9DFC7" transform="rotate(-8 100 100)"/>
+        <path d="M100 108 L98.4 100 L100 22 L101.6 100 Z" fill="#E9DFC7" transform="rotate(-18 100 100)"/>
+        <circle cx="100" cy="100" r="6" fill="#B98E45"/><circle cx="100" cy="100" r="2" fill="#0E1016"/>
+      </svg>
+    </div>
+    <div class="cap"><b>Dos</b><span class="p">Carte posée face cachée, avant la distribution. Aucun texte : rien à lire par-dessus l'épaule.</span><span class="tk">carte.dos</span></div>
+  </div>
+
+  <div>
+    <sc-for list="{{faces}}" as="c" hint-placeholder-count="1">
+      <div>
+        <div class="rc {{c.cls}}" role="img" aria-label="Carte de rôle {{c.name}}, {{c.teamLabel}}">
+          <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+          <div class="body">
+            <div class="ts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.teamPath}}"/></svg>{{c.teamLabel}}</div>
+            <div class="med"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.glyph}}"/></svg></div>
+            <div class="nm">{{c.name}}</div>
+            <div class="dv"></div>
+            <p class="ab">{{c.ability}}</p>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+    <div class="cap"><b>Face</b><span class="p">Équipe en bandeau, pictogramme, nom, capacité en une phrase (trois lignes au plus).</span><span class="tk">carte.face</span></div>
+  </div>
+
+  <div>
+    <button class="rc mask good" aria-label="Carte masquée. Maintenir appuyé pour révéler votre rôle.">
+      <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+      <div class="veil">
+        <div class="eye"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <span class="t1">Maintenir pour révéler</span>
+        <span class="t2">Relâchez pour masquer</span>
+      </div>
+      <div class="reveal">
+        <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+        <div class="body">
+          <div class="ts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>Bonne équipe</div>
+          <div class="med"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v5z M10 20a2 2 0 0 0 4 0 M12 4V3"/></svg></div>
+          <div class="nm">Sonneur</div>
+          <div class="dv"></div>
+          <p class="ab">Annonce l'heure au village et en tire un indice.</p>
+        </div>
+      </div>
+    </button>
+    <div class="cap"><b>Masquée <span style="font:500 12px var(--mono);color:#CFA55A">· essayez : maintenez</span></b><span class="p">État par défaut dès réception. La face n'existe qu'à l'appui : révélée en 240 ms, recachée en 80 ms au relâchement.</span><span class="tk">carte.masquee</span></div>
+  </div>
+
+  <div>
+    <sc-for list="{{dead}}" as="c" hint-placeholder-count="1">
+      <div>
+        <div class="rc {{c.cls}}" role="img" aria-label="Carte de rôle {{c.name}}, joueur mort">
+          <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+          <div class="body">
+            <div class="ts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.teamPath}}"/></svg>{{c.teamLabel}}</div>
+            <div class="med"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.glyph}}"/></svg></div>
+            <div class="nm">{{c.name}}</div>
+            <div class="rib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg>Mort</div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+    <div class="cap"><b>Morte</b><span class="p">Désaturée, contour en pointillés, bandeau « Mort » avec œil fermé. Le rôle et l'équipe restent lisibles : un mort sait qui il était.</span><span class="tk">carte.morte</span></div>
+  </div>
+</div>
+
+<!-- Rangée 2 : retournement, pictogrammes, anatomie -->
+<div style="display:flex;gap:48px;align-items:flex-start">
+
+  <div style="flex:none;width:260px">
+    <button class="fl {{flipCls}}" onClick="{{flip}}" aria-label="Retourner la carte">
+      <div class="fl-in">
+        <div class="rc back">
+          <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+          <svg class="back-dial" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="96" fill="none" stroke="#B98E45" stroke-width="1.4"/>
+            <circle cx="100" cy="100" r="88" fill="none" stroke="#B98E45" stroke-width=".6" opacity=".7"/>
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#B98E45" stroke-width="3" stroke-dasharray="0.8 7.2" opacity=".8"/>
+            <g stroke="#B98E45" stroke-width="2" stroke-linecap="round"><line x1="100" y1="12" x2="100" y2="28"/><line x1="100" y1="12" x2="100" y2="28" transform="rotate(90 100 100)"/><line x1="100" y1="12" x2="100" y2="28" transform="rotate(180 100 100)"/><line x1="100" y1="12" x2="100" y2="28" transform="rotate(270 100 100)"/></g>
+            <path d="M100 100 L96.5 94 L100 48 L103.5 94 Z" fill="#E9DFC7" transform="rotate(-8 100 100)"/>
+            <path d="M100 108 L98.4 100 L100 22 L101.6 100 Z" fill="#E9DFC7" transform="rotate(-18 100 100)"/>
+            <circle cx="100" cy="100" r="6" fill="#B98E45"/><circle cx="100" cy="100" r="2" fill="#0E1016"/>
+          </svg>
+        </div>
+        <sc-for list="{{flipFace}}" as="c" hint-placeholder-count="1">
+          <div class="rc face {{c.cls}}">
+            <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+            <div class="body">
+              <div class="ts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.teamPath}}"/></svg>{{c.teamLabel}}</div>
+              <div class="med"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{c.glyph}}"/></svg></div>
+              <div class="nm">{{c.name}}</div>
+              <div class="dv"></div>
+              <p class="ab">{{c.ability}}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </button>
+    <div class="cap" style="gap:8px"><b>Retournement <span style="font:500 12px var(--mono);color:#CFA55A">· touchez la carte</span></b><span class="p">640 ms, rotation sur l'axe vertical. Le Démon est la seule face qui reçoit la lueur sang, et seulement sur le téléphone de son porteur. Avec « réduire les animations » : fondu de 160 ms.</span><span class="tk">carte.retourne</span></div>
+  </div>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:30px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 class="h3">Pictogrammes originaux</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px">
+        <sc-for list="{{glyphs}}" as="g" hint-placeholder-count="6">
+          <div class="pg">
+            <svg class="g" viewBox="0 0 24 24" aria-hidden="true"><path d="{{g.d}}"/></svg>
+            <span class="n">{{g.name}}</span>
+            <span class="tm" style="color: {{g.color}}"><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{g.color}}"><path d="{{g.teamPath}}"/></svg>{{g.team}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <p class="p">Trait de 1,4 sur grille 24, une seule silhouette lisible à 24 px. Les noms sont des exemples de mise en page.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 class="h3">Anatomie et règles</h2>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">1</span><p class="p"><b style="color:#E9DFC7">Bandeau d'équipe.</b> Toujours en haut, icône + mot. La couleur n'est qu'un renfort.</p></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">2</span><p class="p"><b style="color:#E9DFC7">Médaillon.</b> Un pictogramme, 62 px, trait parchemin. Jamais de couleur de rôle.</p></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">3</span><p class="p"><b style="color:#E9DFC7">Nom.</b> Cormorant 32 px, une ligne. Au-delà de 14 lettres : 26 px.</p></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">4</span><p class="p"><b style="color:#E9DFC7">Capacité.</b> Inter 14 px, 200 px de large, trois lignes maximum. Le détail des règles se lit ailleurs.</p></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><span class="num">5</span><p class="p"><b style="color:#E9DFC7">Secret.</b> Une carte masquée ne contient pas son contenu : la face n'est montée dans l'interface qu'à l'appui, jamais seulement cachée ou floutée.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rangée 3 : matrice d'états -->
+<div style="display:flex;flex-direction:column;gap:16px">
+  <h2 class="h3">États de la carte</h2>
+  <div style="display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap">
+    <sc-for list="{{states}}" as="s" hint-placeholder-count="5">
+      <div style="width:187px;display:flex;flex-direction:column;gap:12px">
+        <div style="width:187px;height:262px;position:relative">
+          <div style="transform:scale(.72);transform-origin:0 0;width:260px;height:364px;position:absolute;top:0;left:0">
+            <div class="rc good {{s.cls}}">
+              <sc-if value="{{s.ok}}" hint-placeholder-val="{{false}}"><span class="bdg ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></sc-if>
+              <sc-if value="{{s.ko}}" hint-placeholder-val="{{false}}"><span class="bdg ko"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg></span></sc-if>
+              <div class="in"></div><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+              <div class="body">
+                <div class="ts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>Bonne équipe</div>
+                <div class="med"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0 M12 12h9 M17 12v3 M20 12v2"/></svg></div>
+                <div class="nm">Gardien</div>
+                <div class="dv"></div>
+                <p class="ab">Protège un joueur pour la nuit.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px"><b style="font:600 14px/1.2 var(--sans);color:#E9DFC7">{{s.label}}</b><span class="p" style="font-size:13px">{{s.note}}</span><span class="tk">{{s.token}}</span></div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const LANTERN = 'M9 3h6 M10 3v2 M14 3v2 M8 7c0-1 1-2 4-2s4 1 4 2v9c0 1-1 2-4 2s-4-1-4-2z M8 11h8 M12 18v3';
+    const BELL = 'M6 17h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v5z M10 20a2 2 0 0 0 4 0 M12 4V3';
+    const FEATHER = 'M19 5c-8 0-12 4-12 10v4 M19 5c0 8-4 11-12 10 M7 19l-2 2 M10 12h5';
+    const KEY = 'M5 12a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0 M12 12h9 M17 12v3 M20 12v2';
+    const RAVEN = 'M4 15c3 0 4-3 6-5s5-2 7 0l3 1-3 1c0 4-3 7-8 7-3 0-5-2-5-4z M15 9.5h.01';
+    const HAND = 'M12 21v-7 M10 12l2-3 2 3-2 2z M12 7V3';
+    const flipped = !!(this.state && this.state.flipped);
+    return {
+      faces: [{ cls: 'good', name: 'Veilleur', teamLabel: 'Bonne équipe', teamPath: MOON, glyph: LANTERN, ability: 'Une fois par partie, éclaire un joueur et apprend son équipe.' }],
+      dead: [{ cls: 'good dead', name: 'Sonneur', teamLabel: 'Bonne équipe', teamPath: MOON, glyph: BELL }],
+      flipFace: [{ cls: 'evil glow', name: 'Démon', teamLabel: 'Mauvaise équipe', teamPath: TIP, glyph: HAND, ability: 'Chaque nuit, désigne un joueur à éteindre.' }],
+      flipCls: flipped ? 'is-flipped' : '',
+      flip: () => this.setState({ flipped: !flipped }),
+      glyphs: [
+        { name: 'Veilleur', d: LANTERN, team: 'Bonne équipe', teamPath: MOON, color: '#7F93B5' },
+        { name: 'Sonneur', d: BELL, team: 'Bonne équipe', teamPath: MOON, color: '#7F93B5' },
+        { name: 'Archiviste', d: FEATHER, team: 'Bonne équipe', teamPath: MOON, color: '#7F93B5' },
+        { name: 'Gardien', d: KEY, team: 'Bonne équipe', teamPath: MOON, color: '#7F93B5' },
+        { name: 'Corbeau', d: RAVEN, team: 'Mauvaise équipe', teamPath: TIP, color: '#EE7F8B' },
+        { name: 'Démon', d: HAND, team: 'Mauvaise équipe', teamPath: TIP, color: '#EE7F8B' }
+      ],
+      states: [
+        { cls: '', ok: false, ko: false, label: 'Défaut', note: 'Posée, prête à être retournée.', token: 'carte.defaut' },
+        { cls: 'pressed', ok: false, ko: false, label: 'Appuyée', note: 'Recul à 97 % et assombrie de 12 %, 80 ms.', token: 'carte.appuyee' },
+        { cls: 'disabled', ok: false, ko: false, label: 'Désactivée', note: 'Opacité 42 %, désaturée. Hors de portée pour cette action.', token: 'carte.desactivee' },
+        { cls: 'selected', ok: true, ko: false, label: 'Sélectionnée', note: 'Anneau et lueur laiton, pastille de coche (conteur : choix d’un rôle).', token: 'carte.selectionnee' },
+        { cls: 'error', ok: false, ko: true, label: 'Erreur', note: 'Contour rouge clair de 2 px et pastille « ! », message sous la carte.', token: 'carte.erreur' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

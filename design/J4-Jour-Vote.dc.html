@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Joueur — Jour et vote</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1832px;min-height:2220px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux joueur · E · Jour et vote (écrans 14, 16 et 17)</span>
+    <h1 class="h1">Le village parle, l'appli compte</h1>
+    <p class="p" style="max-width:900px;font-size:15px">Le Conteur annonce les morts à voix haute ; l'appli ne fait que mettre les états à jour. Le jour, le joueur retrouve son rôle (masqué) et la liste des vivants et des morts. Le vote se fait dans l'appli en levant aussi le bras à la table. Le rouge n'apparaît qu'ici : bandeau de vote, jauge et verdict.</p>
+  </div>
+
+  <div class="grid g4">
+
+    <div class="cell">
+      <div class="lb"><span class="no">14a</span><div><b>Jour · vivants et morts</b><small><span class="tg">Attente</span>Phase : Jour 3. Rôle rappelé, masqué.</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:150deg"></i><span class="nm">Jour 3</span><span class="rt">8 vivants</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body">
+          <button class="lr" style="height:72px;border-color:#B98E45" aria-label="Voir mon rôle : maintenir appuyé">
+            <span class="rc sm2" style="flex:none;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,#171A23,#0C0E13 80%)"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#CFA55A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <span class="k" style="font-size:16px">Mon rôle<small>Maintenir appuyé pour voir</small></span>
+          </button>
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><h2 class="t3">Au village</h2><span class="sm">8 vivants · 2 morts</span></div>
+          <div class="tgrid">
+            <sc-for list="{{village}}" as="p" hint-placeholder-count="10">
+              <div class="tok {{p.cls}}"><span class="disc">{{p.ini}}
+                <sc-if value="{{p.gon}}" hint-placeholder-val="{{false}}"><i class="bdg tr gon"></i></sc-if>
+                <sc-if value="{{p.goff}}" hint-placeholder-val="{{false}}"><i class="bdg tr goff"></i></sc-if>
+                <sc-if value="{{p.dead}}" hint-placeholder-val="{{false}}"><i class="bdg br eye"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></i></sc-if>
+              </span>{{p.name}}</div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap" class="sm"><span class="pill"><i class="bdg gon" style="position:relative;width:16px;height:16px"></i>Voix disponible</span><span class="pill"><i class="bdg goff" style="position:relative;width:16px;height:16px"></i>Voix utilisée</span></div>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Le Conteur annoncera la suite.</p></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">14b</span><div><b>Conseil · un joueur est nommé</b><small><span class="tg">Attente</span>Phase : Conseil. Pas d'action, on débat à voix haute.</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:190deg"></i><span class="nm">Conseil</span><span class="rt">8 vivants</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:22px">
+          <span class="mi">Nomination</span>
+          <div class="tok" style="width:140px"><span class="disc" style="width:110px;height:110px;font-size:50px;border-width:3px">M</span></div>
+          <h2 class="t1" style="font-size:40px;line-height:44px">Marc est nommé.</h2>
+          <p class="tx" style="color:#AAA38E;max-width:280px">Par Camille. La table délibère, parlez à voix haute.</p>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Le Conteur ouvrira le vote.</p></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16a</span><div><b>Vote · à votre tour</b><small><span class="tg a">Action</span>Phase : Vote. Levez aussi le bras.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Vote</span><span class="rt">5 / 8 ont voté</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:18px;align-items:center;text-align:center">
+          <div class="tok" style="width:120px"><span class="disc" style="width:84px;height:84px;font-size:38px">M</span></div>
+          <h2 class="t1">Faut-il exécuter Marc ?</h2>
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px" aria-label="Décompte"><div style="display:flex;justify-content:space-between"><span class="cnt">Pour 3</span><span class="cnt">Contre 2</span></div><div class="bar red"><i style="width:60%"></i></div><p class="sm">5 voix pour sont requises.</p></div>
+          <p class="tx" style="color:#AAA38E">Levez aussi le bras à la table.</p>
+        </div>
+        <div class="foot"><button class="b b-d b-xl">Pour</button><button class="b b-s b-xl">Contre</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16b</span><div><b>Vote · enregistré</b><small><span class="tg">Attente</span>Phase : Vote. Modifiable jusqu'à la clôture.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Vote</span><span class="rt">6 / 8 ont voté</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:22px">
+          <span style="width:84px;height:84px;border-radius:50%;border:2px solid #B98E45;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#CFA55A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <h2 class="t1">Vote enregistré : pour.</h2>
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between"><span class="cnt">Pour 4</span><span class="cnt">Contre 2</span></div><div class="bar red"><i style="width:80%"></i></div><p class="sm">En attente de 2 joueurs.</p></div>
+        </div>
+        <div class="foot"><button class="b b-s b-xl">Modifier mon vote</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16c</span><div><b>Vote fantôme · disponible</b><small><span class="tg a">Action</span>Phase : Vote. Joueur mort, une voix unique.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Vote</span><span class="rt">5 / 8 ont voté</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:18px">
+          <div class="card" style="flex-direction:row;align-items:center;gap:14px"><span class="d dead" style="position:relative"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#8B8FA3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><div><b style="font:600 15px/20px var(--sans)">Vous êtes mort.</b><p class="sm">Il vous reste une voix fantôme.</p></div><i class="bdg gon" style="position:relative;margin-left:auto;width:26px;height:26px"></i></div>
+          <div style="display:flex;align-items:center;gap:14px"><div class="tok" style="width:80px"><span class="disc">M</span></div><h2 class="t2">Faut-il exécuter Marc ?</h2></div>
+          <div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between"><span class="cnt">Pour 3</span><span class="cnt">Contre 2</span></div><div class="bar red"><i style="width:60%"></i></div></div>
+          <p class="sm">Une voix fantôme ne sert qu'une fois par partie, et seulement pour condamner.</p>
+        </div>
+        <div class="foot"><button class="b b-d b-xl">Utiliser ma voix : pour</button><button class="b b-s">Garder ma voix</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16d</span><div><b>Vote fantôme · utilisé</b><small><span class="tg">Attente</span>Phase : Vote. Observation seule.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Vote</span><span class="rt">5 / 8 ont voté</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:22px">
+          <span class="d dead" style="width:84px;height:84px;position:relative"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#8B8FA3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg><i class="bdg tr goff"></i></span>
+          <h2 class="t1">Votre voix est déjà utilisée.</h2>
+          <p class="tx" style="color:#AAA38E;max-width:290px">Vous suivez le vote sans y prendre part.</p>
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between"><span class="cnt">Pour 3</span><span class="cnt">Contre 2</span></div><div class="bar red"><i style="width:60%"></i></div></div>
+        </div>
+        <div class="foot"><button class="b b-xl" disabled="{{true}}">Plus de voix</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16e</span><div><b>Résultat du vote</b><small><span class="tg">Attente</span>Phase : Vote → Nuit. Annonce à voix haute par le Conteur.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Résultat</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:22px">
+          <span class="d dead" style="width:96px;height:96px;font-size:44px;position:relative;border-color:#8E1D2C;box-shadow:0 0 28px rgba(142,29,44,.4)">M<i class="bdg br eye"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></i></span>
+          <h2 class="t1" style="font-size:40px;line-height:44px">Marc est exécuté.</h2>
+          <p class="tx" style="color:#AAA38E;max-width:280px">5 voix pour, 5 étaient requises.</p>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">La nuit tombe bientôt.</p></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">17</span><div><b>Retour automatique à la nuit</b><small><span class="tg">Attente</span>Phase : Jour → Nuit 4. Puis écran 11a.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 4</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:30px"><i class="dl xl" style="--a:0deg;opacity:.75"></i><p class="ti" style="color:#AAA38E;font-size:30px">La nuit tombe.</p><div class="bar" style="width:180px;height:4px"><i style="width:70%;background:#6A7291"></i></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1832,"height":2220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const v = (ini, name, o) => Object.assign({ ini, name, cls: '', dead: false, gon: false, goff: false }, o || {});
+    const village = [
+      v('É', 'Vous', { cls: 'sel' }), v('M', 'Marc'), v('I', 'Inès'), v('Y', 'Yanis'),
+      v('C', 'Camille'), v('L', 'Lou'), v('N', 'Nour'), v('A', 'Alix'),
+      v('R', 'Rémi', { cls: 'dead', dead: true, gon: true }), v('S', 'Sam', { cls: 'dead', dead: true, goff: true })
+    ];
+    return { village };
+  }
+}
+</script>
+</body>
+</html>

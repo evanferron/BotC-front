@@ -1,0 +1,19 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 600 11px/1 $font-sans;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $text-muted;
+  white-space: nowrap;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.highlight {
+  color: $accent-hi;
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Fin de partie</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1052px;min-height:1250px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Fin de partie (écran 18)</span>
+    <h1 class="h1">Le camp vainqueur, les rôles dévoilés</h1>
+    <p class="p" style="max-width:900px;font-size:15px">Le conteur déclare la fin de la partie. Tous les écrans affichent alors le camp gagnant, avec son icône et son nom, puis la liste des rôles révélés. Le conteur dispose en plus des commandes pour quitter, relancer ou fermer la table.</p>
+  </div>
+
+  <div class="grid g2">
+
+    <div class="cell">
+      <div class="lb"><span class="no">18a</span><div><b>Fin · vue joueur</b><small><span class="tg a">Action</span>Phase : Fin. Bonne équipe victorieuse.</small></div></div>
+      <div class="ph">
+        <div class="top end"><i class="dl" style="--a:0deg"></i><span class="nm">Fin de partie</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div class="card" style="align-items:center;text-align:center;gap:8px;border-color:#CFA55A">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#7F93B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>
+            <span class="mi">Camp vainqueur</span>
+            <h2 class="t1" style="font-size:30px;line-height:36px">Bonne équipe</h2>
+            <p class="sm">Le Démon a été exécuté.</p>
+          </div>
+          <span class="mi">Rôles révélés</span>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)">
+            <sc-for list="{{recap}}" as="p" hint-placeholder-count="10">
+              <div class="li" style="min-height:42px;opacity: {{p.op}}"><span class="d" style="width:28px;height:28px;font-size:14px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{p.role}}</small></span><span class="pill">{{p.team}}</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{p.color}}"><path d="{{p.icon}}"/></svg></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Quitter la table</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">18b</span><div><b>Fin · vue conteur</b><small><span class="tg a">Action</span>Phase : Fin. Mêmes informations, plus les commandes.</small></div></div>
+      <div class="ph">
+        <div class="top end"><i class="dl" style="--a:0deg"></i><span class="nm">Fin de partie</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div class="card" style="align-items:center;text-align:center;gap:8px;border-color:#CFA55A">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#7F93B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>
+            <span class="mi">Camp vainqueur</span>
+            <h2 class="t1" style="font-size:30px;line-height:36px">Bonne équipe</h2>
+            <p class="sm">Corrigeable tant que la table est ouverte.</p>
+          </div>
+          <div class="row2"><button class="b b-s">Changer le camp</button><button class="b b-s">Voir le grimoire</button></div>
+          <span class="mi">Rôles révélés</span>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)">
+            <sc-for list="{{recap}}" as="p" hint-placeholder-count="10">
+              <div class="li" style="min-height:42px;opacity: {{p.op}}"><span class="d" style="width:28px;height:28px;font-size:14px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{p.role}}</small></span><span class="pill">{{p.team}}</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{p.color}}"><path d="{{p.icon}}"/></svg></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Nouvelle partie, même table</button><button class="b b-d">Fermer la table</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1052,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const data = [
+      ['Rémi', 'Empathique', 0, 1], ['Marc', 'Moine', 0, 0], ['Inès', 'Veilleur', 0, 1], ['Yanis', 'Cuisinier', 0, 0],
+      ['Camille', 'Empoisonneur', 1, 1], ['Lou', 'Diable', 1, 0], ['Nour', 'Espion', 1, 0], ['Alix', 'Majordome', 0, 1],
+      ['Sam', 'Soldat', 0, 0], ['Éva', 'Lavandière', 0, 1]
+    ];
+    const recap = data.map(([name, role, bad, alive]) => ({
+      ini: name[0], name, role, team: bad ? 'Mauvaise équipe' : 'Bonne équipe',
+      color: bad ? '#EE7F8B' : '#7F93B5', icon: bad ? TIP : MOON, op: alive ? 1 : .7
+    }));
+    return { recap };
+  }
+}
+</script>
+</body>
+</html>

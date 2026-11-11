@@ -1,0 +1,266 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-31T16:20:00Z"
+  },
+  "title": "Cadran — Design system Blood on the Clocktower",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 1480,
+      "title": "00 · Principes"
+    },
+    "Fondations.dc.html": {
+      "x": 0,
+      "y": 1600,
+      "w": 1280,
+      "h": 1850,
+      "title": "02 · Typo, espaces, mouvement"
+    },
+    "Jetons.dc.html": {
+      "x": 0,
+      "y": 3570,
+      "w": 1280,
+      "h": 1750,
+      "title": "04 · Jetons de joueur"
+    },
+    "Boutons-Champs.dc.html": {
+      "x": 0,
+      "y": 5440,
+      "w": 1280,
+      "h": 2450,
+      "title": "06 · Boutons et champs",
+      "is_interactive": true
+    },
+    "Phases.dc.html": {
+      "x": 0,
+      "y": 8010,
+      "w": 1280,
+      "h": 2200,
+      "title": "08 · Phases, attente, messages"
+    },
+    "Couleurs.dc.html": {
+      "x": 1400,
+      "y": 0,
+      "w": 1280,
+      "h": 2250,
+      "title": "01 · Couleurs"
+    },
+    "Carte-de-role.dc.html": {
+      "x": 1400,
+      "y": 2370,
+      "w": 1280,
+      "h": 2250,
+      "title": "03 · Carte de rôle",
+      "is_interactive": true
+    },
+    "Selecteurs.dc.html": {
+      "x": 1400,
+      "y": 4740,
+      "w": 1280,
+      "h": 1950,
+      "title": "05 · Sélecteurs de joueurs",
+      "is_interactive": true
+    },
+    "Retours.dc.html": {
+      "x": 1400,
+      "y": 6810,
+      "w": 1280,
+      "h": 2000,
+      "title": "07 · Toast, bannière, modale"
+    },
+    "Correction.dc.html": {
+      "x": 1400,
+      "y": 8930,
+      "w": 1280,
+      "h": 1500,
+      "title": "09 · Fiche de correction"
+    },
+    "Regles.dc.html": {
+      "x": 1400,
+      "y": 10550,
+      "w": 1280,
+      "h": 2750,
+      "title": "10 · Règles d'usage"
+    },
+    "J1-Rejoindre.dc.html": {
+      "x": 2900,
+      "y": 0,
+      "w": 2270,
+      "h": 1250,
+      "title": "Joueur B · Rejoindre et attendre (4-5)"
+    },
+    "J2-Distribution.dc.html": {
+      "x": 2900,
+      "y": 1370,
+      "w": 2270,
+      "h": 1250,
+      "title": "Joueur C · Distribution des rôles (7-8)"
+    },
+    "J3-Nuit.dc.html": {
+      "x": 2900,
+      "y": 2740,
+      "w": 1832,
+      "h": 2220,
+      "title": "Joueur D · Nuit (11)"
+    },
+    "J4-Jour-Vote.dc.html": {
+      "x": 2900,
+      "y": 5080,
+      "w": 1832,
+      "h": 2220,
+      "title": "Joueur E · Jour et vote (14, 16, 17)"
+    },
+    "C1-Creation.dc.html": {
+      "x": 5400,
+      "y": 0,
+      "w": 2270,
+      "h": 1250,
+      "title": "Conteur A · Création (1-3)"
+    },
+    "C2-Lobby-Distribution.dc.html": {
+      "x": 5400,
+      "y": 1370,
+      "w": 1832,
+      "h": 1250,
+      "title": "Conteur B-C · Lobby et distribution (6, 9)"
+    },
+    "C3-Nuit.dc.html": {
+      "x": 5400,
+      "y": 2740,
+      "w": 1832,
+      "h": 2220,
+      "title": "Conteur D · Nuit (10, 12)"
+    },
+    "C4-Grimoire.dc.html": {
+      "x": 5400,
+      "y": 5080,
+      "w": 1442,
+      "h": 1250,
+      "title": "Conteur D · Grimoire (13)"
+    },
+    "C5-Jour-Vote.dc.html": {
+      "x": 5400,
+      "y": 6450,
+      "w": 2270,
+      "h": 1250,
+      "title": "Conteur E · Jour et vote (15-17)"
+    },
+    "C6-Fin.dc.html": {
+      "x": 5400,
+      "y": 7820,
+      "w": 1052,
+      "h": 1250,
+      "title": "Fin de partie (18)"
+    },
+    "Roles-Icones.dc.html": {
+      "x": 0,
+      "y": 10330,
+      "w": 1280,
+      "h": 1700,
+      "title": "11 · Rôles et icônes"
+    },
+    "Navigation-Vibrations.dc.html": {
+      "x": 0,
+      "y": 12150,
+      "w": 1280,
+      "h": 2500,
+      "title": "12 · Navigation, rôles, vibrations"
+    },
+    "R1-Roles-du-script.dc.html": {
+      "x": 7900,
+      "y": 0,
+      "w": 2270,
+      "h": 2220,
+      "title": "Écran vitrine · Rôles du script"
+    },
+    "J5-Camps-Capacite-Mort.dc.html": {
+      "x": 2900,
+      "y": 7420,
+      "w": 1832,
+      "h": 2220,
+      "title": "Joueur D-E-G · Camps mauvais, capacité, mort (12, 18, 22)"
+    },
+    "J6-Joueurs-Systeme.dc.html": {
+      "x": 2900,
+      "y": 9760,
+      "w": 1832,
+      "h": 2220,
+      "title": "Joueur G · Liste et états système (21, 24)"
+    },
+    "C7-Journal-Parties-Cas.dc.html": {
+      "x": 5400,
+      "y": 9190,
+      "w": 1832,
+      "h": 3480,
+      "title": "Conteur D-E-G · Journal, parties, cas particuliers"
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Couleurs.dc.html",
+    "Fondations.dc.html",
+    "Carte-de-role.dc.html",
+    "Jetons.dc.html",
+    "Selecteurs.dc.html",
+    "Boutons-Champs.dc.html",
+    "Retours.dc.html",
+    "Phases.dc.html",
+    "Correction.dc.html",
+    "Regles.dc.html",
+    "J1-Rejoindre.dc.html",
+    "J2-Distribution.dc.html",
+    "J3-Nuit.dc.html",
+    "J4-Jour-Vote.dc.html",
+    "C1-Creation.dc.html",
+    "C2-Lobby-Distribution.dc.html",
+    "C3-Nuit.dc.html",
+    "C4-Grimoire.dc.html",
+    "C5-Jour-Vote.dc.html",
+    "C6-Fin.dc.html",
+    "Roles-Icones.dc.html",
+    "Navigation-Vibrations.dc.html",
+    "R1-Roles-du-script.dc.html",
+    "J5-Camps-Capacite-Mort.dc.html",
+    "J6-Joueurs-Systeme.dc.html",
+    "C7-Journal-Parties-Cas.dc.html"
+  ],
+  "notes": {
+    "titre": {
+      "x": 0,
+      "y": -320,
+      "text": "Cadran — horloge de village gothique, sobre et élégante",
+      "kind": "title1",
+      "maxW": 2680
+    },
+    "ecrans-j": {
+      "x": 2900,
+      "y": -320,
+      "text": "Écrans · flux joueur",
+      "kind": "title1",
+      "maxW": 2270
+    },
+    "ecrans-c": {
+      "x": 5400,
+      "y": -320,
+      "text": "Écrans · flux conteur",
+      "kind": "title1",
+      "maxW": 2270
+    },
+    "ecrans-r": {
+      "x": 7900,
+      "y": -320,
+      "text": "Écran vitrine · Rôles du script",
+      "kind": "title1",
+      "maxW": 2270
+    }
+  },
+  "designSystems": []
+}

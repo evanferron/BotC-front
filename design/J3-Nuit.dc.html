@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Joueur — Nuit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1832px;min-height:2220px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux joueur · D · Nuit (écran 11)</span>
+    <h1 class="h1">La nuit, tous les téléphones se ressemblent</h1>
+    <p class="p" style="max-width:900px;font-size:15px">L'écran d'attente est le même pour tous, du début à la fin de la nuit. Quand le Conteur appelle un joueur, l'écran se fond vers l'un des <b>quatre gabarits</b> d'action (un joueur, deux joueurs, un rôle, une confirmation), de même fond et de même clarté générale. Une fois validé, il retombe sur l'attente, sans accusé visible.</p>
+  </div>
+
+  <div class="grid g4">
+
+    <div class="cell">
+      <div class="lb"><span class="no">11a</span><div><b>Attente neutre</b><small><span class="tg">Attente</span>Phase : Nuit. Identique pour tous.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:34px"><i class="dl xl" style="--a:20deg;opacity:.7"></i><p class="ti" style="color:#AAA38E;font-size:30px">Le village veille.</p></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11b</span><div><b>Information du Conteur</b><small><span class="tg a">Action</span>Phase : Nuit. Lecture seule, un seul bouton.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="justify-content:center;gap:34px;padding-top:44px">
+          <div class="letter">
+            <span class="seal"><i class="dl" style="--a:-10deg"></i></span>
+            <span class="mi">Le Conteur vous montre</span>
+            <p class="ti">L'un de ces deux joueurs est le Sonneur.</p>
+            <div style="display:flex;gap:26px;margin-top:6px">
+              <div class="tok"><span class="disc">M</span>Marc</div>
+              <div class="tok"><span class="disc">I</span>Inès</div>
+            </div>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Compris</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11c</span><div><b>Gabarit 1 · choisir un joueur</b><small><span class="tg a">Action</span>Phase : Nuit. Cibler pour tuer, protéger, empoisonner…</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <h2 class="t1">Qui désignez-vous ?</h2>
+          <p class="sm">Touchez un joueur, puis confirmez.</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{listA}}" as="p" hint-placeholder-count="7">
+              <button class="row rad {{p.cls}}" aria-pressed="{{p.on}}"><span class="d">{{p.ini}}</span><span class="nm">{{p.name}}</span><span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Confirmer : Camille</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11d</span><div><b>Gabarit 2 · choisir deux joueurs</b><small><span class="tg a">Action</span>Phase : Nuit. 1 sur 2 choisi, bouton grisé.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><h2 class="t1">Deux joueurs</h2><span class="cnt">1 / 2</span></div>
+          <p class="sm">Choisissez deux joueurs différents.</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{listB}}" as="p" hint-placeholder-count="7">
+              <button class="row chk {{p.cls}}" aria-pressed="{{p.on}}"><span class="d">{{p.ini}}</span><span class="nm">{{p.name}}</span><span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl" disabled="{{true}}">Choisissez un second joueur</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11e</span><div><b>Gabarit 3 · choisir un rôle</b><small><span class="tg a">Action</span>Phase : Nuit. Un rôle parmi ceux du script.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <h2 class="t1">Quel rôle annoncez-vous ?</h2>
+          <p class="sm">Pictogrammes provisoires, à remplacer par ceux du script.</p>
+          <div class="rose">
+            <sc-for list="{{roles}}" as="r" hint-placeholder-count="9">
+              <button class="rl {{r.cls}}" aria-pressed="{{r.on}}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{r.d}}"/></svg>{{r.name}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Confirmer : Moine</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11f</span><div><b>Gabarit 4 · simple confirmation</b><small><span class="tg a">Action</span>Phase : Nuit. Pour un réveil sans choix.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:26px"><i class="dl xl" style="--a:-8deg"></i><h2 class="t1">Le Conteur vous parle.</h2><p class="tx" style="color:#AAA38E;max-width:280px">Touchez quand vous avez compris, l'écran se rendormira.</p></div>
+        <div class="foot"><button class="b b-p b-xl">J'ai compris</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11g</span><div><b>Gabarit 1 · connexion perdue</b><small><span class="tg e">Erreur de connexion</span>Phase : Nuit. Le choix est gardé en file.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="ban" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0 M5 13a10 10 0 0 1 14 0 M9 17a5 5 0 0 1 6 0 M12 20h.01 M3 3l18 18"/></svg><span class="bt"><b>Connexion perdue</b><span>Votre choix est gardé.</span></span><button>Réessayer</button></div>
+        <div class="body" style="gap:12px">
+          <h2 class="t1">Qui désignez-vous ?</h2>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{listC}}" as="p" hint-placeholder-count="5">
+              <button class="row rad {{p.cls}}" aria-pressed="{{p.on}}"><span class="d">{{p.ini}}</span><span class="nm">{{p.name}}</span><span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Il sera envoyé dès que le réseau revient.</p><button class="b b-p b-xl" disabled="{{true}}">En attente du réseau…</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">11h</span><div><b>Attente · connexion perdue</b><small><span class="tg e">Erreur de connexion</span>Phase : Nuit. Même écran que 11a, plus la bannière.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="ban" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0 M5 13a10 10 0 0 1 14 0 M9 17a5 5 0 0 1 6 0 M12 20h.01 M3 3l18 18"/></svg><span class="bt"><b>Reconnexion…</b><span>Ne touchez à rien.</span></span><button>Réessayer</button></div>
+        <div class="body ctr" style="gap:34px"><i class="dl xl" style="--a:20deg;opacity:.7"></i><p class="ti" style="color:#AAA38E;font-size:30px">Le village veille.</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1832,"height":2220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const names = [['M', 'Marc'], ['I', 'Inès'], ['Y', 'Yanis'], ['C', 'Camille'], ['L', 'Lou'], ['N', 'Nour'], ['A', 'Alix']];
+    const mk = (sel) => names.map(([ini, name]) => ({ ini, name, on: sel.indexOf(name) >= 0, cls: sel.indexOf(name) >= 0 ? 'sel' : '' }));
+    const G = {
+      a: 'M6 17h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v5z M10 20a2 2 0 0 0 4 0 M12 4V3',
+      b: 'M9 3h6 M10 3v2 M14 3v2 M8 7c0-1 1-2 4-2s4 1 4 2v9c0 1-1 2-4 2s-4-1-4-2z M8 11h8 M12 18v3',
+      c: 'M19 5c-8 0-12 4-12 10v4 M19 5c0 8-4 11-12 10 M7 19l-2 2 M10 12h5',
+      d: 'M5 12a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0 M12 12h9 M17 12v3 M20 12v2',
+      e: 'M7 4h10l-1 6a4 4 0 0 1-8 0z M12 14v6 M8 20h8',
+      f: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z',
+      g: 'M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8.5 15h7',
+      h: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z M9 12a3 3 0 1 0 6 0 3 3 0 1 0-6 0',
+      i: 'M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8z'
+    };
+    const rn = [['Lavandière', G.c], ['Bibliothécaire', G.b], ['Enquêteur', G.h], ['Cuisinier', G.e], ['Empathique', G.g], ['Diseuse', G.i], ['Croque-mort', G.d], ['Moine', G.f], ['Soldat', G.a]];
+    const roles = rn.map(([name, d]) => ({ name, d, on: name === 'Moine', cls: name === 'Moine' ? 'sel' : '' }));
+    return { listA: mk(['Camille']), listB: mk(['Marc']), listC: mk(['Camille']).slice(0, 5), roles };
+  }
+}
+</script>
+</body>
+</html>

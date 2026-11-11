@@ -1,0 +1,26 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.title {
+  @include title-2;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.separator {
+  border: 0;
+  height: 1px;
+  background: $line;
+}
+
+.hint {
+  @include body-small;
+  text-align: center;
+}

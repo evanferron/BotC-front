@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Navigation, rôles et vibrations</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0E1016}
+.nv{width:390px;background:#0E1016;border:1px solid #2C3345;border-radius:14px;overflow:hidden}
+.hd{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid #2C3345}
+.hd .tt{flex:1;font:600 20px/24px 'Cormorant Garamond',serif;color:#E9DFC7}
+.ib{width:44px;height:44px;border-radius:12px;border:1px solid transparent;background:transparent;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;color:#AAA38E;font:500 10px/12px Inter,sans-serif}
+.ib svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ib.on{color:#CFA55A;border-color:#B98E45;background:#171A23}
+.tbx{display:flex;border-top:1px solid #2C3345;background:#0A0C11}
+.tbx button{flex:1;min-height:56px;background:transparent;border:0;color:#AAA38E;font:500 11px/14px Inter,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.tbx button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tbx button.on{color:#CFA55A;box-shadow:inset 0 2px 0 #B98E45}
+.rw{display:flex;align-items:center;gap:12px;min-height:56px;padding:6px 12px;border:1px solid #2C3345;border-radius:12px;background:#171A23;width:340px;box-sizing:border-box}
+.rw .md{width:36px;height:36px;border-radius:50%;border:1.2px solid #B98E45;display:flex;align-items:center;justify-content:center;flex:none;background:#0A0C11}
+.rw .md svg{width:22px;height:22px;fill:none;stroke:#CFA55A;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.rw b{flex:1;font:600 18px/22px 'Cormorant Garamond',serif;color:#E9DFC7}
+.rw .te{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rw.pr{background:#202534;border-color:#6A7291}
+.rw.se{border-color:#CFA55A;box-shadow:0 0 0 2px #0E1016,0 0 0 3.5px #CFA55A}
+.rw.ig{border-color:#B98E45}
+.rw.mk b{letter-spacing:.3em;color:#AAA38E}
+.bd{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:14px;border:1px solid;font:600 12px/16px Inter,sans-serif}
+.bd svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bg{color:#7F93B5;border-color:#7F93B5;background:#182033}
+.bm{color:#EE7F8B;border-color:#EE7F8B;background:#2A1219}
+.bx{color:#8B8FA3;border-color:#3A3F52;background:#14161D}
+.bt{color:#E9DFC7;border-color:#6A7291;background:transparent}
+.gi{background:#171A23;border:1px solid #2C3345;border-radius:14px;padding:16px;width:290px;display:flex;flex-direction:column;gap:10px;box-sizing:border-box}
+.vt{width:100%;border-collapse:collapse;font:400 14px/20px Inter,sans-serif;color:#E9DFC7}
+.vt th{font:600 11px/16px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#AAA38E;text-align:left;padding:8px 10px;border-bottom:1px solid #2C3345}
+.vt td{padding:10px;border-bottom:1px solid #2C3345;vertical-align:top}
+.vt td.mo2{font:500 13px/18px 'JetBrains Mono',monospace;color:#CFA55A;white-space:nowrap}
+.no2{color:#EE7F8B;font-weight:600}
+.ok2{color:#CFA55A;font-weight:600}
+</style>
+</helmet>
+<div class="sheet" style="width:1280px;min-height:2300px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">12 · Navigation, rôles, vibrations</span>
+    <h1 class="h1">Se repérer, consulter, être informé</h1>
+    <p class="p" style="max-width:860px;font-size:15px">Les éléments persistants des deux interfaces, les composants liés aux rôles et les règles de vibration. L'appli n'émet jamais de son.</p>
+  </div>
+
+  <div class="card" style="gap:16px">
+    <span class="mi">Navigation persistante</span>
+    <div style="display:flex;gap:40px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="nv"><div class="hd"><span class="tt">Jour 2</span>
+          <button class="ib on" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg>Mon rôle</button>
+          <button class="ib" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg>Joueurs</button>
+          <button class="ib" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg>Rôles</button>
+        </div></div>
+        <p class="sm" style="max-width:390px"><b>En-tête joueur.</b> Trois icônes de 44 px, présentes sur tous les écrans de partie, y compris l'attente de nuit : l'en-tête est le même pour tous. « Rôles » ouvre une feuille plein écran par-dessus l'écran courant, sans le modifier.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="nv"><div class="tbx" role="tablist">
+          <button class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg>Grimoire</button>
+          <button><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>Nuit</button>
+          <button><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg>Joueurs</button>
+          <button><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18H6z M9 8h6 M9 12h6 M9 16h4"/></svg>Journal</button>
+        </div></div>
+        <p class="sm" style="max-width:390px"><b>Barre conteur.</b> Quatre onglets de 56 px. « Nuit » devient « Jour » ou « Vote » selon la phase, avec la même place. La correction s'ouvre depuis un joueur, dans le Grimoire ou dans Joueurs. Le Journal garde l'historique des actions et des corrections.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="gap:16px">
+    <span class="mi">Ligne de rôle</span>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="rw"><span class="md"><svg viewBox="0 0 24 24"><path d="{{i.moi}}"/></svg></span><b>Moine</b><svg class="te" viewBox="0 0 24 24" style="stroke:#7F93B5"><path d="{{i.moon}}"/></svg></div><span class="sm">Défaut</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="rw pr"><span class="md"><svg viewBox="0 0 24 24"><path d="{{i.moi}}"/></svg></span><b>Moine</b><svg class="te" viewBox="0 0 24 24" style="stroke:#7F93B5"><path d="{{i.moon}}"/></svg></div><span class="sm">Appuyée</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="rw se"><span class="md"><svg viewBox="0 0 24 24"><path d="{{i.moi}}"/></svg></span><b>Moine</b><svg class="te" viewBox="0 0 24 24" style="stroke:#7F93B5"><path d="{{i.moon}}"/></svg></div><span class="sm">Sélectionnée (fiche ouverte)</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="rw ig"><span class="md"><svg viewBox="0 0 24 24"><path d="{{i.dia}}"/></svg></span><b>Diable</b><span class="pill">En jeu</span></div><span class="sm">Variante conteur : rôle en jeu</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px"><div class="rw mk"><span class="md" style="border-style:dashed"><svg viewBox="0 0 24 24" style="stroke:#AAA38E"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg></span><b>•••••</b><span class="pill">Votre rôle</span></div><span class="sm">Rôle du joueur, masqué</span></div>
+    </div>
+    <p class="sm" style="max-width:880px">Hauteur 56 px, icône de rôle à gauche, nom en Cormorant, icône d'équipe à droite : le libellé d'équipe est porté par l'en-tête de groupe. La surbrillance du rôle du joueur n'apparaît que pendant l'appui long, pour qu'un voisin ne la voie pas.</p>
+  </div>
+
+  <div class="card" style="gap:16px">
+    <span class="mi">Badge d'équipe et de type</span>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <span class="bd bg"><svg viewBox="0 0 24 24"><path d="{{i.moon}}"/></svg>Bonne équipe</span>
+      <span class="bd bm"><svg viewBox="0 0 24 24"><path d="{{i.tip}}"/></svg>Mauvaise équipe</span>
+      <span class="bd bx"><svg viewBox="0 0 24 24"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg>Mort</span>
+      <span class="bd bt">Villageois</span><span class="bd bt">Étranger</span><span class="bd bt">Sbire</span><span class="bd bt">Démon</span>
+    </div>
+    <p class="sm" style="max-width:880px">Toujours icône plus libellé. Le type (Villageois, Étranger, Sbire, Démon) reste neutre : seule l'équipe prend une couleur. Un Étranger appartient à la bonne équipe.</p>
+  </div>
+
+  <div class="card" style="gap:16px">
+    <span class="mi">Feuille de détail d'un rôle</span>
+    <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start">
+      <div class="gi" style="width:340px;border-color:#B98E45;gap:12px">
+        <i class="grab" style="align-self:center;display:block"></i>
+        <div style="display:flex;gap:14px;align-items:center"><span class="md" style="width:72px;height:72px;border-radius:50%;border:1.5px solid #B98E45;display:flex;align-items:center;justify-content:center;background:#0A0C11"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#CFA55A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{i.moi}}"/></svg></span><div><div style="font:600 28px/32px 'Cormorant Garamond',serif;color:#E9DFC7">Moine</div><span class="bd bt" style="margin-top:4px">Villageois</span></div></div>
+        <span class="bd bg" style="align-self:flex-start"><svg viewBox="0 0 24 24"><path d="{{i.moon}}"/></svg>Bonne équipe</span>
+        <p class="tx" style="font-size:15px;line-height:22px">Chaque nuit, protège un autre joueur des griffes du Démon.</p>
+        <button class="b b-s">Fermer</button>
+      </div>
+      <ul class="sm" style="max-width:480px;line-height:24px;padding-left:18px;margin:0">
+        <li>Monte du bas sur 75 % de la hauteur, fond modale #262B3B, poignée en haut, fermeture par glissement ou bouton.</li>
+        <li>Ordre fixe : icône 72 px, nom, type, badge d'équipe, résumé de capacité, bouton Fermer.</li>
+        <li>Pas de règle détaillée : un résumé de 12 mots, remplacé plus tard par le vrai texte.</li>
+        <li>Les rôles en jeu ne sont jamais indiqués côté joueur.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="gap:16px">
+    <span class="mi">Gabarits d'information reçue</span>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <div class="gi"><span class="mi">Joueur(s)</span><p class="tx" style="font-size:14px">L'un d'eux est un Sbire.</p><div style="display:flex;gap:14px"><span style="text-align:center"><span class="d" style="width:52px;height:52px;font-size:24px">M</span><small style="display:block;font:500 12px/16px Inter;color:#E9DFC7;margin-top:4px">Marc</small></span><span style="text-align:center"><span class="d" style="width:52px;height:52px;font-size:24px">I</span><small style="display:block;font:500 12px/16px Inter;color:#E9DFC7;margin-top:4px">Inès</small></span></div></div>
+      <div class="gi"><span class="mi">Rôle(s)</span><p class="tx" style="font-size:14px">Vous apprenez ce rôle.</p><div class="rw" style="width:100%"><span class="md"><svg viewBox="0 0 24 24"><path d="{{i.moi}}"/></svg></span><b>Moine</b><svg class="te" viewBox="0 0 24 24" style="stroke:#7F93B5"><path d="{{i.moon}}"/></svg></div></div>
+      <div class="gi"><span class="mi">Nombre</span><p class="tx" style="font-size:14px">Paires de voisins mauvais.</p><div class="mo" style="font-size:64px;line-height:1;text-align:center">2</div></div>
+      <div class="gi"><span class="mi">Oui ou non</span><p class="tx" style="font-size:14px">Le Démon est parmi eux.</p><div style="font:600 44px/48px 'Cormorant Garamond',serif;color:#E9DFC7;text-align:center">Oui</div></div>
+    </div>
+    <p class="sm" style="max-width:880px">Même enveloppe : une lettre du conteur, une phrase courte, puis l'information. Aucun son, aucune vibration d'arrivée. Un bouton « J'ai compris » ramène à l'attente neutre.</p>
+  </div>
+
+  <div class="card" style="gap:14px">
+    <span class="mi">Règles de vibration</span>
+    <table class="vt">
+      <thead><tr><th>Événement</th><th>Motif</th><th>De nuit</th></tr></thead>
+      <tbody>
+        <tr><td>Appui sur un bouton ou une ligne</td><td class="mo2">10 ms</td><td class="ok2">Permis : retour de son propre geste</td></tr>
+        <tr><td>Sélection d'un joueur ou d'un rôle</td><td class="mo2">8 ms</td><td class="ok2">Permis</td></tr>
+        <tr><td>Appui long : seuil de révélation franchi</td><td class="mo2">20 ms</td><td class="ok2">Permis</td></tr>
+        <tr><td>Choix envoyé, vote enregistré</td><td class="mo2">12 · 60 · 12 ms</td><td class="ok2">Permis</td></tr>
+        <tr><td>Action refusée ou erreur</td><td class="mo2">80 ms</td><td class="ok2">Permis</td></tr>
+        <tr><td>C'est votre tour (carte, vote ouvert)</td><td class="mo2">30 · 80 · 30 ms</td><td class="no2">Interdit</td></tr>
+        <tr><td>Information du conteur reçue</td><td class="mo2">aucune</td><td class="no2">Interdit</td></tr>
+        <tr><td>Réveil, fin de nuit, début du jour</td><td class="mo2">aucune</td><td class="no2">Interdit</td></tr>
+      </tbody>
+    </table>
+    <p class="sm" style="max-width:900px">La nuit, un téléphone qui vibre trahit celui qui agit : seules les réponses à son propre toucher vibrent. Le conteur réveille de vive voix, jamais par l'appli. Les vibrations suivent le réglage du téléphone et un interrupteur « Vibrations » dans le profil. Sur les navigateurs sans prise en charge, le retour reste visuel.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { i: {
+      moi: 'M12 3c-4 0-7 3-7 7v11h14V10c0-4-3-7-7-7z M9 11c0-2 1-3 3-3s3 1 3 3v3H9z',
+      dia: 'M5 4c0 4 2 6 4 7 M19 4c0 4-2 6-4 7 M7 12h10l-1 6c-.5 2-2 3-4 3s-3.5-1-4-3z',
+      moon: 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z',
+      tip: 'M12 21 4.5 5.5h15z M12 10v5'
+    } };
+  }
+}
+</script>
+</body>
+</html>

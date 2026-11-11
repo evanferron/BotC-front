@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Sélecteurs de joueurs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 26px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.panel{background:#0E1016;border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.try{font:600 12px/1 var(--sans);color:#CFA55A;letter-spacing:.06em}
+/* lignes */
+.row{display:flex;align-items:center;gap:14px;width:100%;height:64px;padding:0 16px 0 12px;background:#171A23;border:1.5px solid #2C3345;border-radius:14px;box-sizing:border-box;color:#E9DFC7;font:500 17px/1 var(--sans);cursor:pointer;text-align:left;margin:0;transition:transform 80ms var(--ease),background 140ms var(--ease),border-color 140ms var(--ease);-webkit-tap-highlight-color:transparent}
+.row:focus-visible{outline:2px solid #F1E6C8;outline-offset:2px}
+.row .d{width:40px;height:40px;border-radius:50%;border:2px solid #B98E45;background:radial-gradient(circle at 50% 28%,#2A3042,#171A23 78%);font:600 20px/1 var(--serif);display:flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box}
+.row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .ind{width:28px;height:28px;border:2px solid #6A7291;box-sizing:border-box;flex:none;display:flex;align-items:center;justify-content:center}
+.row .ind svg{width:16px;height:16px;fill:none;stroke:#0E1016;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity 140ms linear}
+.rad .ind{border-radius:50%}.chk .ind{border-radius:8px}
+.row.sel{background:#202534;border-color:#B98E45}
+.row.sel .ind{background:#B98E45;border-color:#B98E45}.row.sel .ind svg{opacity:1}
+.row:active{transform:scale(.985);background:#1B1F2B}
+.row:disabled{opacity:.4;cursor:not-allowed}
+.row.err{border-color:#EE7F8B}
+.row.err .ind{border-color:#EE7F8B}
+.row.dead .d{border:2px dashed #3A3F52;background:#14161D;color:#8B8FA3}
+.row.dead .nm{color:#8B8FA3}
+.tag{display:inline-flex;align-items:center;gap:5px;font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#8B8FA3;flex:none}
+.tag svg{width:15px;height:15px;fill:none;stroke:#8B8FA3;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.msg{display:flex;align-items:center;gap:8px;font:500 13px/1.3 var(--sans);color:#EE7F8B}
+.msg svg{width:16px;height:16px;fill:none;stroke:#EE7F8B;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* cercle */
+.circ{position:relative;width:400px;height:400px;margin:0 auto}
+.cb{position:absolute;width:80px;height:80px;margin:0;padding:0;background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;color:#E9DFC7;font:500 12px/14px var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cb:focus-visible{outline:2px solid #F1E6C8;outline-offset:2px;border-radius:12px}
+.cb .dd{position:relative;width:54px;height:54px;border-radius:50%;box-sizing:border-box;border:2px solid #B98E45;background:radial-gradient(circle at 50% 28%,#2A3042,#171A23 78%);font:600 24px/1 var(--serif);display:flex;align-items:center;justify-content:center;transition:transform 80ms var(--ease),box-shadow 140ms var(--ease)}
+.cb:active .dd{transform:scale(.92)}
+.cb.sel .dd{box-shadow:0 0 0 3px #0E1016,0 0 0 5px #B98E45,0 0 20px rgba(185,142,69,.3)}
+.cb .ck{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:#B98E45;display:none;align-items:center;justify-content:center}
+.cb.sel .ck{display:flex}
+.cb .ck svg{width:13px;height:13px;fill:none;stroke:#0E1016;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cb:disabled{opacity:.4;cursor:not-allowed}
+.cb.dead .dd{border:2px dashed #3A3F52;background:#14161D;color:#8B8FA3}
+.cb.dead{color:#8B8FA3}
+.cb.sel{color:#E9DFC7;font-weight:600}
+.hub{position:absolute;left:100px;top:100px;width:200px;height:200px}
+.hubh{transition:transform 480ms cubic-bezier(.4,1.6,.5,1);transform-origin:100px 100px}
+.cnt{position:absolute;left:100px;top:100px;width:200px;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;pointer-events:none}
+.go{height:56px;padding:0 24px;border-radius:10px;border:0;background:#B98E45;color:#0E1016;font:600 16px/20px var(--sans);cursor:pointer}
+.go:disabled{background:#2C3345;color:#9A9480;cursor:not-allowed}
+.go:focus-visible{outline:2px solid #F1E6C8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.hubh,.row,.cb .dd{transition:none}}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1400px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">05 · Sélecteurs de joueurs</span>
+  <h1 class="h1">Désigner quelqu'un, sans hésiter</h1>
+  <p class="p" style="max-width:800px;font-size:15px">Deux dispositions pour la même interaction. La liste est le choix sûr : lisible, accessible, triée comme à la table. Le cercle reproduit les places autour de la table et sert aux choix de nuit. Un seul ou plusieurs joueurs, avec un plafond affiché.</p>
+</div>
+
+<div style="display:flex;gap:28px;align-items:flex-start">
+
+  <div class="panel" style="flex:1;min-width:0">
+    <h2 class="h3">Liste · un seul</h2>
+    <span class="try">Essayez : touchez une ligne</span>
+    <div style="display:flex;flex-direction:column;gap:8px" role="group" aria-label="Choisissez un joueur">
+      <sc-for list="{{singleRows}}" as="r" hint-placeholder-count="8">
+        <button class="row rad {{r.cls}}" aria-pressed="{{r.pressed}}" onClick="{{r.pick}}">
+          <span class="d">{{r.ini}}</span><span class="nm">{{r.name}}</span>
+          <sc-if value="{{r.dead}}" hint-placeholder-val="{{false}}"><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg>Mort</span></sc-if>
+          <span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        </button>
+      </sc-for>
+    </div>
+    <span class="tk">selecteur.liste · radio</span>
+  </div>
+
+  <div class="panel" style="flex:1;min-width:0">
+    <h2 class="h3">Liste · plusieurs</h2>
+    <span class="try">Essayez : deux joueurs au plus</span>
+    <div style="display:flex;flex-direction:column;gap:8px" role="group" aria-label="Choisissez deux joueurs">
+      <sc-for list="{{multiRows}}" as="r" hint-placeholder-count="8">
+        <button class="row chk {{r.cls}}" aria-pressed="{{r.pressed}}" disabled="{{r.disabled}}" onClick="{{r.pick}}">
+          <span class="d">{{r.ini}}</span><span class="nm">{{r.name}}</span>
+          <sc-if value="{{r.dead}}" hint-placeholder-val="{{false}}"><span class="tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg>Mort</span></sc-if>
+          <span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="tk">selecteur.liste · case</span><span style="font:700 14px/1 var(--mono);color:#E9DFC7" aria-live="polite">{{multiCount}} choisis</span></div>
+  </div>
+
+  <div style="flex:.9;min-width:0;display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 class="h3">États d'une ligne</h2>
+      <sc-for list="{{rowStates}}" as="s" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button class="row rad {{s.cls}}" style="{{s.style}}" tabindex="-1" aria-label="{{s.label}}">
+            <span class="d">É</span><span class="nm">Éloïse</span>
+            <span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          </button>
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font:600 13px/1.2 var(--sans);color:#E9DFC7">{{s.label}}</b><span class="tk">{{s.token}}</span></div>
+          <sc-if value="{{s.err}}" hint-placeholder-val="{{false}}"><span class="msg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Choisissez un joueur pour continuer.</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;gap:40px;align-items:flex-start">
+  <div class="panel" style="flex:none;width:560px;align-items:center">
+    <h2 class="h3" style="align-self:flex-start">Cercle · jusqu'à deux joueurs</h2>
+    <span class="try" style="align-self:flex-start">Essayez : l'aiguille suit votre dernier choix</span>
+    <div class="circ">
+      <svg class="hub" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="96" fill="#171A23" stroke="#B98E45" stroke-width="1.2"/>
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#B98E45" stroke-width="3" stroke-dasharray="0.8 8" opacity=".7"/>
+        <g class="hubh" style="transform: rotate({{handDeg}}deg)">
+          <path d="M100 100 L96 92 L100 30 L104 92 Z" fill="#E9DFC7"/>
+        </g>
+        <circle cx="100" cy="100" r="62" fill="#171A23"/>
+        <circle cx="100" cy="100" r="62" fill="none" stroke="#2C3345" stroke-width="1"/>
+        <circle cx="100" cy="100" r="5" fill="#B98E45"/>
+      </svg>
+      <div class="cnt" style="padding-top:44px">
+        <span style="font:700 28px/1 var(--mono);color:#E9DFC7">{{circCount}}</span>
+        <span style="font:600 13px/1.2 var(--sans);color:#AAA38E">choisis</span>
+      </div>
+      <sc-for list="{{circRows}}" as="r" hint-placeholder-count="8">
+        <button class="cb {{r.cls}}" style="left: {{r.left}}; top: {{r.top}}" aria-pressed="{{r.pressed}}" disabled="{{r.disabled}}" onClick="{{r.pick}}">
+          <span class="dd">{{r.ini}}<span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span>
+          <span>{{r.name}}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;width:100%;justify-content:space-between">
+      <span class="tk">selecteur.cercle · plafond 2</span>
+      <button class="go" disabled="{{goDisabled}}">Valider mon choix</button>
+    </div>
+  </div>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:22px">
+    <h2 class="h3">Règles du sélecteur</h2>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p class="p"><b style="color:#E9DFC7;font-weight:600">Le plafond est dit avant d'être atteint.</b> Le compteur « 1/2 » est visible en permanence ; une fois le plafond atteint, les autres joueurs passent en désactivé (40 %), jamais en erreur : on ne punit pas un geste valide.</p>
+      <p class="p"><b style="color:#E9DFC7;font-weight:600">Aucune validation tant que l'état n'est pas valide.</b> Le bouton « Valider » reste grisé. Si la partie impose un nombre exact et que le joueur force le passage, l'erreur est écrite sous la liste, en rouge clair avec une icône, jamais seulement colorée.</p>
+      <p class="p"><b style="color:#E9DFC7;font-weight:600">Les morts restent désignables</b> quand la règle le permet : ils portent l'étiquette « Mort » et le contour en pointillés. Quand la règle l'interdit, ils sont désactivés avec la raison dite en une ligne.</p>
+      <p class="p"><b style="color:#E9DFC7;font-weight:600">L'ordre suit la table.</b> Dans le cercle, le premier joueur est en haut et l'ordre tourne dans le sens des aiguilles d'une montre, comme à la table réelle. L'aiguille du centre pointe le dernier choix : un retour discret, sans bruit.</p>
+      <p class="p"><b style="color:#E9DFC7;font-weight:600">Cible tactile.</b> Lignes de 64 px de haut, jetons du cercle dans une zone de 80 × 80 px. Au-delà de 12 joueurs, le cercle bascule automatiquement en liste.</p>
+      <p class="p"><b style="color:#E9DFC7;font-weight:600">Sélection = laiton + coche.</b> Jamais la couleur seule : la coche apparaît dans la case, la pastille et sur le disque.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const players = [
+      { id: 'e', name: 'Éloïse', ini: 'É', dead: false },
+      { id: 'm', name: 'Marc', ini: 'M', dead: false },
+      { id: 'i', name: 'Inès', ini: 'I', dead: false },
+      { id: 'y', name: 'Yanis', ini: 'Y', dead: false },
+      { id: 'c', name: 'Camille', ini: 'C', dead: false },
+      { id: 't', name: 'Théo', ini: 'T', dead: true },
+      { id: 'n', name: 'Nour', ini: 'N', dead: false },
+      { id: 'l', name: 'Lou', ini: 'L', dead: false }
+    ];
+    const s = this.state || {};
+    const single = s.single || null;
+    const multi = s.multi || [];
+    const circ = s.circ || [];
+    const toggle = (key, arr, id, max) => () => {
+      const has = arr.indexOf(id) >= 0;
+      let next;
+      if (has) next = arr.filter((x) => x !== id);
+      else if (arr.length < max) next = arr.concat([id]);
+      else next = arr;
+      this.setState({ [key]: next });
+    };
+    const singleRows = players.map((p) => ({
+      ...p,
+      cls: (single === p.id ? 'sel ' : '') + (p.dead ? 'dead' : ''),
+      pressed: single === p.id,
+      pick: () => this.setState({ single: p.id })
+    }));
+    const multiRows = players.map((p) => {
+      const on = multi.indexOf(p.id) >= 0;
+      return {
+        ...p,
+        cls: (on ? 'sel ' : '') + (p.dead ? 'dead' : ''),
+        pressed: on,
+        disabled: !on && multi.length >= 2,
+        pick: toggle('multi', multi, p.id, 2)
+      };
+    });
+    const R = 142, C = 200;
+    const circRows = players.map((p, i) => {
+      const a = (i / players.length) * Math.PI * 2;
+      const on = circ.indexOf(p.id) >= 0;
+      return {
+        ...p,
+        left: (C + R * Math.sin(a) - 40).toFixed(1) + 'px',
+        top: (C - R * Math.cos(a) - 40).toFixed(1) + 'px',
+        cls: (on ? 'sel ' : '') + (p.dead ? 'dead' : ''),
+        pressed: on,
+        disabled: !on && circ.length >= 2,
+        pick: toggle('circ', circ, p.id, 2)
+      };
+    });
+    let handDeg = 0;
+    if (circ.length) {
+      const last = players.findIndex((p) => p.id === circ[circ.length - 1]);
+      handDeg = (last / players.length) * 360;
+    }
+    const rowStates = [
+      { label: 'Défaut', cls: '', style: '', token: 'ligne.defaut', err: false },
+      { label: 'Appuyé', cls: '', style: 'transform:scale(.985);background:#1B1F2B', token: 'ligne.appuye', err: false },
+      { label: 'Désactivé', cls: '', style: 'opacity:.4', token: 'ligne.desactive', err: false },
+      { label: 'Sélectionné', cls: 'sel', style: '', token: 'ligne.selectionne', err: false },
+      { label: 'Erreur', cls: 'err', style: '', token: 'ligne.erreur', err: true }
+    ];
+    return {
+      singleRows, multiRows, circRows, rowStates, handDeg,
+      multiCount: multi.length + '/2',
+      circCount: circ.length + '/2',
+      goDisabled: circ.length < 2
+    };
+  }
+}
+</script>
+</body>
+</html>

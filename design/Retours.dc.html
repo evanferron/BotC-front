@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Toast, bannière, modale</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 26px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.stage{background:#0E1016;border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;width:358px;box-sizing:border-box}
+/* toast */
+.toast{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 8px 10px 14px;background:#202534;border:1px solid #2C3345;border-radius:14px;box-shadow:0 10px 28px rgba(0,0,0,.6),inset 0 1px 0 rgba(233,223,199,.06);box-sizing:border-box}
+.toast .ic{width:34px;height:34px;border-radius:50%;background:#0A0C11;display:flex;align-items:center;justify-content:center;flex:none}
+.toast .ic svg{width:20px;height:20px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.toast .tx{flex:1;min-width:0;font:500 15px/20px var(--sans);color:#E9DFC7}
+.toast .ac{height:44px;min-width:44px;padding:0 12px;background:none;border:0;border-radius:10px;font:600 14px/1 var(--sans);color:#CFA55A;cursor:pointer}
+.toast .ac:focus-visible{outline:2px solid #F1E6C8}
+.toast .cl{width:44px;height:44px;background:none;border:0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none}
+.toast .cl svg{width:18px;height:18px;fill:none;stroke:#AAA38E;stroke-width:2;stroke-linecap:round}
+.toast .cl:focus-visible{outline:2px solid #F1E6C8}
+/* bannière */
+.ban{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 8px 8px 14px;border-radius:12px;box-sizing:border-box}
+.ban .bi{width:28px;height:28px;flex:none;display:flex;align-items:center;justify-content:center}
+.ban .bi svg{width:24px;height:24px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ban .bt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ban .bt b{font:600 15px/18px var(--sans);color:#E9DFC7}
+.ban .bt span{font:400 13px/16px var(--sans);color:#AAA38E}
+.ban .ba{height:44px;padding:0 16px;border-radius:10px;border:1.5px solid #B98E45;background:transparent;color:#E9DFC7;font:600 14px/1 var(--sans);cursor:pointer;flex:none}
+.ban .ba:focus-visible{outline:2px solid #F1E6C8;outline-offset:2px}
+.spin{width:28px;height:28px}
+@media (prefers-reduced-motion:no-preference){
+ .spin .sh{animation:turn 2.4s linear infinite;transform-origin:14px 14px}
+ @keyframes turn{to{transform:rotate(360deg)}}
+ .toast.in{animation:tin 240ms var(--ease) both}
+ @keyframes tin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+}
+/* modale */
+.phone{position:relative;width:390px;height:600px;border-radius:26px;overflow:hidden;background:#0E1016;border:1px solid #2C3345;flex:none}
+.under{position:absolute;inset:0;padding:22px 20px;display:flex;flex-direction:column;gap:14px;opacity:.55}
+.under i{display:block;height:44px;border-radius:12px;background:#171A23;border:1px solid #2C3345}
+.scrim{position:absolute;inset:0;background:rgba(6,7,10,.72)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#262B3B;border-radius:22px 22px 0 0;padding:12px 20px 24px;box-shadow:0 -14px 44px rgba(0,0,0,.7);display:flex;flex-direction:column;gap:16px;box-sizing:border-box}
+.grab{width:40px;height:4px;border-radius:2px;background:#6A7291;align-self:center}
+.sheet h3{font:600 28px/32px var(--serif);margin:0;color:#E9DFC7}
+.sheet p{font:400 15px/22px var(--sans);margin:0;color:#AAA38E}
+.sheet .b{height:56px;width:100%;border-radius:10px;border:1.5px solid transparent;font:600 16px/20px var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;margin:0}
+.sheet .b:focus-visible{outline:2px solid #F1E6C8;outline-offset:3px}
+.sheet .b-p{background:#B98E45;color:#0E1016}
+.sheet .b-p:active{background:#A8803C}
+.sheet .b-s{background:transparent;border-color:#B98E45;color:#E9DFC7}
+.cons{display:flex;flex-direction:column;gap:10px;padding:14px 0;border-top:1px solid #3A4156;border-bottom:1px solid #3A4156;margin:0;list-style:none}
+.cons li{display:flex;align-items:center;gap:12px;font:500 14px/18px var(--sans);color:#E9DFC7}
+.cons svg{width:20px;height:20px;fill:none;stroke:#EE7F8B;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.hold{position:relative;overflow:hidden;height:64px;width:100%;border-radius:14px;background:#2A1219;border:1.5px solid #8E1D2C;color:#F6EEDB;font:600 16px/20px var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;padding:0;margin:0;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+.hold .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:#8E1D2C;transition:width 200ms var(--ease)}
+.hold:active .fill{width:100%;transition:width 1200ms linear}
+.hold span,.hold svg{position:relative;z-index:1}
+.hold svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hold:focus-visible{outline:2px solid #F1E6C8;outline-offset:3px}
+.try{font:600 12px/1 var(--sans);color:#CFA55A;letter-spacing:.06em}
+.rule{display:flex;gap:12px;align-items:flex-start}
+.rule .n{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#0E1016;font:700 12px/22px var(--mono);text-align:center;flex:none}
+</style>
+</helmet>
+<div style="width:1280px;min-height:2000px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">07 · Toast, bannière, modale</span>
+  <h1 class="h1">Dire les choses sans faire de bruit</h1>
+  <p class="p" style="max-width:820px;font-size:15px">Les retours de l'application doivent rester discrets pour la table et sûrs pour le secret. Rien ne clignote, rien ne vibre, et un message de nuit ne doit jamais révéler qui a quelque chose à faire.</p>
+</div>
+
+<div style="display:flex;gap:28px;align-items:flex-start">
+
+  <div class="panel" style="flex:none;width:460px">
+    <h2 class="h3">Toast</h2>
+    <div class="stage">
+      <sc-for list="{{toasts}}" as="t" hint-placeholder-count="4">
+        <div class="toast" role="{{t.role}}">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{t.color}}"><path d="{{t.d}}"/></svg></span>
+          <span class="tx">{{t.text}}</span>
+          <sc-if value="{{t.action}}" hint-placeholder-val="{{false}}"><button class="ac">{{t.actionLabel}}</button></sc-if>
+          <sc-if value="{{t.close}}" hint-placeholder-val="{{false}}"><button class="cl" aria-label="Fermer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span class="tk">toast.info · succes · attention · erreur</span>
+      <p class="p">Posé en haut, 12 px sous le bandeau de phase, jamais sur le bouton principal. Entrée en 240 ms, sortie par fondu. Disparaît seul après 4 s, sauf l'erreur : elle reste jusqu'à fermeture. L'icône change de forme à chaque type : cercle « i », coche, triangle, croix.</p>
+      <p class="p">Un seul toast à la fois, les suivants font la queue. Annoncé en <span style="font-family:var(--mono);color:#E9DFC7">aria-live=polite</span>, l'erreur en <span style="font-family:var(--mono);color:#E9DFC7">role=alert</span>.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="flex:1;min-width:0">
+    <h2 class="h3">Bannière de connexion</h2>
+    <div class="stage" style="width:100%">
+      <sc-for list="{{banners}}" as="b" hint-placeholder-count="3">
+        <div class="ban" style="{{b.style}}" role="status">
+          <span class="bi">
+            <sc-if value="{{b.spinner}}" hint-placeholder-val="{{false}}">
+              <svg class="spin" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="none" stroke="#B98E45" stroke-width="1.4"/><circle cx="14" cy="14" r="9.5" fill="none" stroke="#B98E45" stroke-width="2" stroke-dasharray="0.5 4.4" opacity=".7"/><g class="sh"><path d="M14 14 L12.6 12 L14 4 L15.4 12 Z" fill="#E9DFC7"/></g><circle cx="14" cy="14" r="2" fill="#B98E45"/></svg>
+            </sc-if>
+            <sc-if value="{{b.hasIcon}}" hint-placeholder-val="{{false}}">
+              <svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{b.color}}"><path d="{{b.d}}"/></svg>
+            </sc-if>
+          </span>
+          <span class="bt"><b>{{b.title}}</b><span>{{b.sub}}</span></span>
+          <sc-if value="{{b.action}}" hint-placeholder-val="{{false}}"><button class="ba">Réessayer</button></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span class="tk">banniere.connexion · reconnexion | perdue | retablie</span>
+      <p class="p">Collée sous le bandeau de phase, sur toute la largeur, 56 px. Elle ne bloque rien : les actions sont gardées en file et renvoyées. La panne de réseau est <b style="color:#E9DFC7;font-weight:600">laiton, jamais rouge</b> : ce n'est pas un moment de jeu, et le rouge garde son poids. La gravité passe par l'icône (aiguille qui tourne, réseau barré, coche) et par le texte.</p>
+      <p class="p">Après 10 s sans retour, elle passe de « Reconnexion… » à « Connexion perdue » avec l'action « Réessayer ». Une fois rétablie, elle reste 3 s puis se retire. Elle est <b style="color:#E9DFC7;font-weight:600">identique pour tous les joueurs</b>.</p>
+    </div>
+  </div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px">
+  <h2 class="h3">Modale de confirmation</h2>
+  <div style="display:flex;gap:28px;align-items:flex-start">
+
+    <div style="display:flex;flex-direction:column;gap:14px;flex:none;width:390px">
+      <div class="phone">
+        <div class="under"><i></i><i style="width:70%"></i><i></i><i style="width:55%"></i></div>
+        <div class="scrim"></div>
+        <div class="sheet" role="dialog" aria-label="Quitter la table ?">
+          <span class="grab"></span>
+          <h3>Quitter la table ?</h3>
+          <p>Vous pourrez revenir avec le même code tant que la partie n'est pas terminée.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+            <button class="b b-p">Rester à la table</button>
+            <button class="b b-s">Quitter</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px"><b style="font:600 15px/1.2 var(--sans)">Réversible</b><span class="tk">modale.confirmation</span><p class="p">Feuille du bas, pouce à portée. L'option sûre est le bouton principal, en haut de la pile ; l'action qui engage est secondaire.</p></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;flex:none;width:390px">
+      <div class="phone">
+        <div class="under"><i></i><i style="width:70%"></i><i></i><i style="width:55%"></i></div>
+        <div class="scrim"></div>
+        <div class="sheet" role="alertdialog" aria-label="Terminer la partie ?">
+          <span class="grab"></span>
+          <h3>Terminer la partie ?</h3>
+          <p>Cette action est définitive.</p>
+          <ul class="cons">
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Tous les rôles sont révélés à la table</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2 M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/></svg>Phases et votes sont figés</li>
+            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>La partie ne peut pas reprendre</li>
+          </ul>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="b b-p">Revenir à la partie</button>
+            <button class="hold" aria-label="Maintenir appuyé 1,2 seconde pour terminer la partie"><span class="fill"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9 M6.5 6.5a8 8 0 1 0 11 0"/></svg><span>Maintenir pour terminer</span></button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px"><b style="font:600 15px/1.2 var(--sans)">Irréversible <span class="try">· maintenez le bouton rouge</span></b><span class="tk">modale.irreversible</span><p class="p">Même feuille, trois ajouts : la conséquence énumérée, « Cette action est définitive » écrit, et un maintien de 1,2 s à la place du tap.</p></div>
+    </div>
+
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:16px">
+      <h2 class="h3" style="font-size:22px">Règles des modales</h2>
+      <div class="rule"><span class="n">1</span><p class="p">Le titre est une question fermée, avec le nom de la chose touchée : « Terminer la partie ? ».</p></div>
+      <div class="rule"><span class="n">2</span><p class="p">Le texte dit ce qui se passe, pas « Êtes-vous sûr ? ». Trois lignes au plus pour les conséquences.</p></div>
+      <div class="rule"><span class="n">3</span><p class="p">Le bouton qui annule est toujours le principal et prend le focus à l'ouverture.</p></div>
+      <div class="rule"><span class="n">4</span><p class="p">Un geste en dehors de la feuille ou le retour système ferment la modale sans rien engager.</p></div>
+      <div class="rule"><span class="n">5</span><p class="p">Voile à 72 % de noir, jamais blanc. Pas de flou : il coûte de la batterie et brouille la lecture dans le noir.</p></div>
+      <div class="rule"><span class="n">6</span><p class="p">Pas de modale côté joueur pendant la nuit. Le seul moment de confirmation est la validation de son propre choix.</p></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const toasts = [
+      { role: 'status', color: '#AAA38E', d: 'M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0 M12 8h.01 M11 12h1v5', text: 'Camille a rejoint la table.', action: false, close: false },
+      { role: 'status', color: '#B98E45', d: 'M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0 M8 12.5l3 3 5-6', text: 'Votre pseudo est enregistré.', action: false, close: false },
+      { role: 'status', color: '#CFA55A', d: 'M12 4l9 16H3z M12 10v4 M12 17h.01', text: 'Connexion instable. On réessaie.', action: false, close: false },
+      { role: 'alert', color: '#EE7F8B', d: 'M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0 M9 9l6 6 M15 9l-6 6', text: 'Envoi impossible.', action: true, actionLabel: 'Réessayer', close: true }
+    ];
+    const banners = [
+      { style: 'background:#202534;border:1px solid rgba(185,142,69,.55)', spinner: true, hasIcon: false, title: 'Reconnexion…', sub: 'Vos actions sont gardées.', action: false },
+      { style: 'background:#202534;border:1.5px solid #B98E45', spinner: false, hasIcon: true, color: '#CFA55A', d: 'M2 9a15 15 0 0 1 20 0 M5 13a10 10 0 0 1 14 0 M9 17a5 5 0 0 1 6 0 M12 20h.01 M3 3l18 18', title: 'Connexion perdue', sub: 'Elles seront renvoyées au retour.', action: true },
+      { style: 'background:#202534;border:1px solid #2C3345', spinner: false, hasIcon: true, color: '#B98E45', d: 'M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0 M8 12.5l3 3 5-6', title: 'De retour à la table', sub: 'Tout est à jour.', action: false }
+    ];
+    return { toasts, banners };
+  }
+}
+</script>
+</body>
+</html>

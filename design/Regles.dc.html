@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Règles d'usage</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h2{font:600 36px/1.05 var(--serif);margin:0;color:var(--text)}
+.h3{font:600 24px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.p b{color:#E9DFC7;font-weight:600}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.sect{display:flex;flex-direction:column;gap:22px;padding-top:34px;border-top:1px solid var(--line)}
+.sn{font:700 13px/1 var(--mono);color:var(--accent-hi);letter-spacing:.1em}
+.tag{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:6px 9px;border-radius:6px;align-self:flex-start}
+.yes{color:#E9DFC7;border:1px solid #B98E45;background:rgba(185,142,69,.14)}
+.no{color:#EE7F8B;border:1px solid #8E1D2C;background:#2A1219}
+.tag svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* démos rouge */
+.mort{background:#14161D;border:1px solid #2C3345;border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px}
+.mort svg{width:34px;height:34px;fill:none;stroke:#EE7F8B;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mort b{font:600 26px/28px var(--serif);color:#E9DFC7}
+.dem{background:#1B1015;border:1px solid #8E1D2C;border-radius:14px;padding:18px;display:flex;align-items:center;gap:14px;box-shadow:0 0 28px rgba(142,29,44,.4)}
+.dem .m{width:60px;height:60px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#3D1822,#1B1015 70%);border:1px solid rgba(185,142,69,.75);display:flex;align-items:center;justify-content:center;flex:none}
+.dem .m svg{width:32px;height:32px;fill:none;stroke:#E9DFC7;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.dem b{font:600 26px/28px var(--serif);color:#E9DFC7}
+.vot{background:#1D1217;border:1px solid #2C3345;border-bottom:1.5px solid #8E1D2C;border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.bar{height:12px;border-radius:6px;background:#2C3345;overflow:hidden}
+.bar i{display:block;height:100%;width:44%;background:#8E1D2C}
+.sub{font:500 13px/16px var(--sans);color:#AAA38E}
+.alt{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#0E1016;border:1px solid var(--line);border-radius:12px}
+.alt svg{width:22px;height:22px;fill:none;stroke:#CFA55A;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.alt span{font:500 13px/18px var(--sans);color:#E9DFC7}
+.alt s{color:#EE7F8B;text-decoration-thickness:1.5px}
+/* équipes */
+.tm{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px;border-radius:12px;font:600 15px/1 var(--sans);color:#E9DFC7;box-sizing:border-box}
+.tm svg{width:22px;height:22px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.tm.g{background:#182033;border:1px solid #7F93B5}.tm.g svg{stroke:#7F93B5}
+.tm.m{background:#2A1219;border:1px solid #8E1D2C}.tm.m svg{stroke:#EE7F8B}
+.dot{width:48px;height:48px;border-radius:50%;flex:none}
+/* niveaux */
+.lv{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:14px;background:#0E1016;border:1px solid var(--line);min-width:0}
+.lv .bt{height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:8px;font:600 14px/1 var(--sans);box-sizing:border-box}
+.lv .bt svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lv .lvn{font:700 12px/1 var(--mono);letter-spacing:.1em;color:#CFA55A}
+.lv ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.lv li{font:400 13px/18px var(--sans);color:#AAA38E}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step .n{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#0E1016;font:700 13px/28px var(--mono);text-align:center;flex:none}
+.cardp{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.cardp svg{width:28px;height:28px;fill:none;stroke:#CFA55A;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cardp h4{font:600 22px/1.1 var(--serif);margin:0;color:#E9DFC7}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1900px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">10 · Règles d'usage</span>
+  <h1 class="h1">Trois questions que se pose chaque écran</h1>
+  <p class="p" style="max-width:820px;font-size:15px">Quand ai-je le droit d'être rouge ? Comment dire l'équipe sans la trahir ? Comment faire passer une action qui ne se rattrape pas ? Ces trois règles tranchent la plupart des cas. Les autres suivent, plus bas.</p>
+</div>
+
+<!-- 1. ROUGE -->
+<div class="sect">
+  <div style="display:flex;align-items:baseline;gap:16px"><span class="sn">01</span><h2 class="h2">Le rouge est un événement</h2></div>
+  <p class="p" style="max-width:860px;font-size:15px"><b>Rouge sang (aplat #8E1D2C)</b> : trois moments forts, la mort d'un joueur, le démon, le vote, plus le bouton qui engage une action irréversible. <b>Rouge clair (#EE7F8B)</b> : l'icône de la mauvaise équipe et le message d'une erreur de saisie, en petit. Nulle part ailleurs. Au plus un aplat rouge par écran.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div class="panel">
+      <span class="tag yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Moment fort · mort</span>
+      <div class="mort"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg><b>Marc s'est éteint.</b></div>
+      <p class="p">Annonce de mort : œil fermé en rouge clair, nom en parchemin. Le rouge se limite à l'icône ; la mort se dit, elle ne se crie pas.</p>
+    </div>
+    <div class="panel">
+      <span class="tag yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Moment fort · démon</span>
+      <div class="dem"><span class="m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-7 M10 12l2-3 2 3-2 2z M12 7V3"/></svg></span><div style="display:flex;flex-direction:column;gap:3px"><b>Démon</b><span class="sub">Mauvaise équipe · votre carte</span></div></div>
+      <p class="p">La lueur sang n'apparaît que sur la face du démon, sur le téléphone de son porteur, à l'instant de la révélation.</p>
+    </div>
+    <div class="panel">
+      <span class="tag yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Moment fort · vote</span>
+      <div class="vot"><div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font:600 24px/1 var(--serif)">Vote en cours</b><span style="font:700 14px/1 var(--mono);color:#E9DFC7">4 / 9</span></div><div class="bar"><i></i></div><span class="sub">Il faut 5 voix pour condamner.</span></div>
+      <p class="p">Le bandeau de phase et la jauge des voix sont les seuls éléments rouges de l'écran de vote. La jauge porte aussi son chiffre.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <span class="tag no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Jamais en rouge</span>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+      <div class="alt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a15 15 0 0 1 20 0 M5 13a10 10 0 0 1 14 0 M9 17a5 5 0 0 1 6 0 M12 20h.01 M3 3l18 18"/></svg><span><s>Perte de réseau</s><br>laiton + réseau barré</span></div>
+      <div class="alt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8.5 15h7"/></svg><span><s>Empoisonné</s><br>laiton + fiole</span></div>
+      <div class="alt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l9 16H3z M12 10v4 M12 17h.01"/></svg><span><s>Avertissement</s><br>laiton clair + triangle</span></div>
+      <div class="alt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg><span><s>Décor, titres, survol</s><br>parchemin ou laiton</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. ÉQUIPE -->
+<div class="sect">
+  <div style="display:flex;align-items:baseline;gap:16px"><span class="sn">02</span><h2 class="h2">Une équipe, c'est une forme, un mot, une teinte</h2></div>
+  <p class="p" style="max-width:860px;font-size:15px">La teinte ne vient qu'en dernier. Le <b>croissant</b> (arrondi) dit la bonne équipe, la <b>pointe</b> (anguleuse) la mauvaise, et le mot « Bonne équipe » ou « Mauvaise équipe » les confirme. Si l'on supprime la couleur, rien ne change.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div class="panel">
+      <span class="tag yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>En couleur</span>
+      <div class="tm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>Bonne équipe</div>
+      <div class="tm m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 4.5 5.5h15z M12 10v5"/></svg>Mauvaise équipe</div>
+    </div>
+    <div class="panel">
+      <span class="tag yes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sans couleur (test de lecture)</span>
+      <div style="display:flex;flex-direction:column;gap:12px;filter:grayscale(1)">
+        <div class="tm g"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>Bonne équipe</div>
+        <div class="tm m"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 4.5 5.5h15z M12 10v5"/></svg>Mauvaise équipe</div>
+      </div>
+    </div>
+    <div class="panel">
+      <span class="tag no"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>Couleur seule, sans couleur</span>
+      <div style="display:flex;gap:14px;align-items:center;filter:grayscale(1)">
+        <span class="dot" style="background:#7F93B5"></span><span class="dot" style="background:#C4414F"></span>
+        <span class="p" style="font-size:13px">Deux disques gris : impossible de savoir lequel est lequel.</span>
+      </div>
+      <p class="p" style="font-size:13px">C'est exactement ce que voit une personne daltonienne, ou un joueur dont l'écran est à la luminosité minimale.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div class="cardp"><h4>Où l'équipe se montre</h4><p class="p">Bandeau haut de la carte de rôle. Icône dans la tuile compacte du grimoire. Segment « Bonne / Mauvaise » de la fiche de correction. Toujours le mot pour la carte et la fiche, l'icône seule pour la tuile (avec un texte pour lecteur d'écran).</p></div>
+    <div class="cardp"><h4>Où elle ne se montre pas</h4><p class="p">Jamais sur la vue joueur d'un autre joueur, jamais dans une liste de sélection, jamais sur l'écran d'attente. Le secret passe avant la cohérence : seul le conteur voit toutes les équipes.</p></div>
+    <div class="cardp"><h4>Accessibilité</h4><p class="p">Chaque icône d'équipe a un équivalent texte : « bonne équipe », « mauvaise équipe ». La teinte reste à plus de 4,5:1 sur le fond, pour qu'elle serve de renfort sans jamais porter l'information seule.</p></div>
+  </div>
+</div>
+
+<!-- 3. IRRÉVERSIBLE -->
+<div class="sect">
+  <div style="display:flex;align-items:baseline;gap:16px"><span class="sn">03</span><h2 class="h2">Plus c'est définitif, plus le geste est lent</h2></div>
+  <p class="p" style="max-width:860px;font-size:15px">Trois niveaux, jamais mélangés. Ce qui se rattrape ne demande rien ; ce qui se rattrape mal demande une confirmation ; ce qui ne se rattrape pas demande un geste volontaire de plus d'une seconde.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div class="lv">
+      <span class="lvn">NIVEAU 0 · RÉVERSIBLE</span>
+      <div class="bt" style="background:#B98E45;color:#0E1016">Ajouter « Ivre »</div>
+      <ul><li>Un tap, effet immédiat, annulable dans le journal.</li><li>Statuts, notes, étape précédente, tri.</li><li>Aucune confirmation : en demander une ferait perdre du temps au conteur.</li></ul>
+    </div>
+    <div class="lv">
+      <span class="lvn">NIVEAU 1 · COÛTEUX</span>
+      <div class="bt" style="background:transparent;border:1.5px solid #B98E45;color:#E9DFC7">Quitter la table</div>
+      <ul><li>Un tap, puis une feuille de confirmation.</li><li>Quitter la table, changer le rôle d'un joueur, relancer une étape.</li><li>L'option sûre est le bouton principal et prend le focus.</li></ul>
+    </div>
+    <div class="lv" style="border-color:#8E1D2C">
+      <span class="lvn" style="color:#EE7F8B">NIVEAU 2 · DÉFINITIF</span>
+      <div class="bt" style="background:linear-gradient(90deg,#8E1D2C 46%,#2A1219 46%);border:1.5px solid #8E1D2C;color:#F6EEDB"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9 M6.5 6.5a8 8 0 1 0 11 0"/></svg>Maintenir pour terminer</div>
+      <ul><li>Maintien de 1,2 s dans une feuille qui énumère les conséquences.</li><li>Terminer la partie, retirer un joueur, révéler tous les rôles.</li><li>Seul cas où le rouge sang s'étale en aplat sur un bouton.</li></ul>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px">
+    <div class="step"><span class="n">1</span><div style="display:flex;flex-direction:column;gap:5px"><b style="font:600 15px/1.2 var(--sans)">Isoler</b><p class="p">Une feuille du bas, jamais un bouton de plus dans la page. L'arrière-plan est voilé à 72 %.</p></div></div>
+    <div class="step"><span class="n">2</span><div style="display:flex;flex-direction:column;gap:5px"><b style="font:600 15px/1.2 var(--sans)">Nommer</b><p class="p">Le titre cite la chose touchée. Trois lignes de conséquences, chacune avec une icône.</p></div></div>
+    <div class="step"><span class="n">3</span><div style="display:flex;flex-direction:column;gap:5px"><b style="font:600 15px/1.2 var(--sans)">Protéger</b><p class="p">« Revenir à la partie » est le bouton principal, en laiton, au-dessus de l'action qui engage.</p></div></div>
+    <div class="step"><span class="n">4</span><div style="display:flex;flex-direction:column;gap:5px"><b style="font:600 15px/1.2 var(--sans)">Engager et tracer</b><p class="p">Maintien de 1,2 s ; la jauge rouge monte, redescend si l'on lâche. Au clavier : deux étapes. L'acte entre au journal.</p></div></div>
+  </div>
+</div>
+
+<!-- 4. AUTRES -->
+<div class="sect">
+  <div style="display:flex;align-items:baseline;gap:16px"><span class="sn">04</span><h2 class="h2">Et partout ailleurs</h2></div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+    <div class="cardp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg><h4>Obscurité</h4><p class="p">Le texte le plus clair est le parchemin #E9DFC7, jamais du blanc. Pas de fond clair, pas de flash au chargement : le fond du document est sombre dès le premier octet. Pas de flou ni de grand aplat lumineux.</p></div>
+    <div class="cardp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21V9a4 4 0 0 1 8 0v6 M8 13h8 M6 21h12"/></svg><h4>Une main</h4><p class="p">Les actions principales sont dans le tiers bas de l'écran, à 72 px côté joueur. Les menus s'ouvrent vers le haut, les feuilles viennent du bas. Aucun geste à deux doigts.</p></div>
+    <div class="cardp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg><h4>Secret</h4><p class="p">Le contenu d'un rôle n'est jamais dans l'écran sauf en main. Aucun son, aucune vibration, aucun toast de nuit. Les écrans d'attente sont rigoureusement identiques.</p></div>
+    <div class="cardp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7v5l3 2 M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/></svg><h4>Mouvement</h4><p class="p">Retournement de carte, aiguille, fondus lents, rien d'autre. Toute animation a une version « réduire les animations » : fondu de 160 ms ou saut.</p></div>
+    <div class="cardp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v10H9l-4 4z"/></svg><h4>Langue</h4><p class="p">On vouvoie le joueur, on tutoie jamais. Phrases courtes, verbes à l'infinitif sur les boutons (« Confirmer »), jamais de point d'exclamation. « Conteur » prend une majuscule quand il parle.</p></div>
+    <div class="cardp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 16 0 8 8 0 1 0-16 0 M9 12l2 2 4-4"/></svg><h4>Accessibilité</h4><p class="p">Contraste AA minimum partout (mesuré, voir planche 01). Anneau de focus parchemin de 2 px, visible au clavier. Toute icône seule a un libellé. Cibles de 44 px au moins, 8 px entre elles.</p></div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+.screen {
+  width: 100%;
+  max-width: $app-max-width;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: $bg-base;
+
+  @media (min-width: $app-max-width) {
+    border-left: 1px solid $line;
+    border-right: 1px solid $line;
+  }
+}
+
+.form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.centered {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 20px calc(28px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, $bg-base 80%, rgba($bg-base, 0));
+}

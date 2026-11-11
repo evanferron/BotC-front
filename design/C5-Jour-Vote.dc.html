@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Conteur — Jour et vote</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:2270px;min-height:1250px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux conteur · E · Jour et vote (écrans 15 à 17)</span>
+    <h1 class="h1">Mener le jour, ouvrir le vote</h1>
+    <p class="p" style="max-width:900px;font-size:15px">Les morts de la nuit sont annoncés à voix haute : l'appli ne fait que mettre les états à jour. Le conteur enchaîne ensuite les étapes du jour : convoquer le conseil, nommer un joueur, ouvrir le vote. Pendant le vote, il suit les mains levées en direct, le clôt, puis marque le résultat. La nuit suivante démarre alors toute seule.</p>
+  </div>
+
+  <div class="grid g5">
+
+    <div class="cell">
+      <div class="lb"><span class="no">15a</span><div><b>Jour · commandes</b><small><span class="tg a">Action</span>Phase : Jour 2. Étape 1 sur 3.</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:150deg"></i><span class="nm">Jour 2</span><span class="stp">7 en vie</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div class="steps" style="display:flex;gap:6px"><span class="pill ok">1 Conseil</span><span class="pill">2 Nomination</span><span class="pill">3 Vote</span></div>
+          <div class="card" style="gap:8px"><span class="mi">Annoncé ce matin</span><p class="tx" style="font-size:15px;line-height:22px">Yanis est mort cette nuit.</p><p class="sm">Les joueurs voient déjà l'état à jour.</p></div>
+          <div style="flex:1"></div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Convoquer le conseil</button><button class="b b-s" disabled="{{true}}">Nommer un joueur</button><button class="b b-s" disabled="{{true}}">Ouvrir le vote</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Jour</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">15b</span><div><b>Nommer un joueur</b><small><span class="tg a">Action</span>Phase : Conseil. Qui nomme, puis qui est nommé.</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:190deg"></i><span class="nm">Conseil</span><span class="stp">2 / 3</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:8px">
+          <div class="chips"><button class="cp on">Camille nomme</button><button class="cp on">Marc</button></div>
+          <p class="sm">Choisissez la personne nommée.</p>
+          <div style="flex:1;overflow:hidden">
+            <sc-for list="{{pick}}" as="p" hint-placeholder-count="7">
+              <button class="row rad {{p.cls}}" style="height:48px;opacity: {{p.op}}" aria-pressed="{{p.on}}" disabled="{{p.off}}"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{p.note}}</small></span><span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Nommer Marc</button><button class="b b-g">Annuler</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16a</span><div><b>Vote en direct</b><small><span class="tg">Attente</span>Phase : Vote. 4 réponses sur 7.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Vote</span><span class="rt">Marc</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px">
+          <div style="display:flex;gap:8px">
+            <div class="card" style="flex:1;text-align:center;padding:10px"><div class="mo" style="font-size:30px">3</div><span class="mi">Pour</span></div>
+            <div class="card" style="flex:1;text-align:center;padding:10px"><div class="mo" style="font-size:30px">1</div><span class="mi">Contre</span></div>
+            <div class="card" style="flex:1;text-align:center;padding:10px"><div class="mo" style="font-size:30px">3</div><span class="mi">Attente</span></div>
+          </div>
+          <p class="sm">Seuil pour exécuter : 4 voix (la moitié des vivants, arrondie au-dessus).</p>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)">
+            <sc-for list="{{votes}}" as="p" hint-placeholder-count="7">
+              <div class="li" style="min-height:42px"><span class="d" style="width:28px;height:28px;font-size:14px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}</span><span class="pill {{p.cls}}">{{p.state}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Clôturer le vote</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Jour</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">16b</span><div><b>Résultat du vote</b><small><span class="tg a">Action</span>Phase : Vote. 4 pour, 3 contre.</small></div></div>
+      <div class="ph">
+        <div class="top vote"><i class="dl" style="--a:235deg"></i><span class="nm">Vote</span><span class="rt">Marc</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:16px">
+          <span class="mi">Résultat</span>
+          <h2 class="t1" style="font-size:30px;line-height:36px">Marc est exécuté.</h2>
+          <div class="mo" style="font-size:22px">4 pour · 3 contre</div>
+          <p class="sm" style="max-width:250px">Le seuil de 4 voix est atteint. Marc est le plus voté du jour.</p>
+          <div class="card" style="width:100%;text-align:left;gap:6px"><span class="mi">Conséquence</span><p class="tx" style="font-size:14px;line-height:20px">Marc passe à l'état mort et conserve un vote fantôme.</p></div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Marquer Marc comme mort</button><button class="b b-s">Ne pas exécuter</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Jour</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">17</span><div><b>Retour à la nuit</b><small><span class="tg">Attente</span>Phase : Jour 2 vers Nuit 3. Automatique.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 3</span><span class="stp">Dans 10 s</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:18px">
+          <i class="dl xl" style="--a:14deg"></i>
+          <h2 class="t1">La nuit tombe.</h2>
+          <p class="sm" style="max-width:250px">Les écrans des joueurs passent en attente neutre. L'ordre de nuit démarre ensuite.</p>
+          <div class="bar"><i style="width:60%"></i></div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Commencer la nuit maintenant</button><button class="b b-g">Rester au jour</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Jour</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2270,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const base = [
+      ['Rémi', ''], ['Marc', ''], ['Inès', ''], ['Camille', 'Nominateur'], ['Lou', 'Déjà nommé aujourd\'hui'],
+      ['Alix', ''], ['Éva', '']
+    ];
+    const pick = base.map(([name, note]) => {
+      const off = name === 'Lou' || name === 'Camille';
+      const on = name === 'Marc';
+      return { ini: name[0], name, note, off, on, cls: on ? 'sel' : '', op: off ? .5 : 1 };
+    });
+    const v = [
+      ['Rémi', 'Pour', 'ok'], ['Marc', 'Contre', ''], ['Inès', 'Pour', 'ok'], ['Camille', 'Pour', 'ok'],
+      ['Lou', 'En attente', ''], ['Alix', 'En attente', ''], ['Éva', 'En attente', '']
+    ];
+    const votes = v.map(([name, state, cls]) => ({ ini: name[0], name, state, cls }));
+    return { pick, votes };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.title {
+  @include title-1;
+}
+
+.error {
+  font: 500 13px/1.35 $font-sans;
+  color: $danger-text;
+  text-align: center;
+}

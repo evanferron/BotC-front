@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Les 22 rôles et leurs icônes</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0E1016}
+.rg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.rt2{background:#171A23;border:1px solid #2C3345;border-radius:14px;padding:16px;display:flex;gap:14px;align-items:flex-start}
+.rt2 .md{width:60px;height:60px;border-radius:50%;border:1.5px solid #B98E45;background:#0A0C11;display:flex;align-items:center;justify-content:center;flex:none}
+.rt2 .md svg{width:34px;height:34px;fill:none;stroke:#CFA55A;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.rt2 b{font:600 20px/24px 'Cormorant Garamond',serif;color:#E9DFC7;display:block}
+.rt2 p{margin:4px 0 0;font:400 13px/18px Inter,sans-serif;color:#AAA38E}
+.gt{display:flex;align-items:center;gap:10px;margin:8px 0 2px}
+.gt span{font:600 12px/16px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#E9DFC7}
+.gt svg{width:20px;height:20px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</helmet>
+<div class="sheet" style="width:1280px;min-height:1500px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">11 · Rôles et icônes</span>
+    <h1 class="h1">Les 22 rôles de Trouble Brewing</h1>
+    <p class="p" style="max-width:860px;font-size:15px">Une icône originale par rôle, tracée dans une même famille : grille de 24, trait de 1,6, extrémités arrondies, un seul trait laiton, aucun remplissage. Les noms français et les résumés de capacité sont provisoires (12 mots au plus) : les vrais textes seront injectés plus tard.</p>
+  </div>
+
+  <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+    <div>
+      <div class="gt"><svg viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{g.color}}"><path d="{{g.team}}"/></svg><span>{{g.title}} · {{g.count}}</span><span style="color:#AAA38E;letter-spacing:0;text-transform:none;font-weight:400">{{g.teamLabel}}</span></div>
+      <div class="rg">
+        <sc-for list="{{g.roles}}" as="r" hint-placeholder-count="4">
+          <div class="rt2"><span class="md"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{r.d}}"/></svg></span><div><b>{{r.name}}</b><p>{{r.ab}}</p></div></div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+
+  <div class="card" style="gap:14px">
+    <span class="mi">Construction</span>
+    <div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:18px;align-items:flex-end">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#CFA55A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{moine}}"/></svg>
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#CFA55A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{moine}}"/></svg>
+        <svg viewBox="0 0 24 24" width="96" height="96" fill="none" stroke="#CFA55A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{moine}}"/></svg>
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#8B8FA3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{moine}}"/></svg>
+      </div>
+      <p class="sm" style="max-width:640px">24 px dans une liste, 40 px sur une fiche, 96 px sur la carte de rôle. Sur une carte morte, l'icône passe en gris-mort #8B8FA3. L'icône ne porte jamais l'équipe : c'est le badge d'équipe, à côté, qui le fait.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const c = (x, y, r) => `M${x - r} ${y}a${r} ${r} 0 1 0 ${2 * r} 0a${r} ${r} 0 1 0 ${-2 * r} 0`;
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const I = {
+      lav: 'M4 12h16l-1.5 8h-13z ' + c(9, 7, 1.6) + ' ' + c(14, 5.5, 1.2) + ' ' + c(15.5, 9, 1),
+      bib: 'M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13C17 4 14 4.5 12 6z M12 6v13',
+      enq: c(10, 10, 6) + ' M14.5 14.5 20 20',
+      cui: 'M5 11h14v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z M3 11h18 M9 8c0-2 1-3 3-3s3 1 3 3',
+      emp: 'M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z',
+      dis: c(12, 10, 6) + ' M7 19h10 M9 16l-1 3 M15 16l1 3',
+      cro: 'M16 3l5 5 M14 5l5 5-3 3-5-5z M11 13l-7 7',
+      moi: 'M12 3c-4 0-7 3-7 7v11h14V10c0-4-3-7-7-7z M9 11c0-2 1-3 3-3s3 1 3 3v3H9z',
+      gar: 'M4 16c3-1 5-4 6-8 2 1 4 1 6 0 0 5 2 7 4 8-4 1-7 1-8 4-1-3-4-4-8-4z M17 8l3-1',
+      vie: 'M12 21V11 M12 11c-4-1-6-4-6-8 4 0 6 3 6 8 M12 11c4-1 6-4 6-8-4 0-6 3-6 8 M8 21h8',
+      tue: 'M12 3l2.5 3.5-2.5 9-2.5-9z M8 15h8 M12 15v6',
+      sol: 'M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z M12 8v8',
+      mai: 'M4 18h16 M5 18l-1-10 5 4 3-6 3 6 5-4-1 10',
+      maj: 'M4 17h16 M6 17a6 6 0 0 1 12 0 M12 8v3 M10 8h4 M3 20h18',
+      ivr: 'M10 3h4 M11 3v5l-3 4v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-8l-3-4V3 M8 14h8',
+      rec: 'M4 11l8-7 8 7 M6 10v10h12V10 M10 20v-5h4v5',
+      sai: c(12, 14, 5) + ' M7 6c0-1.5 2.2-2.5 5-2.5s5 1 5 2.5-2.2 2.5-5 2.5-5-1-5-2.5z',
+      poi: 'M10 3h4 M11 3v6l-5 9a2 2 0 0 0 2 3h8a2 2 0 0 0 2-3l-5-9V3 M8 15h8 M12 17v1',
+      esp: 'M3 9c3-2 6-2 9 0 3-2 6-2 9 0l-1 5a3.5 3.5 0 0 1-6 1.5L12 14l-2 1.5A3.5 3.5 0 0 1 4 14z',
+      fem: c(12, 9, 4) + ' M12 13v8 M12 17c-3 0-4-1-5-3 M12 18c2 0 3-1 4-2',
+      bar: c(11, 12, 6) + ' M17 16c2 2 2 4 1 6',
+      dia: 'M5 4c0 4 2 6 4 7 M19 4c0 4-2 6-4 7 M7 12h10l-1 6c-.5 2-2 3-4 3s-3.5-1-4-3z'
+    };
+    const r = (name, d, ab) => ({ name, d: I[d], ab });
+    const groups = [
+      { title: 'Villageois', count: '13', color: '#7F93B5', team: MOON, teamLabel: 'Bonne équipe', roles: [
+        r('Lavandière', 'lav', 'Apprend au départ que l\'un de deux joueurs porte un rôle de Villageois.'),
+        r('Bibliothécaire', 'bib', 'Apprend au départ que l\'un de deux joueurs est un Étranger.'),
+        r('Enquêteur', 'enq', 'Apprend au départ que l\'un de deux joueurs est un Sbire.'),
+        r('Cuisinier', 'cui', 'Apprend au départ combien de paires de mauvais joueurs sont voisines.'),
+        r('Empathique', 'emp', 'Chaque nuit, apprend combien de ses voisins vivants sont mauvais.'),
+        r('Diseuse de bonne aventure', 'dis', 'Chaque nuit, sonde deux joueurs et apprend si le Démon est là.'),
+        r('Croque-mort', 'cro', 'Chaque nuit, apprend quel rôle a été exécuté la veille.'),
+        r('Moine', 'moi', 'Chaque nuit, protège un autre joueur des griffes du Démon.'),
+        r('Gardien du corbeau', 'gar', 'S\'il meurt la nuit, désigne un joueur et apprend son rôle.'),
+        r('Vierge', 'vie', 'Si un Villageois la nomme, ce dernier est aussitôt exécuté.'),
+        r('Tueur', 'tue', 'Une fois par partie, désigne un joueur : le Démon en meurt.'),
+        r('Soldat', 'sol', 'Le Démon ne peut pas le tuer.'),
+        r('Maire', 'mai', 'Peut faire gagner la ville s\'il reste trois joueurs sans exécution.')
+      ] },
+      { title: 'Étrangers', count: '4', color: '#7F93B5', team: MOON, teamLabel: 'Bonne équipe, mais avec un handicap', roles: [
+        r('Majordome', 'maj', 'Chaque nuit, choisit un maître et ne vote qu\'avec lui.'),
+        r('Ivrogne', 'ivr', 'Ignore qu\'il est ivre : il se croit un autre rôle.'),
+        r('Reclus', 'rec', 'Peut être pris pour un mauvais joueur par les autres rôles.'),
+        r('Saint', 'sai', 'S\'il est exécuté, la mauvaise équipe l\'emporte.')
+      ] },
+      { title: 'Sbires', count: '4', color: '#EE7F8B', team: TIP, teamLabel: 'Mauvaise équipe', roles: [
+        r('Empoisonneur', 'poi', 'Chaque nuit, trouble la capacité d\'un joueur.'),
+        r('Espion', 'esp', 'Voit le grimoire et peut sembler bon aux yeux des autres.'),
+        r('Femme écarlate', 'fem', 'Devient Démon si celui-ci meurt avec assez de joueurs.'),
+        r('Baron', 'bar', 'Ajoute deux Étrangers à la composition de départ.')
+      ] },
+      { title: 'Démon', count: '1', color: '#EE7F8B', team: TIP, teamLabel: 'Mauvaise équipe', roles: [
+        r('Diable', 'dia', 'Chaque nuit, tue un joueur ; peut se sacrifier pour se transmettre.')
+      ] }
+    ];
+    return { groups, moine: I.moi };
+  }
+}
+</script>
+</body>
+</html>

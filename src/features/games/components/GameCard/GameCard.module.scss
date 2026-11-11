@@ -1,0 +1,19 @@
+.card {
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.code {
+  font: 700 20px/1 $font-mono;
+  letter-spacing: 0.2em;
+  color: $text;
+}
+
+.summary {
+  @include body-small;
+}

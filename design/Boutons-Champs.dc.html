@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Boutons et champs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 26px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:18px}
+.try{font:600 12px/1 var(--sans);color:#CFA55A;letter-spacing:.06em}
+/* boutons */
+.b{height:56px;width:100%;padding:0 20px;border-radius:10px;border:1.5px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 16px/20px var(--sans);cursor:pointer;box-sizing:border-box;margin:0;transition:transform 80ms var(--ease),background 140ms var(--ease),box-shadow 140ms var(--ease);-webkit-tap-highlight-color:transparent}
+.b svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.b:focus-visible{outline:2px solid #F1E6C8;outline-offset:3px}
+.b-p{background:#B98E45;color:#0E1016}
+.b-p:active,.b-p.pr{background:#A8803C;transform:scale(.98)}
+.b-s{background:transparent;border-color:#B98E45;color:#E9DFC7}
+.b-s:active,.b-s.pr{background:rgba(185,142,69,.18);transform:scale(.98)}
+.b-d{background:#8E1D2C;color:#F6EEDB}
+.b-d:active,.b-d.pr{background:#74172A;transform:scale(.98)}
+.b:disabled,.b.ds{cursor:not-allowed}
+.b-p:disabled,.b-p.ds{background:#232838;color:#9A9480}
+.b-s:disabled,.b-s.ds{border-color:#3A3F52;color:#8B8FA3}
+.b-d:disabled,.b-d.ds{background:#232838;color:#9A9480}
+.b.sl{box-shadow:0 0 0 3px #0E1016,0 0 0 5px #CFA55A}
+.b.er{box-shadow:0 0 0 3px #0E1016,0 0 0 5px #EE7F8B}
+.b-xl{height:72px;font-size:18px;border-radius:14px}
+.msg{display:flex;align-items:flex-start;gap:7px;font:500 13px/1.3 var(--sans);color:#EE7F8B}
+.msg svg{width:16px;height:16px;fill:none;stroke:#EE7F8B;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;margin-top:1px}
+.colh{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#AAA38E}
+.rowh{font:600 22px/1.1 var(--serif);color:#E9DFC7}
+/* maintien */
+.hold{position:relative;overflow:hidden;height:64px;width:100%;border-radius:14px;background:#2A1219;border:1.5px solid #8E1D2C;color:#F6EEDB;font:600 16px/20px var(--sans);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;padding:0;margin:0;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
+.hold .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:#8E1D2C;transition:width 200ms var(--ease)}
+.hold:active .fill,.hold.run .fill{width:100%;transition:width 1200ms linear}
+.hold.half .fill{width:46%;transition:none}
+.hold span,.hold svg{position:relative;z-index:1}
+.hold svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hold:focus-visible{outline:2px solid #F1E6C8;outline-offset:3px}
+/* champs */
+.fl{display:flex;align-items:baseline;justify-content:space-between;font:600 14px/1 var(--sans);color:#E9DFC7}
+.fl .ct{font:500 12px/1 var(--mono);color:#AAA38E}
+.code{width:100%;height:76px;box-sizing:border-box;background:#0A0C11;border:1.5px solid #6A7291;border-radius:12px;color:#E9DFC7;font:700 36px/1 var(--mono);letter-spacing:.38em;text-indent:.38em;text-align:center;text-transform:uppercase;outline:none;margin:0;transition:border-color 140ms var(--ease),box-shadow 140ms var(--ease)}
+.txt{width:100%;height:64px;box-sizing:border-box;background:#0A0C11;border:1.5px solid #6A7291;border-radius:12px;color:#E9DFC7;font:500 20px/1 var(--sans);padding:0 16px;outline:none;margin:0;transition:border-color 140ms var(--ease),box-shadow 140ms var(--ease)}
+.code::placeholder,.txt::placeholder{color:#9A9480}
+.code:focus,.txt:focus,.code.fo,.txt.fo{border-color:#CFA55A;box-shadow:0 0 0 3px rgba(207,165,90,.25)}
+.code.er,.txt.er{border-color:#EE7F8B}
+.code:disabled,.txt:disabled{opacity:.4;cursor:not-allowed}
+.hint{font:400 13px/1.4 var(--sans);color:#AAA38E;margin:0}
+.fst{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.fst .sn{display:flex;justify-content:space-between;align-items:baseline}
+.fst .sn b{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#AAA38E}
+</style>
+</helmet>
+<div style="width:1280px;min-height:2000px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:40px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">06 · Boutons et champs</span>
+  <h1 class="h1">Des gestes sûrs, même dans le noir</h1>
+  <p class="p" style="max-width:800px;font-size:15px">Trois boutons suffisent : principal (laiton), secondaire (filet laiton), dangereux (rouge sang). Hauteur 56 px, 72 px pour l'action unique d'un écran joueur. Les états sont toujours distinguables sans la couleur : relief, coche, message écrit.</p>
+</div>
+
+<div class="panel">
+  <h2 class="h3">Boutons · cinq états</h2>
+  <div style="display:grid;grid-template-columns:130px repeat(5,minmax(0,1fr));gap:14px 16px;align-items:start">
+    <span></span><span class="colh">Défaut</span><span class="colh">Appuyé</span><span class="colh">Désactivé</span><span class="colh">Sélectionné</span><span class="colh">Erreur</span>
+
+    <div style="display:flex;flex-direction:column;gap:6px;padding-top:14px"><span class="rowh">Principal</span><span class="tk">bouton.principal</span></div>
+    <button class="b b-p">Confirmer</button>
+    <button class="b b-p pr" tabindex="-1">Confirmer</button>
+    <button class="b b-p" disabled="{{true}}">Confirmer</button>
+    <button class="b b-p sl" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confirmé</button>
+    <div style="display:flex;flex-direction:column;gap:10px"><button class="b b-p er" tabindex="-1">Confirmer</button><span class="msg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Envoi impossible.</span></div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;padding-top:14px"><span class="rowh">Secondaire</span><span class="tk">bouton.secondaire</span></div>
+    <button class="b b-s">Annuler</button>
+    <button class="b b-s pr" tabindex="-1">Annuler</button>
+    <button class="b b-s" disabled="{{true}}">Annuler</button>
+    <button class="b b-s sl" tabindex="-1" style="background:rgba(185,142,69,.14)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Retenu</button>
+    <div style="display:flex;flex-direction:column;gap:10px"><button class="b b-s er" tabindex="-1">Annuler</button><span class="msg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Déjà envoyé.</span></div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;padding-top:14px"><span class="rowh">Dangereux</span><span class="tk">bouton.danger</span></div>
+    <button class="b b-d">Éteindre</button>
+    <button class="b b-d pr" tabindex="-1">Éteindre</button>
+    <button class="b b-d" disabled="{{true}}">Éteindre</button>
+    <button class="b b-d sl" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Armé</button>
+    <div style="display:flex;flex-direction:column;gap:10px"><button class="b b-d er" tabindex="-1">Éteindre</button><span class="msg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Joueur déjà mort.</span></div>
+  </div>
+  <p class="p">« Sélectionné » sert aux boutons à bascule : coche et libellé changé, anneau laiton à 2 px de décalage. « Désactivé » perd son relief et son accent (le texte reste lisible à 5:1) mais garde sa place : un bouton ne disparaît jamais. « Erreur » ajoute un anneau rouge clair et toujours une phrase écrite.</p>
+</div>
+
+<div style="display:flex;gap:28px;align-items:flex-start">
+  <div class="panel" style="flex:none;width:420px">
+    <h2 class="h3">Gros bouton joueur</h2>
+    <span class="p">72 px, pleine largeur, dans le tiers bas de l'écran. Une seule action par écran, secondaire en dessous si besoin.</span>
+    <div style="display:flex;flex-direction:column;gap:12px;background:#0E1016;border:1px solid var(--line);border-radius:18px;padding:16px">
+      <button class="b b-xl b-p"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Confirmer mon choix</button>
+      <button class="b b-xl b-s">Je passe mon tour</button>
+    </div>
+    <span class="tk">bouton.joueur · 72 px</span>
+  </div>
+
+  <div class="panel" style="flex:1;min-width:0">
+    <h2 class="h3">Dangereux : le maintien</h2>
+    <p class="p">Un bouton rouge plein ne s'actionne jamais d'un seul tap. Pour une action <b style="color:#E9DFC7;font-weight:600">irréversible</b>, le geste est un maintien de 1,2 s : le rouge monte dans le bouton pendant que l'on appuie, et redescend si l'on lâche. Le rouge n'apparaît entièrement qu'au moment de l'engagement.</p>
+    <span class="try">Essayez : maintenez le bouton</span>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:end">
+      <div style="display:flex;flex-direction:column;gap:8px"><button class="hold" tabindex="-1"><span class="fill"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9 M6.5 6.5a8 8 0 1 0 11 0"/></svg><span>Terminer la partie</span></button><span class="tk">repos</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><button class="hold half" tabindex="-1"><span class="fill"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9 M6.5 6.5a8 8 0 1 0 11 0"/></svg><span>Maintenez…</span></button><span class="tk">en cours · 46 %</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><button class="hold" aria-label="Maintenir appuyé pendant 1,2 seconde pour terminer la partie"><span class="fill"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9 M6.5 6.5a8 8 0 1 0 11 0"/></svg><span>Maintenir 1,2 s</span></button><span class="tk">interactif</span></div>
+    </div>
+    <p class="p">Au clavier et avec un lecteur d'écran, le maintien est remplacé par deux étapes : « Terminer la partie », puis « Oui, terminer » dans une modale.</p>
+  </div>
+</div>
+
+<div style="display:flex;gap:28px;align-items:flex-start">
+
+  <div class="panel" style="flex:1;min-width:0;gap:0">
+    <h2 class="h3" style="margin-bottom:6px">Code de la partie</h2>
+    <p class="p" style="margin-bottom:8px">Six signes, JetBrains Mono 36 px, espacés. L'alphabet exclut O, 0, I, 1 et L pour qu'on puisse dicter un code à voix basse.</p>
+
+    <div class="fst"><div class="sn"><b>Défaut</b><span class="tk">champ.code</span></div>
+      <label class="fl" for="code1"><span>Code de la partie</span></label>
+      <input id="code1" class="code" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="······" aria-describedby="codeh1">
+      <p class="hint" id="codeh1">Demandez-le au Conteur.</p></div>
+
+    <div class="fst"><div class="sn"><b>Saisie</b><span class="tk">champ.code:focus</span></div>
+      <label class="fl" for="code2"><span>Code de la partie</span><span class="ct">3/6</span></label>
+      <input id="code2" class="code fo" type="text" readonly="{{true}}" value="K7Q" aria-describedby="codeh2">
+      <p class="hint" id="codeh2">Demandez-le au Conteur.</p></div>
+
+    <div class="fst"><div class="sn"><b>Rempli</b><span class="tk">champ.code:rempli</span></div>
+      <label class="fl" for="code3"><span>Code de la partie</span><span class="ct">6/6</span></label>
+      <input id="code3" class="code" type="text" readonly="{{true}}" value="K7QM2X">
+      <p class="hint">Touchez « Rejoindre » pour entrer à la table.</p></div>
+
+    <div class="fst"><div class="sn"><b>Erreur</b><span class="tk">champ.code:erreur</span></div>
+      <label class="fl" for="code4"><span>Code de la partie</span><span class="ct">6/6</span></label>
+      <input id="code4" class="code er" type="text" readonly="{{true}}" value="K7QM2Y" aria-invalid="true" aria-describedby="codeh4">
+      <p class="msg" id="codeh4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Ce code n'ouvre aucune table. Vérifiez-le auprès du Conteur.</p></div>
+
+    <div class="fst" style="border-bottom:0"><div class="sn"><b>Désactivé</b><span class="tk">champ.code:desactive</span></div>
+      <label class="fl" for="code5"><span>Code de la partie</span></label>
+      <input id="code5" class="code" type="text" disabled="{{true}}" value="K7QM2X">
+      <p class="hint">Vous êtes déjà à la table.</p></div>
+  </div>
+
+  <div class="panel" style="flex:1;min-width:0;gap:0">
+    <h2 class="h3" style="margin-bottom:6px">Pseudo</h2>
+    <p class="p" style="margin-bottom:8px">Inter 20 px, 2 à 16 caractères, visible de tous. Même hauteur et mêmes états que le code.</p>
+
+    <div class="fst"><div class="sn"><b>Défaut</b><span class="tk">champ.pseudo</span></div>
+      <label class="fl" for="ps1"><span>Votre pseudo</span><span class="ct">0/16</span></label>
+      <input id="ps1" class="txt" type="text" maxlength="16" autocomplete="nickname" placeholder="Par exemple : Éloïse" aria-describedby="psh1">
+      <p class="hint" id="psh1">Visible par tous les joueurs.</p></div>
+
+    <div class="fst"><div class="sn"><b>Saisie</b><span class="tk">champ.pseudo:focus</span></div>
+      <label class="fl" for="ps2"><span>Votre pseudo</span><span class="ct">4/16</span></label>
+      <input id="ps2" class="txt fo" type="text" readonly="{{true}}" value="Élo">
+      <p class="hint">Visible par tous les joueurs.</p></div>
+
+    <div class="fst"><div class="sn"><b>Rempli</b><span class="tk">champ.pseudo:rempli</span></div>
+      <label class="fl" for="ps3"><span>Votre pseudo</span><span class="ct">6/16</span></label>
+      <input id="ps3" class="txt" type="text" readonly="{{true}}" value="Éloïse">
+      <p class="hint">Visible par tous les joueurs.</p></div>
+
+    <div class="fst"><div class="sn"><b>Erreur</b><span class="tk">champ.pseudo:erreur</span></div>
+      <label class="fl" for="ps4"><span>Votre pseudo</span><span class="ct">5/16</span></label>
+      <input id="ps4" class="txt er" type="text" readonly="{{true}}" value="Marc" aria-invalid="true" aria-describedby="psh4">
+      <p class="msg" id="psh4"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Ce pseudo est déjà pris à la table. Ajoutez une lettre ou un chiffre.</p></div>
+
+    <div class="fst" style="border-bottom:0"><div class="sn"><b>Désactivé</b><span class="tk">champ.pseudo:desactive</span></div>
+      <label class="fl" for="ps5"><span>Votre pseudo</span></label>
+      <input id="ps5" class="txt" type="text" disabled="{{true}}" value="Éloïse">
+      <p class="hint">Le pseudo est figé une fois la partie lancée.</p></div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

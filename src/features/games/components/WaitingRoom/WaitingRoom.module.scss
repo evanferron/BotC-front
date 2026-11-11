@@ -1,0 +1,24 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.eyebrow {
+  @include micro;
+}
+
+.code {
+  font: 700 22px/1 $font-mono;
+  letter-spacing: 0.3em;
+  color: $text;
+}
+
+.text {
+  @include body-player;
+}
+
+.footnote {
+  @include body-small;
+  text-align: center;
+}

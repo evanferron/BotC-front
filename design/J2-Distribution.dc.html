@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Joueur — Distribution des rôles</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:2270px;min-height:1250px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux joueur · C · Distribution des rôles (écrans 7 et 8)</span>
+    <h1 class="h1">Choisir sa carte, la révéler en secret</h1>
+    <p class="p" style="max-width:880px;font-size:15px">Les joueurs passent un par un, dans un ordre aléatoire fixé par le serveur. Quand c'est son tour, on choisit une carte face cachée dans l'éventail. Les autres voient seulement qui choisit et combien ont choisi, jamais quelle carte. La carte reste masquée : on la révèle en maintenant l'appui.</p>
+  </div>
+
+  <div class="grid g5">
+
+    <div class="cell">
+      <div class="lb"><span class="no">07a</span><div><b>À votre tour · éventail</b><small><span class="tg a">Action</span>Phase : Distribution. 6 cartes restantes.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">5ᵉ sur 10</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px">
+          <span class="mi">À votre tour</span>
+          <h2 class="t1">Choisissez une carte</h2>
+          <p class="sm">Elles sont toutes face cachée. Personne ne verra la vôtre.</p>
+          <div style="flex:1"></div>
+          <div class="fan" role="group" aria-label="Cartes restantes">
+            <sc-for list="{{fanA}}" as="c" hint-placeholder-count="6">
+              <button class="fc {{c.cls}}" style="transform: rotate({{c.rot}}deg) translateY({{c.ty}}px)" aria-label="Carte {{c.n}}"><i class="dl" style="width:44px;height:44px;--a:-12deg"></i></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">6 cartes restantes</p></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">07b</span><div><b>Carte choisie · confirmation</b><small><span class="tg a">Action</span>Phase : Distribution. On peut encore changer d'avis.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">5ᵉ sur 10</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px">
+          <span class="mi">À votre tour</span>
+          <h2 class="t1">Garder cette carte ?</h2>
+          <p class="sm">Une fois confirmée, elle est à vous.</p>
+          <div style="flex:1"></div>
+          <div class="fan" role="group" aria-label="Cartes restantes">
+            <sc-for list="{{fanB}}" as="c" hint-placeholder-count="6">
+              <button class="fc {{c.cls}}" style="transform: rotate({{c.rot}}deg) translateY({{c.ty}}px)" aria-label="Carte {{c.n}}" aria-pressed="{{c.on}}"><i class="dl" style="width:44px;height:44px;--a:-12deg"></i></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Garder cette carte</button><button class="b b-s">Choisir une autre carte</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">07c</span><div><b>En attente · qui choisit</b><small><span class="tg">Attente</span>Phase : Distribution. Vous passez après Camille.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">4 / 10</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body">
+          <span class="mi">En cours</span>
+          <div style="display:flex;align-items:center;gap:14px"><span class="d" style="width:58px;height:58px;font-size:26px;box-shadow:0 0 0 3px #0E1016,0 0 0 5px #B98E45">C</span><div><h2 class="t2">Camille choisit…</h2><p class="sm">Puis ce sera votre tour.</p></div></div>
+          <div class="bar"><i style="width:40%"></i></div>
+          <div>
+            <sc-for list="{{order}}" as="p" hint-placeholder-count="10">
+              <div class="li" style="min-height:44px;opacity: {{p.op}}"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}</span><span class="pill {{p.cls}}">{{p.state}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">08a</span><div><b>Votre rôle · masqué</b><small><span class="tg a">Action</span>Phase : Distribution. Appui long pour révéler.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">7 / 10</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:22px">
+          <span class="mi">Votre carte</span>
+          <button class="rc mk" aria-label="Carte masquée. Maintenir appuyé pour révéler votre rôle." style="display:block">
+            <i class="in"></i><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+            <span style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:30px">
+              <span style="width:84px;height:84px;border-radius:50%;border:1.5px dashed rgba(185,142,69,.8);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#CFA55A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <span style="font:600 16px/20px var(--sans);color:#E9DFC7">Maintenir pour révéler</span>
+              <span style="font:400 13px/18px var(--sans);color:#AAA38E">Relâchez pour masquer</span>
+            </span>
+          </button>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Gardez votre rôle secret.</p><button class="b b-p" disabled="{{true}}">J'ai vu mon rôle</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">08b</span><div><b>Votre rôle · révélé</b><small><span class="tg a">Action</span>Phase : Distribution. Tant que le doigt reste posé.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">7 / 10</span><button class="fx" aria-label="Mon rôle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z M12 9a2 2 0 1 0 .01 0 M9 16h6"/></svg></button><button class="fx" aria-label="Joueurs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 .01 0 M3 20c0-3 3-5 6-5s6 2 6 5 M17 8a2.5 2.5 0 1 1 0 5 M17 15c2.500 0 4 2 4 5"/></svg></button><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:22px">
+          <span class="mi">Votre carte</span>
+          <div class="rc good" role="img" aria-label="Veilleur, bonne équipe">
+            <i class="in"></i><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+            <div class="cb">
+              <div class="ts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>Bonne équipe</div>
+              <div class="med"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6 M10 3v2 M14 3v2 M8 7c0-1 1-2 4-2s4 1 4 2v9c0 1-1 2-4 2s-4-1-4-2z M8 11h8 M12 18v3"/></svg></div>
+              <div class="nmx">Veilleur</div>
+              <div class="dv"></div>
+              <p class="ab">Une fois par partie, éclaire un joueur et apprend son équipe.</p>
+            </div>
+          </div>
+          <p class="sm">Relâchez pour masquer</p>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Gardez votre rôle secret.</p><button class="b b-p">J'ai vu mon rôle</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2270,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const angles = [-22, -13, -4, 4, 13, 22];
+    const mk = (sel) => angles.map((a, i) => ({ n: i + 1, rot: a, cls: sel === i ? 'sel' : '', ty: sel === i ? -30 : 0, on: sel === i }));
+    const order = [
+      ['R', 'Rémi', 'A choisi', 'ok', 1], ['M', 'Marc', 'A choisi', 'ok', 1], ['I', 'Inès', 'A choisi', 'ok', 1], ['Y', 'Yanis', 'A choisi', 'ok', 1],
+      ['C', 'Camille', 'Choisit…', 'ok', 1], ['É', 'Vous', 'Ensuite', '', 1], ['L', 'Lou', 'En attente', '', .55], ['N', 'Nour', 'En attente', '', .55],
+      ['A', 'Alix', 'En attente', '', .55], ['S', 'Sam', 'En attente', '', .55]
+    ].map(([ini, name, state, cls, op]) => ({ ini, name, state, cls, op }));
+    return { fanA: mk(-1), fanB: mk(3), order };
+  }
+}
+</script>
+</body>
+</html>

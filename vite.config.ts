@@ -15,14 +15,18 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@styles': path.resolve(__dirname, './src/core/styles'),
+      '@': path.resolve(dirname, './src'),
+      '@styles': path.resolve(dirname, './src/styles'),
+      // Un alias par feature, pour les imports entre features
+      '@auth': path.resolve(dirname, './src/features/auth'),
+      '@games': path.resolve(dirname, './src/features/games'),
     },
   },
   server: {
     proxy: {
+      // API Rust (BotC-back) : même origine pour le cookie de refresh (SameSite=Strict)
       '/api': {
-        target: 'http://localhost:8888',
+        target: 'http://127.0.0.1:8080',
         changeOrigin: true,
         secure: false,
       },
@@ -31,7 +35,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@styles/variables" as *;`,
+        additionalData: `@use "@styles/colors" as *; @use "@styles/variables" as *; @use "@styles/fonts" as *; @use "@styles/mixins" as *;`,
       },
     },
   },

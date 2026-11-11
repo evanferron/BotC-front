@@ -1,0 +1,86 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  font: 600 14px/1 $font-sans;
+  color: $text;
+}
+
+.count {
+  font: 500 12px/1 $font-mono;
+  color: $text-muted;
+}
+
+.input {
+  width: 100%;
+  background: $bg-sunken;
+  border: 1.5px solid $line-control;
+  border-radius: 12px;
+  color: $text;
+  outline: none;
+  transition:
+    border-color $duration-fast $ease-soft,
+    box-shadow $duration-fast $ease-soft;
+
+  &::placeholder {
+    color: $text-faint;
+  }
+
+  &:focus {
+    border-color: $accent-hi;
+    box-shadow: 0 0 0 3px rgba($accent-hi, 0.25);
+  }
+}
+
+.text {
+  height: 60px;
+  padding: 0 16px;
+  font: 500 18px/1 $font-sans;
+}
+
+.code {
+  height: 76px;
+  font: 700 36px/1 $font-mono;
+  letter-spacing: 0.38em;
+  text-indent: 0.38em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.error,
+.error:focus {
+  border-color: $danger-text;
+}
+
+.error:focus {
+  box-shadow: 0 0 0 3px rgba($danger-text, 0.2);
+}
+
+.hint {
+  margin-top: 8px;
+  font: 400 13px/1.4 $font-sans;
+  color: $text-muted;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 8px;
+  font: 500 13px/1.35 $font-sans;
+  color: $danger-text;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    margin-top: 1px;
+  }
+}

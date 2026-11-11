@@ -1,0 +1,22 @@
+.body {
+  gap: 20px;
+  padding-top: 36px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eyebrow {
+  @include micro;
+}
+
+.title {
+  @include title-1;
+}
+
+.text {
+  @include body-small;
+}

@@ -1,0 +1,30 @@
+.card {
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.eyebrow {
+  @include micro;
+}
+
+.code {
+  font: 700 44px/1 $font-mono;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: $text;
+
+  @media (max-width: 360px) {
+    font-size: 36px;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+
+  > * {
+    flex: 1;
+  }
+}

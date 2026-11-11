@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Conteur — Grimoire</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1442px;min-height:1250px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux conteur · D · Grimoire (écran 13)</span>
+    <h1 class="h1">Tout voir, tout corriger</h1>
+    <p class="p" style="max-width:900px;font-size:15px">Le grimoire est accessible à tout moment, de n'importe quelle phase, par l'onglet du bas. Il montre chaque joueur avec son rôle, son équipe, sa vie, son vote fantôme et ses statuts. Un appui sur un joueur ouvre la fiche de correction : le conteur peut modifier n'importe quel état.</p>
+  </div>
+
+  <div class="grid g3">
+
+    <div class="cell">
+      <div class="lb"><span class="no">13a</span><div><b>Grimoire · liste</b><small><span class="tg a">Action</span>Phase : Jour 2 (accessible en tout temps)</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:150deg"></i><span class="nm">Grimoire</span><span class="stp">Jour 2</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px;padding-bottom:6px">
+          <div class="chips" role="group" aria-label="Affichage"><button class="cp on">Liste</button><button class="cp">Cercle</button></div>
+          <div style="flex:1;overflow:hidden">
+            <sc-for list="{{rows}}" as="p" hint-placeholder-count="8">
+              <button class="lr {{p.cls}}" style="min-height:56px" aria-label="Corriger {{p.name}}"><span class="d" style="width:34px;height:34px;font-size:16px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{p.role}}</small></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{p.color}}"><path d="{{p.icon}}"/></svg><span class="pill">{{p.state}}</span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="tb" role="tablist"><button class="on">Grimoire</button><button>Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">13b</span><div><b>Grimoire · cercle</b><small><span class="tg a">Action</span>Phase : Jour 2. Vue en rond, comme à la table.</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:150deg"></i><span class="nm">Grimoire</span><span class="stp">Jour 2</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px">
+          <div class="chips" role="group" aria-label="Affichage"><button class="cp">Liste</button><button class="cp on">Cercle</button></div>
+          <div style="position:relative;flex:1">
+            <sc-for list="{{ring}}" as="p" hint-placeholder-count="10">
+              <button class="tok" style="position:absolute;left: {{p.x}}px;top: {{p.y}}px;transform:translate(-50%,-50%);width:76px;opacity: {{p.op}}" aria-label="{{p.name}}, {{p.role}}, {{p.state}}"><span class="d" style="width:44px;height:44px;font-size:20px;border-color: {{p.color}}">{{p.ini}}</span><small style="display:block;font:500 11px/14px var(--sans);color:#E9DFC7;margin-top:3px">{{p.name}}</small><small style="display:block;font:400 10px/13px var(--sans);color:#AAA38E">{{p.role}}</small></button>
+            </sc-for>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center"><i class="dl" style="width:64px;height:64px;--a:150deg;display:inline-block"></i><p class="sm" style="margin-top:6px">7 en vie<br>3 morts</p></div>
+          </div>
+        </div>
+        <div class="tb" role="tablist"><button class="on">Grimoire</button><button>Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">13c</span><div><b>Fiche de correction</b><small><span class="tg a">Action</span>Phase : Jour 2. Corriger Marc.</small></div></div>
+      <div class="ph">
+        <div class="top day"><i class="dl" style="--a:150deg"></i><span class="nm">Grimoire</span><span class="stp">Jour 2</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="opacity:.35"><div class="card"><h2 class="t2">Marc</h2></div></div>
+        <div class="scrim"></div>
+        <div class="sheetp" role="dialog" aria-label="Corriger Marc" style="gap:10px">
+          <i class="grab"></i>
+          <div style="display:flex;align-items:center;gap:12px"><span class="d" style="width:44px;height:44px;font-size:20px">M</span><div><h2 class="t2">Marc</h2><p class="sm">Moine · bonne équipe</p></div></div>
+          <div><span class="mi">Vie</span>
+            <div class="chips"><button class="cp on">En vie</button><button class="cp">Mort</button></div></div>
+          <div><span class="mi">Vote fantôme</span>
+            <div class="chips"><button class="cp on">Disponible</button><button class="cp">Utilisé</button></div></div>
+          <div><span class="mi">Statuts</span>
+            <div class="chips" style="flex-wrap:wrap"><button class="cp">Empoisonné</button><button class="cp">Ivre</button><button class="cp on">Protégé</button><button class="cp">Marqué</button></div></div>
+          <div><span class="mi">Rôle et équipe</span>
+            <button class="row" style="height:48px"><span class="nm" style="font-size:15px">Moine</span><span class="pill">Changer</span></button></div>
+          <div class="row2"><button class="b b-s">Annuler</button><button class="b b-p">Enregistrer</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1442,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const EYE = 'M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3';
+    const data = [
+      ['Rémi', 'Empathique', 0, 'En vie'], ['Marc', 'Moine', 0, 'Protégé'], ['Inès', 'Veilleur', 0, 'En vie'],
+      ['Yanis', 'Cuisinier', 0, 'Mort'], ['Camille', 'Empoisonneur', 1, 'En vie'], ['Lou', 'Diable', 1, 'En vie'],
+      ['Nour', 'Espion', 1, 'Mort'], ['Alix', 'Majordome', 0, 'En vie'], ['Sam', 'Soldat', 0, 'Mort'], ['Éva', 'Lavandière', 0, 'En vie']
+    ];
+    const mk = ([name, role, bad, state]) => {
+      const dead = state === 'Mort';
+      return { ini: name[0], name, role, state, cls: dead ? 'dead' : '', color: dead ? '#8B8FA3' : (bad ? '#EE7F8B' : '#7F93B5'), icon: dead ? EYE : (bad ? TIP : MOON), op: dead ? .7 : 1 };
+    };
+    const all = data.map(mk);
+    const cx = 175, cy = 270, r = 175;
+    const ring = all.map((p, i) => {
+      const a = (i / all.length) * Math.PI * 2 - Math.PI / 2;
+      return Object.assign({}, p, { x: Math.round(cx + Math.cos(a) * r * .78), y: Math.round(cy + Math.sin(a) * r * 1.35) });
+    });
+    return { rows: all, ring };
+  }
+}
+</script>
+</body>
+</html>

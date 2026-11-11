@@ -1,0 +1,48 @@
+@use "colors" as *;
+
+// Espacements (base 4 px)
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 24px;
+$space-6: 32px;
+$space-7: 48px;
+$space-8: 64px;
+
+// Rayons
+$radius-xs: 6px; // Badges, étiquettes
+$radius-s: 10px; // Champs, boutons
+$radius-m: 14px; // Cartes d'interface
+$radius-l: 22px; // Feuilles du bas, modales
+$radius-card: 18px; // Carte de rôle
+$radius-full: 999px; // Jetons, pastilles
+
+// Ombres et lueurs
+$shadow-1:
+  0 2px 8px rgba(0, 0, 0, 0.5),
+  inset 0 1px 0 rgba(233, 223, 199, 0.05);
+$shadow-2:
+  0 10px 28px rgba(0, 0, 0, 0.6),
+  inset 0 1px 0 rgba(233, 223, 199, 0.06);
+$shadow-3: 0 -14px 44px rgba(0, 0, 0, 0.7);
+$glow-brass:
+  0 0 0 2px $accent,
+  0 0 22px rgba(185, 142, 69, 0.28);
+
+// Zones tactiles
+$target-min: 44px;
+$target-std: 56px;
+$target-player: 72px;
+
+// Mouvement
+$ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+$ease-tic: cubic-bezier(0.4, 1.6, 0.5, 1);
+$duration-instant: 80ms;
+$duration-fast: 140ms;
+$duration-base: 240ms;
+$duration-slow: 480ms;
+
+// Largeur maximale de l'application (mobile d'abord, centrée sur grand écran)
+$app-max-width: 480px;
+$phase-bar-height: 60px;

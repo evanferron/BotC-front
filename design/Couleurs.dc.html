@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Couleurs</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 24px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.grp{display:flex;flex-direction:column;gap:2px}
+.row{display:flex;align-items:center;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
+.chip{width:40px;height:40px;border-radius:9px;flex:none;border:1px solid rgba(233,223,199,.18)}
+.tk{font:500 12px/1.3 var(--mono);color:var(--text)}
+.hx{font:500 12px/1.3 var(--mono);color:var(--muted)}
+.use{font:400 13px/1.35 var(--sans);color:var(--muted);margin-left:auto;text-align:right;max-width:230px}
+.pair{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.aa{width:56px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font:600 18px/1 var(--serif);flex:none}
+.ratio{font:700 13px/1 var(--mono);color:var(--text);margin-left:auto}
+.grade{font:600 11px/1 var(--sans);letter-spacing:.08em;padding:4px 7px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.team{display:flex;align-items:center;gap:10px;padding:0 16px;height:48px;border-radius:12px;font:600 15px/1 var(--sans)}
+.team svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1180px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:36px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">01 · Couleurs</span>
+  <h1 class="h1">Encre de nuit, parchemin, laiton</h1>
+  <p class="p" style="max-width:720px;font-size:15px">Six couleurs de départ, affinées en tokens sémantiques. Les composants n'utilisent jamais un hexadécimal : seulement un nom de rôle. Tous les couples texte/fond de ce document sont mesurés (WCAG 2.x), le minimum visé est AA.</p>
+</div>
+
+<div style="display:flex;gap:56px">
+  <div style="flex:1.25;display:flex;flex-direction:column;gap:26px;min-width:0">
+    <sc-for list="{{groups}}" as="g" hint-placeholder-count="4">
+      <div class="grp">
+        <h2 class="h3" style="margin-bottom:6px">{{g.title}}</h2>
+        <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="3">
+          <div class="row">
+            <div class="chip" style="background: {{r.hex}}"></div>
+            <div style="display:flex;flex-direction:column;gap:3px"><span class="tk">{{r.token}}</span><span class="hx">{{r.hex}}</span></div>
+            <span class="use">{{r.use}}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;gap:30px;min-width:0">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <h2 class="h3">Équipes : forme + mot + couleur</h2>
+      <div class="team" style="background:#182033;color:#7F93B5;border:1px solid #7F93B5">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z"/></svg>
+        <span style="color:#E9DFC7">Bonne équipe</span><span style="margin-left:auto;font:500 12px/1 var(--mono);color:#7F93B5">croissant</span>
+      </div>
+      <div class="team" style="background:#2A1219;color:#EE7F8B;border:1px solid #8E1D2C">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21 4.5 5.5h15z"/><path d="M12 10v5"/></svg>
+        <span style="color:#E9DFC7">Mauvaise équipe</span><span style="margin-left:auto;font:500 12px/1 var(--mono);color:#EE7F8B">pointe</span>
+      </div>
+      <div class="team" style="background:#14161D;color:#8B8FA3;border:1px dashed #3A3F52">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3 4 6 5 9 5s6-1 9-5M7 15l-2 3M12 17v3M17 15l2 3"/></svg>
+        <span style="color:#8B8FA3">Mort</span><span style="margin-left:auto;font:500 12px/1 var(--mono);color:#8B8FA3">œil fermé</span>
+      </div>
+      <p class="p">Le croissant est arrondi, la pointe est anguleuse : les deux se distinguent en niveaux de gris et en daltonisme. Le texte clair reste du parchemin ; seule l'icône et le filet portent la teinte.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <h2 class="h3" style="margin-bottom:6px">Contrastes mesurés</h2>
+      <sc-for list="{{pairs}}" as="c" hint-placeholder-count="6">
+        <div class="pair">
+          <div class="aa" style="background: {{c.bg}}; color: {{c.fg}}">Aa</div>
+          <div style="display:flex;flex-direction:column;gap:3px"><span class="tk">{{c.label}}</span><span class="hx">{{c.fg}} sur {{c.bg}}</span></div>
+          <span class="ratio">{{c.ratio}}</span><span class="grade">{{c.grade}}</span>
+        </div>
+      </sc-for>
+      <p class="p" style="margin-top:10px">Laiton sur rouge sang : 2,97, interdit. Rouge sang seul sur fond sombre : réservé aux aplats, jamais au texte (on utilise <span style="font-family:var(--mono);color:#EE7F8B">danger.texte</span>).</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const groups = [
+      { title: 'Fonds et surfaces', rows: [
+        { token: 'fond.base', hex: '#0E1016', use: "Fond de l'application, partout" },
+        { token: 'fond.creux', hex: '#0A0C11', use: 'Champs de saisie, zones en retrait' },
+        { token: 'surface.base', hex: '#171A23', use: 'Cartes, feuilles, bandeaux' },
+        { token: 'surface.haute', hex: '#202534', use: 'Éléments posés sur une surface, toasts' },
+        { token: 'surface.modale', hex: '#262B3B', use: 'Modales et feuilles du bas' }
+      ]},
+      { title: 'Texte', rows: [
+        { token: 'texte.principal', hex: '#E9DFC7', use: 'Parchemin : titres, corps, libellés' },
+        { token: 'texte.secondaire', hex: '#AAA38E', use: 'Aides, métadonnées' },
+        { token: 'texte.discret', hex: '#9A9480', use: "Indices, placeholders. Pas sur fond « mort »" },
+        { token: 'texte.sur-accent', hex: '#0E1016', use: 'Libellé posé sur laiton ou lune' }
+      ]},
+      { title: 'Accent laiton', rows: [
+        { token: 'accent.laiton', hex: '#B98E45', use: 'Bouton principal, filets, sélection' },
+        { token: 'accent.laiton-clair', hex: '#CFA55A', use: 'Survol, texte accentué, titres de section' },
+        { token: 'accent.laiton-appuye', hex: '#A8803C', use: 'État appuyé du bouton principal' }
+      ]},
+      { title: 'Danger et sang (moments forts seulement)', rows: [
+        { token: 'danger.fond', hex: '#8E1D2C', use: 'Aplat : bouton dangereux, démon, vote' },
+        { token: 'danger.texte', hex: '#EE7F8B', use: 'Texte et icône rouges sur fond sombre' },
+        { token: 'danger.voile', hex: '#2A1219', use: 'Teinte de fond des zones rouges' },
+        { token: 'texte.sur-danger', hex: '#F6EEDB', use: 'Libellé posé sur danger.fond' }
+      ]},
+      { title: 'Équipes', rows: [
+        { token: 'equipe.bonne', hex: '#7F93B5', use: 'Bleu lune : icône croissant, filet' },
+        { token: 'equipe.bonne-voile', hex: '#182033', use: 'Fond du bandeau Bonne équipe' },
+        { token: 'equipe.mauvaise', hex: '#8E1D2C', use: 'Aplat rouge, avec la pointe' },
+        { token: 'equipe.mauvaise-texte', hex: '#EE7F8B', use: 'Icône et filet de la mauvaise équipe' }
+      ]},
+      { title: 'Mort, filets, focus', rows: [
+        { token: 'mort.texte', hex: '#8B8FA3', use: 'Joueur ou carte morts (sur fond base ou surface)' },
+        { token: 'mort.fond', hex: '#14161D', use: 'Fond désaturé' },
+        { token: 'mort.filet', hex: '#3A3F52', use: 'Contour en pointillés des éléments morts' },
+        { token: 'filet.decor', hex: '#2C3345', use: 'Séparateurs, ne porte aucun sens' },
+        { token: 'filet.controle', hex: '#6A7291', use: 'Bordure des champs et boutons (3:1 minimum)' },
+        { token: 'focus', hex: '#F1E6C8', use: 'Anneau de focus 2 px, décalé de 2 px' }
+      ]}
+    ];
+    const pairs = [
+      { label: 'texte.principal / fond.base', fg: '#E9DFC7', bg: '#0E1016', ratio: '14,35', grade: 'AAA' },
+      { label: 'texte.secondaire / surface.base', fg: '#AAA38E', bg: '#171A23', ratio: '6,90', grade: 'AA' },
+      { label: 'texte.discret / surface.haute', fg: '#9A9480', bg: '#202534', ratio: '5,03', grade: 'AA' },
+      { label: 'sur-accent / accent.laiton', fg: '#0E1016', bg: '#B98E45', ratio: '6,35', grade: 'AA' },
+      { label: 'accent.laiton / surface.base', fg: '#B98E45', bg: '#171A23', ratio: '5,81', grade: 'AA' },
+      { label: 'sur-danger / danger.fond', fg: '#F6EEDB', bg: '#8E1D2C', ratio: '7,69', grade: 'AAA' },
+      { label: 'danger.texte / surface.base', fg: '#EE7F8B', bg: '#171A23', ratio: '6,66', grade: 'AA' },
+      { label: 'equipe.bonne / fond.base', fg: '#7F93B5', bg: '#0E1016', ratio: '6,11', grade: 'AA' },
+      { label: 'mort.texte / mort.fond', fg: '#8B8FA3', bg: '#14161D', ratio: '5,64', grade: 'AA' },
+      { label: 'filet.controle / surface.base', fg: '#6A7291', bg: '#171A23', ratio: '3,66', grade: 'UI 3:1' }
+    ];
+    return { groups, pairs };
+  }
+}
+</script>
+</body>
+</html>

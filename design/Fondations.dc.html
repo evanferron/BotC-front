@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Fondations</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h1{font:600 52px/1 var(--serif);margin:0}
+.h3{font:600 26px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 14px/1.5 var(--sans);color:var(--muted);margin:0}
+.tk{font:500 12px/1.3 var(--mono);color:var(--accent-hi)}
+.hx{font:500 12px/1.4 var(--mono);color:var(--muted)}
+.trow{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.trow .meta{width:150px;flex:none;display:flex;flex-direction:column;gap:3px}
+.sec{display:flex;flex-direction:column;gap:12px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.sp{display:flex;align-items:center;gap:14px;height:30px}
+.sp i{display:block;height:14px;background:var(--accent);border-radius:2px}
+.rad{width:84px;height:84px;background:var(--raised);border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;font:500 12px/1 var(--mono);color:var(--text)}
+.shd{height:84px;border-radius:14px;background:var(--surface);display:flex;align-items:center;justify-content:center;font:500 12px/1 var(--mono);color:var(--text)}
+.ease-tr{height:30px;background:var(--bg);border:1px solid var(--line);border-radius:8px;position:relative}
+.dot{position:absolute;top:6px;left:6px;width:16px;height:16px;border-radius:50%;background:var(--accent-hi)}
+@media (prefers-reduced-motion:no-preference){
+ .dot{animation:run 3s infinite}
+ .d1{animation-duration:3s;animation-timing-function:linear}
+ @keyframes run{0%,10%{transform:translateX(0)}50%,60%{transform:translateX(var(--run,300px))}100%{transform:translateX(0)}}
+ .hand-demo{animation:tic 4s infinite cubic-bezier(.4,1.6,.5,1);transform-origin:50px 50px}
+ @keyframes tic{0%,40%{transform:rotate(0)}50%,90%{transform:rotate(60deg)}100%{transform:rotate(0)}}
+}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1500px;box-sizing:border-box;padding:64px;background:#0E1016;display:flex;flex-direction:column;gap:36px">
+
+<div style="display:flex;flex-direction:column;gap:12px">
+  <span class="eyebrow">02 · Typographie, espaces, mouvement</span>
+  <h1 class="h1">Le raffinement vient du texte et des filets</h1>
+  <p class="p" style="max-width:740px;font-size:15px">Cormorant Garamond pour les titres et les noms de rôles, Inter pour l'interface, JetBrains Mono pour le code de partie. Aucune taille sous 12 px, rien en Cormorant sous 22 px (ses empattements fins s'effacent sur fond sombre).</p>
+</div>
+
+<div style="display:flex;gap:56px">
+
+<div style="flex:1.15;display:flex;flex-direction:column;gap:34px;min-width:0">
+  <div class="sec">
+    <h2 class="h3">Échelle typographique</h2>
+    <div>
+      <sc-for list="{{type}}" as="t" hint-placeholder-count="8">
+        <div class="trow">
+          <div class="meta"><span class="tk">{{t.token}}</span><span class="hx">{{t.spec}}</span></div>
+          <span style="{{t.css}}">{{t.sample}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2 class="h3">Espacements (base 4 px)</h2>
+    <div class="box">
+      <sc-for list="{{space}}" as="s" hint-placeholder-count="8">
+        <div class="sp"><span class="tk" style="width:78px">{{s.token}}</span><span class="hx" style="width:44px">{{s.px}}</span><i style="width: {{s.w}}"></i><span class="hx" style="margin-left:6px">{{s.use}}</span></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2 class="h3">Rayons</h2>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <sc-for list="{{radii}}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+          <div class="rad" style="border-radius: {{r.px}}">{{r.px}}</div>
+          <span class="tk">{{r.token}}</span><span class="hx" style="max-width:96px">{{r.use}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+
+<div style="flex:1;display:flex;flex-direction:column;gap:34px;min-width:0">
+  <div class="sec">
+    <h2 class="h3">Ombres et lueurs</h2>
+    <p class="p">Sur fond noir, une ombre ne se voit presque pas : l'élévation passe aussi par la clarté de la surface. Les lueurs servent à la sélection, jamais au décor.</p>
+    <div style="background:#0E1016;border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px">
+      <sc-for list="{{shadows}}" as="s" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="shd" style="box-shadow: {{s.css}}">{{s.token}}</div>
+          <span class="hx">{{s.use}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2 class="h3">Zones tactiles</h2>
+    <div class="box" style="display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="width:44px;height:44px;border:1.5px dashed var(--accent-hi);border-radius:10px;display:flex;align-items:center;justify-content:center"><div style="width:20px;height:20px;border-radius:50%;background:var(--text)"></div></div><span class="tk">cible.min</span><span class="hx">44 px</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="width:56px;height:56px;border:1.5px dashed var(--accent-hi);border-radius:12px;display:flex;align-items:center;justify-content:center"><div style="width:30px;height:30px;border-radius:50%;background:var(--text)"></div></div><span class="tk">cible.std</span><span class="hx">56 px</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:center"><div style="width:72px;height:72px;border:1.5px dashed var(--accent-hi);border-radius:14px;display:flex;align-items:center;justify-content:center"><div style="width:44px;height:44px;border-radius:50%;background:var(--text)"></div></div><span class="tk">cible.joueur</span><span class="hx">72 px</span></div>
+      <p class="p" style="flex:1;min-width:180px">Joueur : actions principales en 72 px, dans le tiers bas de l'écran (pouce). Conteur : 44 px minimum. Écart entre deux cibles : 8 px au moins, 12 px pour les actions destructrices.</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2 class="h3">Mouvement</h2>
+    <p class="p">Rien ne clignote, rien ne rebondit fort. Le mouvement dit l'heure qu'il est dans le village.</p>
+    <div class="box" style="display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{motion}}" as="m" hint-placeholder-count="7">
+        <div style="display:flex;align-items:baseline;gap:14px;padding:7px 0;border-bottom:1px solid var(--line)">
+          <span class="tk" style="width:132px;flex:none">{{m.token}}</span><span class="hx" style="width:58px;flex:none;color:var(--text)">{{m.ms}}</span><span class="hx">{{m.use}}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div class="box" style="display:flex;gap:22px;align-items:center">
+      <svg viewBox="0 0 100 100" width="96" height="96" aria-hidden="true" style="flex:none">
+        <circle cx="50" cy="50" r="46" fill="#0E1016" stroke="#B98E45" stroke-width="1.2"/>
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#B98E45" stroke-width="2" stroke-dasharray="0.5 3.6" opacity=".7"/>
+        <g class="hand-demo"><path d="M50 50 L48 46 L50 14 L52 46 Z" fill="#E9DFC7"/></g>
+        <circle cx="50" cy="50" r="3.5" fill="#B98E45"/>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="tk">ease.tic · cubic-bezier(.4, 1.6, .5, 1)</span>
+        <p class="p">L'aiguille avance d'un coup et se pose avec un léger dépassement, comme un mécanisme. Réservé au bandeau de phase.</p>
+        <span class="tk">ease.doux · cubic-bezier(.2, .7, .2, 1)</span>
+        <p class="p">Tout le reste : entrées, fondus, retournement.</p>
+      </div>
+    </div>
+    <div style="background:#202534;border:1px solid var(--accent);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:8px">
+      <span class="eyebrow">prefers-reduced-motion : reduce</span>
+      <p class="p" style="color:var(--text)">Le retournement de carte devient un fondu enchaîné de 160 ms. L'aiguille saute à sa position sans interpolation. Le balayage de l'écran d'attente est remplacé par un cadran fixe. Les durées sont ramenées à 0 sauf les fondus d'opacité (160 ms maximum).</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const S = "font-family:'Inter',sans-serif;color:#E9DFC7;";
+    const C = "font-family:'Cormorant Garamond',serif;color:#E9DFC7;";
+    const type = [
+      { token: 'titre.nom-role', spec: 'Cormorant 600 · 40/44', sample: 'Archiviste', css: C + 'font-weight:600;font-size:40px;line-height:44px' },
+      { token: 'titre.1', spec: 'Cormorant 600 · 32/36', sample: 'La nuit tombe', css: C + 'font-weight:600;font-size:32px;line-height:36px' },
+      { token: 'titre.2', spec: 'Cormorant 600 · 26/30', sample: 'Qui désignez-vous ?', css: C + 'font-weight:600;font-size:26px;line-height:30px' },
+      { token: 'titre.3', spec: 'Cormorant 600 · 22/26', sample: 'Message du Conteur', css: C + 'font-weight:600;font-size:22px;line-height:26px' },
+      { token: 'corps.joueur', spec: 'Inter 400 · 17/26', sample: 'Touchez le joueur que vous visez.', css: S + 'font-weight:400;font-size:17px;line-height:26px' },
+      { token: 'corps', spec: 'Inter 400 · 15/22', sample: 'Trois joueurs restent en vie.', css: S + 'font-weight:400;font-size:15px;line-height:22px' },
+      { token: 'ui', spec: 'Inter 600 · 16/20', sample: 'Confirmer mon choix', css: S + 'font-weight:600;font-size:16px;line-height:20px' },
+      { token: 'legende', spec: 'Inter 500 · 13/18', sample: 'Vote fantôme disponible', css: S + 'font-weight:500;font-size:13px;line-height:18px;color:#AAA38E' },
+      { token: 'micro', spec: 'Inter 600 · 12/16 · +0,14em', sample: 'ÉTAPE 4 SUR 9', css: S + 'font-weight:600;font-size:12px;line-height:16px;letter-spacing:.14em;color:#CFA55A' },
+      { token: 'code.partie', spec: 'JetBrains Mono 700 · 40/48 · +0,35em', sample: 'K7QM2X', css: "font-family:'JetBrains Mono',monospace;font-weight:700;font-size:40px;line-height:48px;letter-spacing:.35em;color:#E9DFC7" },
+      { token: 'code.petit', spec: 'JetBrains Mono 500 · 14/20 · +0,2em', sample: 'K7QM2X', css: "font-family:'JetBrains Mono',monospace;font-weight:500;font-size:14px;line-height:20px;letter-spacing:.2em;color:#AAA38E" }
+    ];
+    const space = [
+      { token: 'espace.1', px: '4', w: '4px', use: 'Icône / texte serré' },
+      { token: 'espace.2', px: '8', w: '8px', use: 'Entre cibles, entre badges' },
+      { token: 'espace.3', px: '12', w: '12px', use: 'Dans un composant dense' },
+      { token: 'espace.4', px: '16', w: '16px', use: 'Marge latérale joueur' },
+      { token: 'espace.5', px: '24', w: '24px', use: 'Entre blocs' },
+      { token: 'espace.6', px: '32', w: '32px', use: 'Marge d’écran aérée' },
+      { token: 'espace.7', px: '48', w: '48px', use: 'Respiration d’écran joueur' },
+      { token: 'espace.8', px: '64', w: '64px', use: 'Haut de l’écran d’attente' }
+    ];
+    const radii = [
+      { token: 'rayon.xs', px: '6px', use: 'Badges, étiquettes' },
+      { token: 'rayon.s', px: '10px', use: 'Champs, boutons' },
+      { token: 'rayon.m', px: '14px', use: 'Cartes d’interface' },
+      { token: 'rayon.l', px: '22px', use: 'Feuilles du bas, modales' },
+      { token: 'rayon.carte', px: '18px', use: 'Carte de rôle' },
+      { token: 'rayon.plein', px: '999px', use: 'Jetons, pastilles' }
+    ];
+    const shadows = [
+      { token: 'ombre.1', css: '0 2px 8px rgba(0,0,0,.5), inset 0 1px 0 rgba(233,223,199,.05)', use: 'Carte posée' },
+      { token: 'ombre.2', css: '0 10px 28px rgba(0,0,0,.6), inset 0 1px 0 rgba(233,223,199,.06)', use: 'Toast, menu' },
+      { token: 'ombre.3', css: '0 -14px 44px rgba(0,0,0,.7)', use: 'Feuille du bas, modale' },
+      { token: 'lueur.laiton', css: '0 0 0 2px #B98E45, 0 0 22px rgba(185,142,69,.28)', use: 'Sélection' }
+    ];
+    const motion = [
+      { token: 'duree.instant', ms: '80 ms', use: 'Retour d’appui' },
+      { token: 'duree.rapide', ms: '140 ms', use: 'Survol, bascule, coche' },
+      { token: 'duree.base', ms: '240 ms', use: 'Apparition d’un toast, d’une feuille' },
+      { token: 'duree.lente', ms: '480 ms', use: 'Changement d’écran, voile de carte' },
+      { token: 'duree.retourne', ms: '640 ms', use: 'Retournement de carte' },
+      { token: 'duree.aiguille', ms: '900 ms', use: 'Aiguille d’une phase à l’autre' },
+      { token: 'duree.nuit', ms: '1400 ms', use: 'Fondu vers l’écran d’attente' }
+    ];
+    return { type, space, radii, shadows, motion };
+  }
+}
+</script>
+</body>
+</html>

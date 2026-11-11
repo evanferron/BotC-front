@@ -1,0 +1,6 @@
+// Familles de polices (fichiers chargés localement via @fontsource dans main.tsx)
+// Cormorant pour les titres et noms de rôles (jamais sous 22 px), Inter pour l'interface,
+// JetBrains Mono pour le code de partie.
+$font-serif: "Cormorant Garamond", Georgia, serif;
+$font-sans: "Inter", system-ui, sans-serif;
+$font-mono: "JetBrains Mono", ui-monospace, monospace;

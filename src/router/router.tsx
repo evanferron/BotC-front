@@ -1,103 +1,33 @@
-import BaseLayout from '@/core/components/layout/BaseLayout/BaseLayout';
-import Alertes from '@/pages/Alertes/Alertes';
-import Error from '@/pages/Error/Error';
-import Groups from '@/pages/Groups/Groups';
-import Login from '@/pages/Login/Login';
-import Signals from '@/pages/Signals/Signals';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute';
-import { Suspense } from 'react';
-import AnimatedLogo from '@/core/components/ui/AnimatedLogo/AnimatedLogo';
-import Rules from '@/pages/Rules/Rules';
-import Profiles from '@/pages/Profiles/Profiles';
-import ForgotPassword from '@/pages/ForgotPassword/ForgotPassword';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AuthLayout } from '@/layouts/AuthLayout/AuthLayout';
+import { PublicLayout } from '@/layouts/PublicLayout/PublicLayout';
+import { AUTH_ROUTES, DEFAULT_ROUTES, PUBLIC_ROUTES } from '@/config/routes.config';
+import { Login } from '@/pages/Login/Login';
+import { Register } from '@/pages/Register/Register';
+import { Games } from '@/pages/Games/Games';
+import { NewGame } from '@/pages/NewGame/NewGame';
+import { Game } from '@/pages/Game/Game';
+import { JoinGame } from '@/pages/JoinGame/JoinGame';
+import { NotFound } from '@/pages/NotFound/NotFound';
 
-const Router: React.FC = () => (
+export const Router = () => (
   <BrowserRouter>
-    <Suspense fallback={<AnimatedLogo />}>
-      <Routes>
-        {/* ### Routes non protégées ### */}
+    <Routes>
+      <Route path="/" element={<Navigate to={AUTH_ROUTES.GAMES} replace />} />
 
-        <Route path="/connexion" element={<Login />} />
-        <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
-        <Route path="/changement-mot-de-passe" element={<ForgotPassword isReset />} />
-        <Route
-          path="/dashboard"
-          element={
-            <BaseLayout
-              title="Dashboard des Alertes"
-              description="Monitoring des alertes en temps réel"
-            >
-              <Alertes />
-            </BaseLayout>
-          }
-        />
-        {/* ### Routes protégées ### */}
-        <Route element={<ProtectedRoute />}>
-          <Route
-            path="/groupes"
-            element={
-              <BaseLayout
-                title="Gestion des Groupes"
-                pageTitle="Groupes"
-                description="Visualisez et gérez vos groupes organisationnels en arborescence"
-              >
-                <Groups />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/regles"
-            element={
-              <BaseLayout
-                title="Gestion des Règles"
-                description="Configurez des règles en combinant des triggers pour générer des alertes lors de la détection d'anomalies."
-              >
-                <Rules />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/profils"
-            element={
-              <BaseLayout
-                title="Gestion des Profils"
-                pageTitle="Profils"
-                description="Visualisez et gérez vos profils utilisateurs"
-              >
-                <Profiles />
-              </BaseLayout>
-            }
-          />
-          <Route
-            path="/alertes"
-            element={
-              <BaseLayout
-                title="Gestion des Alertes"
-                description="Monitoring et gestion des alertes en temps réel"
-              >
-                <Alertes />
-              </BaseLayout>
-            }
-          />
+      <Route element={<PublicLayout />}>
+        <Route path={PUBLIC_ROUTES.LOGIN} element={<Login />} />
+        <Route path={PUBLIC_ROUTES.REGISTER} element={<Register />} />
+      </Route>
 
-          {/* ### Route not found (fallback) ### */}
-          <Route
-            path="/signaux"
-            element={
-              <BaseLayout
-                title="Gestion des Signaux"
-                description="Visualisez et gérez les signaux scannés"
-              >
-                <Signals />
-              </BaseLayout>
-            }
-          />
-          <Route path="*" element={<Error />} />
-        </Route>
-      </Routes>
-    </Suspense>
+      <Route element={<AuthLayout />}>
+        <Route path={AUTH_ROUTES.GAMES} element={<Games />} />
+        <Route path={AUTH_ROUTES.NEW_GAME} element={<NewGame />} />
+        <Route path={AUTH_ROUTES.GAME} element={<Game />} />
+        <Route path={AUTH_ROUTES.JOIN} element={<JoinGame />} />
+      </Route>
+
+      <Route path={DEFAULT_ROUTES.NOT_FOUND} element={<NotFound />} />
+    </Routes>
   </BrowserRouter>
 );
-
-export default Router;

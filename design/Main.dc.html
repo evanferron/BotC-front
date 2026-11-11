@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cadran — Principes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E1016;--surface:#171A23;--raised:#202534;--line:#2C3345;--text:#E9DFC7;--muted:#AAA38E;--accent:#B98E45;--accent-hi:#CFA55A;--danger:#8E1D2C;--danger-text:#EE7F8B;--good:#7F93B5;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+body{margin:0;background:#0E1016;color:#E9DFC7;font-family:'Inter',system-ui,sans-serif}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent-hi)}
+.h2{font:600 34px/1.1 var(--serif);margin:0;color:var(--text)}
+.p{font:400 15px/1.55 var(--sans);color:var(--muted);margin:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.card h3{font:600 24px/1.1 var(--serif);margin:0;color:var(--text)}
+.num{font:700 13px/1 var(--mono);color:var(--accent-hi);letter-spacing:.1em}
+.toc a{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);color:var(--text);text-decoration:none;min-height:20px}
+.toc a:hover{color:var(--accent-hi)}
+.toc .t{font:600 22px/1.2 var(--serif)}
+.toc .d{font:400 13px/1.3 var(--sans);color:var(--muted);margin-left:auto;text-align:right}
+.sw{height:56px;border-radius:10px;border:1px solid rgba(233,223,199,.14)}
+.swl{font:500 12px/1.3 var(--mono);color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.hand{animation:sway 9s ease-in-out infinite alternate;transform-origin:100px 100px}}
+@keyframes sway{from{transform:rotate(-1.5deg)}to{transform:rotate(1.5deg)}}
+</style>
+</helmet>
+<div style="width:1280px;min-height:1480px;box-sizing:border-box;padding:72px 72px 64px;background:#0E1016;display:flex;flex-direction:column;gap:56px">
+
+<div style="display:flex;gap:64px;align-items:center">
+  <div style="flex:1;display:flex;flex-direction:column;gap:22px">
+    <span class="eyebrow">Système de design · v1</span>
+    <h1 style="font:600 112px/0.95 var(--serif);margin:0;color:#E9DFC7;letter-spacing:-.01em">Cadran</h1>
+    <p style="font:italic 500 30px/1.25 var(--serif);margin:0;color:#CFA55A">Horloge de village gothique,<br>sobre et élégante.</p>
+    <p class="p" style="max-width:520px;font-size:16px">Le système de design d'une application compagnon pour <em>Blood on the Clocktower</em> : la partie se joue face à face, la nuit se vit sur le téléphone. Thème sombre uniquement, une main, une pièce éteinte, un secret à garder.</p>
+  </div>
+  <div style="width:380px;height:380px;flex:none;position:relative">
+    <svg viewBox="0 0 200 200" width="380" height="380" role="img" aria-label="Cadran d'horloge, minuit approche">
+      <circle cx="100" cy="100" r="97" fill="#171A23" stroke="#B98E45" stroke-width="1.2"/>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="#B98E45" stroke-width=".5" opacity=".7"/>
+      <circle cx="100" cy="100" r="82" fill="none" stroke="#B98E45" stroke-width="3" stroke-dasharray="0.8 7.7" opacity=".75"/>
+      <g stroke="#B98E45" stroke-width="1.6" stroke-linecap="round">
+        <line x1="100" y1="10" x2="100" y2="26"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(30 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(60 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(90 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(120 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(150 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(180 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(210 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(240 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(270 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(300 100 100)"/><line x1="100" y1="10" x2="100" y2="26" transform="rotate(330 100 100)"/>
+      </g>
+      <text x="100" y="52" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="15" fill="#B98E45">XII</text>
+      <g class="hand">
+        <path d="M100 100 L96.5 94 L100 52 L103.5 94 Z" fill="#E9DFC7" transform="rotate(-6 100 100)"/>
+        <path d="M100 108 L98.4 100 L100 26 L101.6 100 Z" fill="#E9DFC7" transform="rotate(-14 100 100)"/>
+      </g>
+      <circle cx="100" cy="100" r="5.5" fill="#B98E45"/><circle cx="100" cy="100" r="2" fill="#0E1016"/>
+    </svg>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px">
+  <div class="card"><span class="num">01</span><h3>Nuit d'abord</h3><p class="p">Aucun fond clair, aucun flash. Chaque écran doit supporter une pièce éteinte et un voisin curieux.</p></div>
+  <div class="card"><span class="num">02</span><h3>Une main, une action</h3><p class="p">Côté joueur : un écran, un geste, de gros boutons, presque pas de texte. Le conteur a droit à la densité.</p></div>
+  <div class="card"><span class="num">03</span><h3>Le secret est le décor</h3><p class="p">Rien dans l'interface ne doit trahir un rôle : écrans d'attente identiques, contenu monté seulement quand on le demande.</p></div>
+  <div class="card"><span class="num">04</span><h3>Le rouge se mérite</h3><p class="p">Mort, démon, vote. Nulle part ailleurs. Une équipe n'est jamais une couleur seule : toujours une forme et un mot.</p></div>
+</div>
+
+<div style="display:flex;gap:64px">
+  <div style="flex:1.1;display:flex;flex-direction:column;gap:6px" class="toc">
+    <span class="eyebrow" style="margin-bottom:10px">Sur ce canvas</span>
+    <a href="Couleurs.dc.html"><span class="num">01</span><span class="t">Couleurs</span><span class="d">Sémantique, contrastes AA</span></a>
+    <a href="Fondations.dc.html"><span class="num">02</span><span class="t">Typo, espaces, mouvement</span><span class="d">Échelle, rayons, ombres, durées</span></a>
+    <a href="Carte-de-role.dc.html"><span class="num">03</span><span class="t">Carte de rôle</span><span class="d">Dos, face, masquée, morte</span></a>
+    <a href="Jetons.dc.html"><span class="num">04</span><span class="t">Jetons de joueur</span><span class="d">États, statuts, grimoire</span></a>
+    <a href="Selecteurs.dc.html"><span class="num">05</span><span class="t">Sélecteurs de joueurs</span><span class="d">Liste et cercle</span></a>
+    <a href="Boutons-Champs.dc.html"><span class="num">06</span><span class="t">Boutons et champs</span><span class="d">Trois boutons, code, pseudo</span></a>
+    <a href="Retours.dc.html"><span class="num">07</span><span class="t">Toast, bannière, modale</span><span class="d">Retours et confirmations</span></a>
+    <a href="Phases.dc.html"><span class="num">08</span><span class="t">Phases, attente, messages</span><span class="d">Bandeau, écran neutre, conteur</span></a>
+    <a href="Correction.dc.html"><span class="num">09</span><span class="t">Fiche de correction</span><span class="d">Vue conteur</span></a>
+    <a href="Regles.dc.html"><span class="num">10</span><span class="t">Règles d'usage</span><span class="d">Rouge, équipes, irréversible</span></a>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+    <span class="eyebrow">Encre, parchemin, laiton</span>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px">
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="sw" style="background:#0E1016"></div><span class="swl">#0E1016 encre</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="sw" style="background:#171A23"></div><span class="swl">#171A23 surface</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="sw" style="background:#E9DFC7"></div><span class="swl">#E9DFC7 parchemin</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="sw" style="background:#B98E45"></div><span class="swl">#B98E45 laiton</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="sw" style="background:#8E1D2C"></div><span class="swl">#8E1D2C sang</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><div class="sw" style="background:#7F93B5"></div><span class="swl">#7F93B5 lune</span></div>
+    </div>
+    <p class="p">Identité originale : le cadran, les filets laiton et les pictogrammes de rôle sont dessinés pour ce projet. Aucun logo ni aucune illustration officielle du jeu n'est repris.</p>
+    <p class="p">Les rôles montrés dans ce document (Veilleur, Sonneur, Archiviste…) sont des exemples de mise en page, pas des règles du jeu.</p>
+  </div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

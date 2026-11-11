@@ -1,0 +1,95 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: $target-std;
+  padding: 0 20px;
+  border-radius: $radius-s;
+  border: 1.5px solid transparent;
+  font: 600 16px/20px $font-sans;
+  transition:
+    background-color $duration-fast $ease-soft,
+    border-color $duration-fast $ease-soft,
+    transform $duration-instant $ease-soft;
+  @include focus-ring;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex: none;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.full_width {
+  width: 100%;
+}
+
+.xl {
+  height: $target-player;
+  border-radius: $radius-m;
+  font-size: 18px;
+}
+
+.primary {
+  background: $accent;
+  color: $text-on-accent;
+
+  &:hover:not(:disabled) {
+    background: $accent-hi;
+  }
+
+  &:active:not(:disabled) {
+    background: $accent-pressed;
+  }
+
+  &:disabled {
+    background: $disabled-bg;
+    color: $text-faint;
+  }
+}
+
+.secondary {
+  border-color: $accent;
+  color: $text;
+
+  &:hover:not(:disabled) {
+    background: rgba($accent, 0.12);
+  }
+
+  &:disabled {
+    border-color: $dead-line;
+    color: $dead-text;
+  }
+}
+
+.danger {
+  background: $danger;
+  color: $text-on-danger;
+
+  &:disabled {
+    background: $disabled-bg;
+    color: $text-faint;
+  }
+}
+
+.ghost {
+  height: $target-min;
+  color: $accent-hi;
+
+  &:hover:not(:disabled) {
+    color: $text;
+  }
+
+  &:disabled {
+    color: $dead-text;
+  }
+}

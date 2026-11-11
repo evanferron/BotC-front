@@ -1,0 +1,14 @@
+.bar {
+  height: 10px;
+  border-radius: 5px;
+  background: $line;
+  overflow: hidden;
+  flex: none;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  background: $accent;
+  transition: width $duration-base $ease-soft;
+}

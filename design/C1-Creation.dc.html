@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Conteur — Création de la partie</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1832px;min-height:2220px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux conteur · A · Création (écrans 1 à 3)</span>
+    <h1 class="h1">Ouvrir une table</h1>
+    <p class="p" style="max-width:900px;font-size:15px">Le conteur est le joueur qui crée la partie : il doit avoir un compte. Il choisit le script (Trouble Brewing), le nombre de joueurs et la composition des rôles à partir d'un modèle, modifiable à la main, avec un indicateur de cohérence : le nombre de rôles doit égaler le nombre de joueurs. Une fois la partie créée, un grand code s'affiche et la partie passe en Lobby.</p>
+  </div>
+
+  <div class="grid g4">
+
+    <div class="cell">
+      <div class="lb"><span class="no">01a</span><div><b>Connexion</b><small><span class="tg a">Action</span>Phase : hors partie</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Connexion</span></div>
+        <div class="body" style="gap:20px;padding-top:36px">
+          <div style="display:flex;flex-direction:column;gap:8px"><span class="mi">Conteur</span><h2 class="t1">Bon retour à la table.</h2><p class="sm">Un compte est nécessaire pour créer une partie.</p></div>
+          <div><label class="fl" for="c1e"><span>Adresse e-mail</span></label><input id="c1e" class="txt" type="email" placeholder="vous@exemple.fr"></div>
+          <div><label class="fl" for="c1m"><span>Mot de passe</span></label><input id="c1m" class="txt" type="password" placeholder="Votre mot de passe"><p class="hint">Mot de passe oublié ?</p></div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Se connecter</button><button class="b b-s">Créer un compte</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">01b</span><div><b>Inscription · e-mail déjà pris</b><small><span class="tg e">Erreur</span>Phase : hors partie</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Créer un compte</span></div>
+        <div class="body" style="gap:16px">
+          <h2 class="t1">Créer mon compte</h2>
+          <div><label class="fl" for="c2p"><span>Pseudo</span><span class="ct">5/16</span></label><input id="c2p" class="txt" type="text" readonly="{{true}}" value="Théo"></div>
+          <div><label class="fl" for="c2e"><span>Adresse e-mail</span></label><input id="c2e" class="txt er" type="email" readonly="{{true}}" value="theo@exemple.fr" aria-invalid="true"><p class="msg"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg>Cet e-mail est déjà utilisé. Connectez-vous plutôt.</p></div>
+          <div><label class="fl" for="c2m"><span>Mot de passe</span></label><input id="c2m" class="txt" type="password" readonly="{{true}}" value="motdepasse"><p class="hint">8 caractères au moins.</p></div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl" disabled="{{true}}">Créer mon compte</button><button class="b b-g">J'ai déjà un compte</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">02a</span><div><b>Nouvelle partie · script et joueurs</b><small><span class="tg a">Action</span>Phase : préparation</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Nouvelle partie</span><span class="rt">1 / 2</span></div>
+        <div class="body" style="gap:16px">
+          <h2 class="t2">Choisissez un script</h2>
+          <button class="row rad sel" style="height:84px;align-items:center" aria-pressed="true"><span class="nm" style="white-space:normal"><b style="font:600 22px/26px var(--serif)">Trouble Brewing</b><small style="display:block;font:400 13px/18px var(--sans);color:#AAA38E;margin-top:3px">Script de départ · 22 rôles</small></span><span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+          <button class="row rad dis" style="height:60px" disabled="{{true}}"><span class="nm"><span style="font:600 18px/22px var(--serif)">Autres scripts</span></span><span class="pill">Bientôt</span></button>
+          <div class="sep"></div>
+          <h2 class="t2">Nombre de joueurs</h2>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <button class="b b-s" style="width:64px" aria-label="Un joueur de moins"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+            <div style="text-align:center"><div class="mo" style="font-size:56px;line-height:1">10</div><p class="sm">joueurs, de 5 à 15</p></div>
+            <button class="b b-s" style="width:64px" aria-label="Un joueur de plus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Choisir la composition</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">02b</span><div><b>Composition · cohérente</b><small><span class="tg a">Action</span>Phase : préparation. 10 rôles pour 10 joueurs.</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Composition</span><span class="rt">2 / 2</span></div>
+        <div class="body" style="gap:14px">
+          <div class="card" style="flex-direction:row;align-items:center;gap:14px;border-color:#B98E45"><span style="width:44px;height:44px;border-radius:50%;background:#B98E45;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0E1016" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><span class="mo" style="font-size:20px">10 rôles / 10 joueurs</span><p class="sm">La composition est cohérente.</p></div></div>
+          <div class="chips" role="group" aria-label="Modèles"><button class="cp">7 joueurs</button><button class="cp on">10 joueurs</button><button class="cp">13 joueurs</button><button class="cp">Libre</button></div>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)">
+            <sc-for list="{{groupsOk}}" as="g" hint-placeholder-count="3">
+              <div style="margin-bottom:10px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span class="mi">{{g.title}}</span><span class="mo" style="font-size:13px">{{g.count}}</span></div>
+                <sc-for list="{{g.roles}}" as="r" hint-placeholder-count="3">
+                  <div class="li" style="min-height:46px"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{g.color}}"><path d="{{g.icon}}"/></svg><span class="nm" style="font-size:15px">{{r}}</span><span class="ind" style="background:#B98E45;border-color:#B98E45;border-radius:8px;width:24px;height:24px"><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:1"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Créer la partie</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">02c</span><div><b>Composition · incohérente</b><small><span class="tg e">Erreur</span>Phase : préparation. 12 rôles pour 10 joueurs.</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Composition</span><span class="rt">2 / 2</span></div>
+        <div class="body" style="gap:14px">
+          <div class="card" style="flex-direction:row;align-items:center;gap:14px;border-color:#EE7F8B"><span style="width:44px;height:44px;border-radius:50%;background:#2A1219;border:1.5px solid #EE7F8B;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#EE7F8B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v7 M12 17.5h.01"/></svg></span><div><span class="mo" style="font-size:20px">12 rôles / 10 joueurs</span><p class="sm" style="color:#EE7F8B">Retirez 2 rôles pour continuer.</p></div></div>
+          <div class="chips" role="group" aria-label="Modèles"><button class="cp">7 joueurs</button><button class="cp">10 joueurs</button><button class="cp">13 joueurs</button><button class="cp on">Libre</button></div>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)">
+            <sc-for list="{{groupsKo}}" as="g" hint-placeholder-count="3">
+              <div style="margin-bottom:10px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span class="mi">{{g.title}}</span><span class="mo" style="font-size:13px">{{g.count}}</span></div>
+                <sc-for list="{{g.roles}}" as="r" hint-placeholder-count="3">
+                  <div class="li" style="min-height:46px"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{g.color}}"><path d="{{g.icon}}"/></svg><span class="nm" style="font-size:15px">{{r}}</span><span class="ind" style="background:#B98E45;border-color:#B98E45;border-radius:8px;width:24px;height:24px"><svg viewBox="0 0 24 24" aria-hidden="true" style="opacity:1"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl" disabled="{{true}}">Créer la partie</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">03</span><div><b>Partie créée · code à partager</b><small><span class="tg">Attente</span>Phase : Lobby (0 / 10)</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Partie créée</span><span class="stp">Lobby</span></div>
+        <div class="body ctr" style="gap:20px">
+          <span class="mi">Code de la partie</span>
+          <div class="mo" style="font-size:60px;line-height:1;letter-spacing:.28em;text-indent:.28em">K7QM2X</div>
+          <p class="sm" style="max-width:260px">Donnez ce code aux joueurs. Ils le saisissent pour rejoindre la table.</p>
+          <div class="row2" style="width:100%"><button class="b b-s"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h11v12H8z M5 16V4h11"/></svg>Copier</button><button class="b b-s"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4 M8 8l4-4 4 4 M5 13v7h14v-7"/></svg>Partager</button></div>
+          <div class="card" style="width:100%;text-align:left"><span class="mi">Composition</span><p class="tx" style="font-size:15px;line-height:22px">Trouble Brewing · 10 joueurs<br><span class="sm">7 Villageois · 2 Sbires · 1 Démon</span></p></div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Ouvrir le lobby</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1832,"height":2220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const ok = [
+      { title: 'Villageois', count: '7', color: '#7F93B5', icon: MOON, roles: ['Lavandière', 'Bibliothécaire', 'Enquêteur', 'Cuisinier', 'Empathique', 'Diseuse de bonne aventure', 'Croque-mort'] },
+      { title: 'Sbires', count: '2', color: '#EE7F8B', icon: TIP, roles: ['Empoisonneur', 'Espion'] },
+      { title: 'Démon', count: '1', color: '#EE7F8B', icon: TIP, roles: ['Diable'] }
+    ];
+    const ko = [
+      { title: 'Villageois', count: '9', color: '#7F93B5', icon: MOON, roles: ['Lavandière', 'Bibliothécaire', 'Enquêteur', 'Cuisinier', 'Empathique', 'Diseuse de bonne aventure', 'Croque-mort', 'Moine', 'Soldat'] },
+      { title: 'Sbires', count: '2', color: '#EE7F8B', icon: TIP, roles: ['Empoisonneur', 'Espion'] },
+      { title: 'Démon', count: '1', color: '#EE7F8B', icon: TIP, roles: ['Diable'] }
+    ];
+    return { groupsOk: ok, groupsKo: ko };
+  }
+}
+</script>
+</body>
+</html>

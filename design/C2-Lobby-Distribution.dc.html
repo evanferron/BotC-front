@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Conteur — Lobby et distribution</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1832px;min-height:1250px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux conteur · B et C · Lobby et distribution (écrans 6 et 9)</span>
+    <h1 class="h1">Réunir la table, suivre la distribution</h1>
+    <p class="p" style="max-width:900px;font-size:15px">Le conteur voit qui est présent et qui a perdu la connexion. « Lancer la partie » reste inactif tant que le compte n'y est pas, et dit pourquoi. Pendant la distribution, il suit qui a choisi sa carte et quel rôle chacun a reçu, puis ouvre la première nuit quand tout le monde a choisi.</p>
+  </div>
+
+  <div class="grid g4">
+
+    <div class="cell">
+      <div class="lb"><span class="no">06a</span><div><b>Lobby · table incomplète</b><small><span class="tg">Attente</span>Phase : Lobby. 8 / 10, un joueur déconnecté.</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Lobby</span><span class="rt mo" style="font-size:15px">K7QM2X</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between"><h2 class="t1">8 / 10 joueurs</h2><span class="sm">2 attendus</span></div>
+          <div class="bar"><i style="width:80%"></i></div>
+          <div style="flex:1;overflow:hidden">
+            <sc-for list="{{lobbyA}}" as="p" hint-placeholder-count="8">
+              <div class="li" style="min-height:44px"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}</span><span class="pill {{p.cls}}">{{p.state}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Il manque 2 joueurs pour lancer.</p><button class="b b-p b-xl" disabled="{{true}}">Lancer la partie</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button>Nuit</button><button class="on">Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">06b</span><div><b>Lobby · table complète</b><small><span class="tg a">Action</span>Phase : Lobby. 10 / 10.</small></div></div>
+      <div class="ph">
+        <div class="top lobby"><i class="dl" style="--a:270deg"></i><span class="nm">Lobby</span><span class="rt mo" style="font-size:15px">K7QM2X</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between"><h2 class="t1">10 / 10 joueurs</h2><span class="sm">Table complète</span></div>
+          <div class="bar"><i style="width:100%"></i></div>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)">
+            <sc-for list="{{lobbyB}}" as="p" hint-placeholder-count="10">
+              <div class="li" style="min-height:44px"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}</span><span class="pill {{p.cls}}">{{p.state}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><p class="sm" style="text-align:center">Les cartes seront distribuées dans un ordre aléatoire.</p><button class="b b-p b-xl">Lancer la partie</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button>Nuit</button><button class="on">Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">09a</span><div><b>Distribution · suivi</b><small><span class="tg">Attente</span>Phase : Distribution. 6 / 10 ont choisi.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">6 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div style="display:flex;align-items:center;gap:14px"><span class="d" style="width:52px;height:52px;font-size:24px;box-shadow:0 0 0 3px #0E1016,0 0 0 5px #B98E45">L</span><div><h2 class="t2">Lou choisit…</h2><p class="sm">7ᵉ sur 10 · rôles visibles par vous seul</p></div></div>
+          <div class="bar"><i style="width:60%"></i></div>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)">
+            <sc-for list="{{distrib}}" as="p" hint-placeholder-count="10">
+              <div class="li" style="min-height:44px;opacity: {{p.op}}"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{p.role}}</small></span><span class="pill {{p.cls}}">{{p.state}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl" disabled="{{true}}">Commencer la première nuit</button><button class="b b-g">Voir le grimoire</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button>Nuit</button><button class="on">Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">09b</span><div><b>Distribution terminée</b><small><span class="tg a">Action</span>Phase : Distribution. 10 / 10 ont choisi.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:300deg"></i><span class="nm">Distribution</span><span class="rt">10 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div class="card" style="flex-direction:row;align-items:center;gap:14px;border-color:#B98E45"><span style="width:44px;height:44px;border-radius:50%;background:#B98E45;display:flex;align-items:center;justify-content:center;flex:none"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0E1016" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><h2 class="t2">Tout le monde a sa carte</h2><p class="sm">Vérifiez la répartition avant de continuer.</p></div></div>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)">
+            <sc-for list="{{done}}" as="p" hint-placeholder-count="10">
+              <div class="li" style="min-height:44px"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{p.role}}</small></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke: {{p.color}}"><path d="{{p.icon}}"/></svg></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Commencer la première nuit</button><button class="b b-g">Voir le grimoire</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button>Nuit</button><button class="on">Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1832,"height":1250}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const MOON = 'M19 14.5A8 8 0 0 1 9.5 5a8 8 0 1 0 9.5 9.5z';
+    const TIP = 'M12 21 4.5 5.5h15z M12 10v5';
+    const names = [
+      ['T', 'Théo (vous)'], ['R', 'Rémi'], ['M', 'Marc'], ['I', 'Inès'], ['Y', 'Yanis'],
+      ['C', 'Camille'], ['L', 'Lou'], ['N', 'Nour'], ['A', 'Alix'], ['S', 'Sam']
+    ];
+    const lobbyA = names.slice(0, 8).map(([ini, name], i) => ({
+      ini, name,
+      state: i === 4 ? 'Déconnecté' : (i === 0 ? 'Conteur' : 'Présent'),
+      cls: i === 4 ? '' : 'ok'
+    }));
+    const lobbyB = names.map(([ini, name], i) => ({ ini, name, state: i === 0 ? 'Conteur' : 'Présent', cls: 'ok' }));
+    const players = names.slice(1);
+    const roles = ['Veilleur', 'Moine', 'Empoisonneur', 'Cuisinier', 'Diable', 'Soldat', 'Enquêteur', 'Espion', 'Lavandière'];
+    const evil = ['Empoisonneur', 'Diable', 'Espion'];
+    const distrib = players.map(([ini, name], i) => {
+      const chosen = i < 6;
+      const cur = i === 6;
+      return {
+        ini, name,
+        role: chosen ? roles[i] : 'Rôle à venir',
+        state: chosen ? 'A choisi' : (cur ? 'Choisit…' : 'En attente'),
+        cls: chosen || cur ? 'ok' : '',
+        op: chosen || cur ? 1 : .55
+      };
+    });
+    const done = players.map(([ini, name], i) => {
+      const r = roles[i];
+      const bad = evil.indexOf(r) >= 0;
+      return { ini, name, role: r, color: bad ? '#EE7F8B' : '#7F93B5', icon: bad ? TIP : MOON };
+    });
+    return { lobbyA, lobbyB, distrib, done };
+  }
+}
+</script>
+</body>
+</html>

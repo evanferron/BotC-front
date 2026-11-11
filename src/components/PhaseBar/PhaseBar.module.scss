@@ -1,0 +1,79 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: $phase-bar-height;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 12px 0 16px;
+  border-bottom: 1.5px solid $phase-line;
+  background: $bg-base;
+}
+
+.lobby {
+  background: $surface;
+  border-bottom-style: dashed;
+  border-bottom-color: $line-control;
+}
+
+.day {
+  background: $phase-day-bg;
+  border-bottom-color: $accent;
+}
+
+.vote {
+  background: $phase-vote-bg;
+  border-bottom-color: $danger;
+}
+
+.end {
+  background: $surface;
+  border-bottom-color: $accent-hi;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  font: 600 24px/24px $font-serif;
+  color: $text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  font: 500 13px/1 $font-sans;
+  color: $text-muted;
+}
+
+.tag {
+  font: 600 11px/1 $font-sans;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $accent-hi;
+  padding: 6px 8px;
+  border: 1px solid rgba($accent, 0.6);
+  border-radius: $radius-xs;
+  white-space: nowrap;
+}
+
+.action {
+  width: $target-min;
+  height: $target-min;
+  border-radius: 12px;
+  border: 1.5px solid $accent;
+  background: $surface;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: $accent-hi;
+  @include focus-ring;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}

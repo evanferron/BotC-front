@@ -1,0 +1,72 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 60px;
+  padding: 12px 14px;
+  background: $surface;
+  border: 1.5px solid $line;
+  border-radius: $radius-m;
+  color: $text;
+  text-align: left;
+  transition:
+    background-color $duration-fast $ease-soft,
+    border-color $duration-fast $ease-soft;
+  @include focus-ring;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.selected {
+  background: $surface-raised;
+  border-color: $accent;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.title {
+  font: 600 22px/26px $font-serif;
+}
+
+.description {
+  font: 400 13px/18px $font-sans;
+  color: $text-muted;
+}
+
+.indicator {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid $line-control;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 3;
+    color: $text-on-accent;
+    opacity: 0;
+  }
+
+  .selected & {
+    background: $accent;
+    border-color: $accent;
+
+    svg {
+      opacity: 1;
+    }
+  }
+}

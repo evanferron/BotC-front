@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Conteur — Nuit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="./kit.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#0E1016}</style>
+</helmet>
+<div class="sheet" style="width:1832px;min-height:2220px">
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Flux conteur · D · Nuit (écrans 10 et 12)</span>
+    <h1 class="h1">Réveiller les rôles, un par un</h1>
+    <p class="p" style="max-width:900px;font-size:15px">L'ordre de nuit liste les rôles à réveiller. L'étape en cours est mise en avant avec le joueur concerné, ce qu'il y a à faire et à dire. Le conteur peut envoyer une information à n'importe quel joueur, recevoir son choix puis l'accepter, le modifier ou l'ignorer. Les écrans des joueurs, eux, restent identiques pendant toute la nuit.</p>
+  </div>
+
+  <div class="grid g4">
+
+    <div class="cell">
+      <div class="lb"><span class="no">10a</span><div><b>Ordre de nuit · étape en cours</b><small><span class="tg a">Action</span>Phase : Nuit 2. Étape 2 sur 10.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 2 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px;padding-bottom:8px">
+          <div style="display:flex;gap:6px;overflow:hidden">
+            <sc-for list="{{chips}}" as="c" hint-placeholder-count="5">
+              <span class="pill {{c.cls}}" style="flex:none">{{c.t}}</span>
+            </sc-for>
+          </div>
+          <div class="card" style="border-color:#B98E45;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px"><span class="tok disc" style="width:48px;height:48px"><span class="d" style="width:48px;height:48px;font-size:22px">M</span></span><div><span class="mi">Réveillez maintenant</span><h2 class="t2">Moine · Marc</h2></div></div>
+            <div><span class="mi">À faire</span><p class="tx" style="font-size:14px;line-height:20px">Le Moine désigne un joueur à protéger du Démon cette nuit.</p></div>
+            <div><span class="mi">À dire</span><p class="tx" style="font-size:14px;line-height:20px;font-style:italic">« Moine, ouvrez les yeux. Désignez un joueur. »</p></div>
+          </div>
+          <div style="flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)">
+            <sc-for list="{{steps}}" as="s" hint-placeholder-count="8">
+              <div class="li" style="min-height:42px;opacity: {{s.op}}"><span class="mo" style="width:22px;font-size:13px;color:#AAA38E">{{s.n}}</span><span class="nm" style="font-size:15px">{{s.role}}<small style="display:block;font:400 12px/16px var(--sans);color:#AAA38E">{{s.who}}</small></span><span class="pill {{s.cls}}">{{s.state}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot" style="gap:8px"><div class="row2"><button class="b b-s">Envoyer une info</button><button class="b b-p">Étape suivante</button></div></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">10b</span><div><b>Envoyer une information</b><small><span class="tg a">Action</span>Phase : Nuit 2. Message à un joueur.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 2 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="opacity:.35"><div class="card"><h2 class="t2">Moine · Marc</h2></div></div>
+        <div class="scrim"></div>
+        <div class="sheetp" role="dialog" aria-label="Envoyer une information">
+          <i class="grab"></i>
+          <h2 class="t2">Envoyer une information</h2>
+          <div><span class="mi">Destinataire</span>
+            <div class="chips" style="flex-wrap:wrap"><button class="cp on">Marc</button><button class="cp">Inès</button><button class="cp">Camille</button><button class="cp">Lou</button></div></div>
+          <div><label class="fl" for="c3m"><span>Message</span><span class="ct">42/140</span></label><textarea id="c3m" class="txt" rows="3" readonly="{{true}}">Vous apprenez qu'il y a 1 Sbire parmi vos voisins.</textarea></div>
+          <p class="sm">Il s'affichera sur son écran, sans son ni vibration.</p>
+          <div class="row2"><button class="b b-s">Annuler</button><button class="b b-p">Envoyer</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">12a</span><div><b>En attente du choix du joueur</b><small><span class="tg">Attente</span>Phase : Nuit 2. Marc n'a pas encore répondu.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 2 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body ctr" style="gap:18px">
+          <span class="d" style="width:72px;height:72px;font-size:32px;box-shadow:0 0 0 3px #0E1016,0 0 0 5px #B98E45">M</span>
+          <h2 class="t1">Marc réfléchit…</h2>
+          <p class="sm" style="max-width:260px">Moine : choisit un joueur à protéger. Son choix apparaîtra ici.</p>
+          <div class="bar"><i style="width:35%"></i></div>
+        </div>
+        <div class="foot"><button class="b b-s">Choisir à sa place</button><button class="b b-g">Passer cette étape</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">12b</span><div><b>Choix reçu</b><small><span class="tg a">Action</span>Phase : Nuit 2. Accepter, modifier ou ignorer.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 2 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:14px">
+          <span class="mi">Choix reçu</span>
+          <div class="card" style="gap:12px">
+            <p class="sm">Moine · Marc protège</p>
+            <div style="display:flex;align-items:center;gap:14px"><span class="d" style="width:56px;height:56px;font-size:26px">I</span><div><h2 class="t1">Inès</h2><p class="sm">Protégée du Démon jusqu'à l'aube</p></div></div>
+          </div>
+          <p class="sm">Rien n'est appliqué tant que vous n'avez pas répondu.</p>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Accepter</button><div class="row2"><button class="b b-s">Modifier</button><button class="b b-g">Ignorer</button></div></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">12c</span><div><b>Modifier le choix</b><small><span class="tg a">Action</span>Phase : Nuit 2. Le joueur n'est pas prévenu.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 2 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:10px">
+          <h2 class="t2">Qui est protégé ?</h2>
+          <p class="sm">Choix d'origine : Inès</p>
+          <div style="flex:1;overflow:hidden">
+            <sc-for list="{{pick}}" as="p" hint-placeholder-count="8">
+              <button class="row rad {{p.cls}}" style="height:48px" aria-pressed="{{p.on}}"><span class="d" style="width:30px;height:30px;font-size:15px">{{p.ini}}</span><span class="nm" style="font-size:15px">{{p.name}}</span><span class="ind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Appliquer ce choix</button><button class="b b-g">Retour</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">10c</span><div><b>Terminer la nuit</b><small><span class="tg a">Action</span>Phase : Nuit 2. Dernière étape faite.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 10 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="opacity:.35"><div class="card"><h2 class="t2">Majordome · Alix</h2></div></div>
+        <div class="scrim"></div>
+        <div class="sheetp" role="dialog" aria-label="Terminer la nuit">
+          <i class="grab"></i>
+          <h2 class="t2">Terminer la nuit ?</h2>
+          <p class="sm">Les joueurs verront l'écran du jour. Vous annoncez les morts à voix haute.</p>
+          <div class="card" style="gap:6px"><span class="mi">À annoncer ce matin</span>
+            <div class="li" style="min-height:40px"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke:#8B8FA3"><path d="M3 12c3 4 6 5 9 5s6-1 9-5 M7 15l-2 3 M12 17v3 M17 15l2 3"/></svg><span class="nm" style="font-size:15px">Yanis est mort</span></div>
+            <div class="li" style="min-height:40px"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke:#AAA38E"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg><span class="nm" style="font-size:15px">Inès a été protégée</span></div>
+          </div>
+          <div class="row2"><button class="b b-p">Annuler</button><button class="b b-s">Lever le jour</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">10d</span><div><b>Connexion perdue</b><small><span class="tg e">Erreur de connexion</span>Phase : Nuit 2. Étape 2 sur 10.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 2 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="ban" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 4-2.3 M22 8.8a15 15 0 0 0-8-3.3 M5 12.9a10 10 0 0 1 3-1.8 M19 12.9a10 10 0 0 0-5-2.7 M9 16.5a5 5 0 0 1 6 0 M12 20h.01 M3 3l18 18"/></svg><span>Connexion perdue. La partie est conservée. Reconnexion…</span></div>
+        <div class="body" style="gap:10px">
+          <div class="card" style="border-color:#B98E45;gap:8px">
+            <div><span class="mi">Dernière étape connue</span><h2 class="t2">Moine · Marc</h2></div>
+            <p class="sm">Le choix de Marc sera affiché dès le retour du réseau.</p>
+          </div>
+        </div>
+        <div class="foot"><button class="b b-s">Réessayer</button><button class="b b-p" disabled="{{true}}">Étape suivante</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+    <div class="cell">
+      <div class="lb"><span class="no">10e</span><div><b>Rôle absent ou mort</b><small><span class="tg a">Action</span>Phase : Nuit 2. Étape à faire semblant.</small></div></div>
+      <div class="ph">
+        <div class="top"><i class="dl" style="--a:14deg"></i><span class="nm">Nuit 2</span><span class="stp">Étape 4 / 10</span><button class="fx" aria-label="Rôles du script"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M5 17a3 3 0 0 1 3-3h11"/></svg></button></div>
+        <div class="body" style="gap:12px">
+          <div class="card" style="gap:10px">
+            <div style="display:flex;align-items:center;gap:12px"><span class="d" style="width:48px;height:48px;font-size:22px;opacity:.6">É</span><div><span class="mi">Réveillez quand même</span><h2 class="t2">Femme écarlate</h2></div></div>
+            <p class="sm">Aucun joueur n'a ce rôle. Respectez le même rythme pour ne rien trahir.</p>
+            <p class="tx" style="font-size:14px;line-height:20px;font-style:italic">Marquez une courte pause, puis passez à la suite.</p>
+          </div>
+          <button class="b b-s">Ouvrir le rôle dans le grimoire</button>
+        </div>
+        <div class="foot"><button class="b b-p b-xl">Étape suivante</button></div>
+        <div class="tb" role="tablist"><button>Grimoire</button><button class="on">Nuit</button><button>Joueurs</button><button>Journal</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1832,"height":2220}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const order = [
+      ['Empoisonneur', 'Camille'], ['Moine', 'Marc'], ['Espion', 'Nour'], ['Femme écarlate', 'Aucun joueur'],
+      ['Diable', 'Lou'], ['Gardien du corbeau', 'Aucun joueur'], ['Croque-mort', 'Sam'],
+      ['Empathique', 'Rémi'], ['Diseuse de bonne aventure', 'Yanis'], ['Majordome', 'Alix']
+    ];
+    const steps = order.map(([role, who], i) => {
+      const n = i + 1;
+      const state = n < 2 ? 'Fait' : (n === 2 ? 'En cours' : 'À venir');
+      return { n: String(n), role, who, state, cls: n <= 2 ? 'ok' : '', op: n < 2 ? .6 : (n === 2 ? 1 : .8) };
+    });
+    const chips = [
+      { t: 'Nuit 1', cls: '' }, { t: 'Nuit 2', cls: 'ok' }, { t: 'Jour 2', cls: '' }
+    ];
+    const pn = ['Rémi', 'Marc', 'Inès', 'Yanis', 'Camille', 'Lou', 'Nour', 'Alix', 'Sam'];
+    const pick = pn.map(n => ({ ini: n[0], name: n, cls: n === 'Camille' ? 'sel' : '', on: n === 'Camille' }));
+    return { steps, chips, pick };
+  }
+}
+</script>
+</body>
+</html>

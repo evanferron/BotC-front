@@ -17,10 +17,11 @@
     "jsx": "react-jsx",
 
     /* Path aliases */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@auth/*": ["./src/features/auth/*"],
+      "@games/*": ["./src/features/games/*"]
     },
 
     /* Linting */
