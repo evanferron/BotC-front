@@ -32,7 +32,7 @@ export const JoinGame = () => {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    document.title = 'Rejoindre une table · Cadran';
+    document.title = 'Rejoindre une table · BotC';
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

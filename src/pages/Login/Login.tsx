@@ -21,7 +21,7 @@ export const Login = () => {
   const [error, setError] = useState<string>();
 
   useEffect(() => {
-    document.title = 'Connexion · Cadran';
+    document.title = 'Connexion · BotC';
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,7 +67,7 @@ export const Login = () => {
       }
     >
       <div className={styles.intro}>
-        <span className={styles.eyebrow}>Cadran</span>
+        <span className={styles.eyebrow}>Blood on the Clocktower</span>
         <h2 className={styles.title}>Bon retour à la table.</h2>
         <p className={styles.text}>Un compte est nécessaire pour créer ou rejoindre une partie.</p>
       </div>

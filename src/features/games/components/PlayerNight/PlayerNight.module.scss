@@ -1,0 +1,21 @@
+.eyebrow {
+  @include micro;
+}
+
+.title {
+  @include title-1;
+}
+
+.counter {
+  @include mono;
+  color: $accent-hi;
+}
+
+.text {
+  @include body-small;
+}
+
+.footnote {
+  @include body-small;
+  text-align: center;
+}

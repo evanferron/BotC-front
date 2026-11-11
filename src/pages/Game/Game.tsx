@@ -12,6 +12,11 @@ import { useGameQuery } from '@games/api/useGameQuery';
 import { StorytellerLobby } from '@games/components/StorytellerLobby/StorytellerLobby';
 import { WaitingRoom } from '@games/components/WaitingRoom/WaitingRoom';
 import { GameStarted } from '@games/components/GameStarted/GameStarted';
+import { PlayerDistribution } from '@games/components/PlayerDistribution/PlayerDistribution';
+import { StorytellerDistribution } from '@games/components/StorytellerDistribution/StorytellerDistribution';
+import { StorytellerNight } from '@games/components/StorytellerNight/StorytellerNight';
+import { PlayerNight } from '@games/components/PlayerNight/PlayerNight';
+import { DayView } from '@games/components/DayView/DayView';
 import styles from './Game.module.scss';
 
 /**
@@ -25,7 +30,7 @@ export const Game = () => {
   const { data: game, isLoading, error } = useGameQuery(gameId);
 
   useEffect(() => {
-    document.title = game ? `Partie ${game.room_code} · Cadran` : 'Partie · Cadran';
+    document.title = game ? `Partie ${game.room_code} · BotC` : 'Partie · BotC';
   }, [game]);
 
   // Après une exclusion, la partie répond 404 alors que l'ancienne version reste en cache :
@@ -74,7 +79,25 @@ export const Game = () => {
     );
   }
 
-  if (game.status !== 'Lobby') return <GameStarted game={game} />;
-  if (game.storyteller_id === userId) return <StorytellerLobby game={game} />;
-  return <WaitingRoom game={game} />;
+  const isStoryteller = game.storyteller_id === userId;
+  switch (game.status) {
+    case 'Lobby':
+      return isStoryteller ? <StorytellerLobby game={game} /> : <WaitingRoom game={game} />;
+    case 'Distribution':
+      return isStoryteller ? (
+        <StorytellerDistribution game={game} />
+      ) : (
+        <PlayerDistribution game={game} />
+      );
+    case 'FirstNight':
+    case 'Night':
+      return isStoryteller ? <StorytellerNight game={game} /> : <PlayerNight game={game} />;
+    // Le conseil et le vote (étape 7) s'afficheront ici ; en attendant, l'écran du jour
+    case 'Day':
+    case 'Council':
+    case 'Voting':
+      return <DayView game={game} isStoryteller={isStoryteller} />;
+    default:
+      return <GameStarted game={game} />;
+  }
 };

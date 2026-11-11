@@ -1,0 +1,234 @@
+// Carte de rôle (design/Carte-de-role.dc.html) : 260 × 364, filet et coins laiton
+.card {
+  position: relative;
+  display: block;
+  width: 260px;
+  height: 364px;
+  flex: none;
+  padding: 0;
+  border-radius: $radius-card;
+  border: 1px solid rgba(185, 142, 69, 0.6);
+  background: linear-gradient(170deg, #1c202c 0%, #12151d 100%);
+  box-shadow: $shadow-1;
+  color: $text;
+  text-align: center;
+}
+
+.inner {
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(185, 142, 69, 0.3);
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid $accent;
+  pointer-events: none;
+}
+
+.tl {
+  top: 14px;
+  left: 14px;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 7px;
+}
+
+.tr {
+  top: 14px;
+  right: 14px;
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 7px;
+}
+
+.bl {
+  bottom: 14px;
+  left: 14px;
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: 7px;
+}
+
+.br {
+  bottom: 14px;
+  right: 14px;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 7px;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  padding: 30px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.team {
+  width: 100%;
+  height: 32px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  font: 600 12px/1 $font-sans;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $text;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.good .team {
+  background: $team-good-veil;
+  border: 1px solid $team-good;
+
+  svg {
+    color: $team-good;
+  }
+}
+
+.evil .team {
+  background: $danger-veil;
+  border: 1px solid $team-evil;
+
+  svg {
+    color: $team-evil-text;
+  }
+}
+
+.medal {
+  width: 96px;
+  height: 96px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  background: radial-gradient(circle at 50% 30%, #2c3346, $surface 70%);
+  border: 1px solid rgba(185, 142, 69, 0.75);
+  box-shadow:
+    0 0 0 4px #12151d,
+    0 0 0 5px rgba(185, 142, 69, 0.45);
+
+  svg {
+    width: 46px;
+    height: 46px;
+    stroke-width: 1.4;
+    color: $text;
+  }
+}
+
+.evil .medal {
+  background: radial-gradient(circle at 50% 30%, #3d1822, #1b1015 70%);
+}
+
+.name {
+  margin-top: 4px;
+  font: 600 30px/32px $font-serif;
+  color: $text;
+}
+
+.type {
+  @include micro;
+  color: $text-muted;
+}
+
+.divider {
+  position: relative;
+  width: 110px;
+  height: 9px;
+  flex: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4px;
+    height: 1px;
+    background: rgba(185, 142, 69, 0.5);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 7px;
+    height: 7px;
+    margin-left: -4px;
+    background: $accent;
+    transform: rotate(45deg);
+    outline: 3px solid #14171f;
+  }
+}
+
+.ability {
+  margin: 0;
+  max-width: 210px;
+  font: 400 14px/20px $font-sans;
+  color: $text-muted;
+}
+
+// Carte masquée : révélée tant que le doigt reste posé
+.mask {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  background: radial-gradient(circle at 50% 40%, $surface, #0c0e13 80%);
+  @include focus-ring;
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.eye {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  border: 1.5px dashed rgba(185, 142, 69, 0.8);
+
+  svg {
+    width: 38px;
+    height: 38px;
+    stroke-width: 1.5;
+    color: $accent-hi;
+  }
+}
+
+.veil_title {
+  font: 600 16px/20px $font-sans;
+  color: $text;
+}
+
+.veil_text {
+  font: 400 13px/18px $font-sans;
+  color: $text-muted;
+}

@@ -1,0 +1,76 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 7, 10, 0.72);
+  animation: fade $duration-base $ease-soft both;
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: $app-max-width;
+  max-height: 88dvh;
+  background: $surface-modal;
+  border-radius: $radius-l $radius-l 0 0;
+  padding: 10px 20px calc(24px + env(safe-area-inset-bottom));
+  box-shadow: $shadow-3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: rise $duration-base $ease-soft both;
+}
+
+.grab {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: $line-control;
+  align-self: center;
+  flex: none;
+}
+
+.title {
+  @include title-2;
+}
+
+.description {
+  @include body-small;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: none;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}

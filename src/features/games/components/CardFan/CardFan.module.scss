@@ -1,0 +1,52 @@
+// Éventail (design/J2-Distribution.dc.html, classes .fan et .fc)
+.fan {
+  position: relative;
+  height: 300px;
+  flex: none;
+}
+
+.card {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 92px;
+  height: 130px;
+  margin-left: -46px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  border: 1px solid rgba(185, 142, 69, 0.7);
+  background: radial-gradient(circle at 50% 45%, #1f2330, #10131a 78%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  transform-origin: 50% 230%;
+  transform: rotate(var(--rotate)) translateY(var(--lift));
+  transition: transform 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  cursor: pointer;
+  @include focus-ring;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(185, 142, 69, 0.3);
+    border-radius: 7px;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+}
+
+.selected {
+  border-color: $accent-hi;
+  box-shadow: $glow-brass;
+}
+
+// Spécificité plus forte que la taille par défaut du Dial
+.card .dial {
+  width: 44px;
+  height: 44px;
+}

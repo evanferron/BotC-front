@@ -1,0 +1,30 @@
+.eyebrow {
+  @include micro;
+}
+
+.title {
+  @include title-1;
+}
+
+.subtitle {
+  @include title-2;
+}
+
+.text {
+  @include body-small;
+}
+
+.footnote {
+  @include body-small;
+  text-align: center;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}

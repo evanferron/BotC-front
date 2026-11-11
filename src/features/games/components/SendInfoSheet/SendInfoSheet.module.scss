@@ -1,0 +1,66 @@
+.label {
+  display: flex;
+  justify-content: space-between;
+  @include micro;
+}
+
+.count {
+  color: $text-muted;
+  letter-spacing: 0;
+}
+
+.kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.kind {
+  min-height: $target-min;
+  padding: 0 14px;
+  border-radius: $radius-full;
+  border: 1.5px solid $line-control;
+  background: transparent;
+  font: 500 14px/1 $font-sans;
+  color: $text;
+  cursor: pointer;
+  @include focus-ring;
+
+  &[aria-checked="true"] {
+    border-color: $accent;
+    background: $accent;
+    color: $text-on-accent;
+  }
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.number {
+  min-width: 48px;
+  text-align: center;
+  font: 600 34px/1 $font-serif;
+  color: $text;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: $radius-s;
+  border: 1.5px solid $line-control;
+  background: $bg-sunken;
+  color: $text;
+  font: 400 16px/22px $font-sans;
+  resize: none;
+  @include focus-ring;
+}

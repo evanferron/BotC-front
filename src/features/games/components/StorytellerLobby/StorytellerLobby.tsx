@@ -7,10 +7,13 @@ import { Button } from '@/components/Button/Button';
 import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
 import { ConfirmSheet } from '@/components/ConfirmSheet/ConfirmSheet';
 import { Loading } from '@/components/Loading/Loading';
+import { ENV } from '@/config/api.config';
 import { AUTH_ROUTES } from '@/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useKickPlayerMutation } from '../../api/useKickPlayerMutation';
+import { useStartGameMutation } from '../../api/useStartGameMutation';
+import { useDevFillMutation } from '../../api/useDevFillMutation';
 import { getScriptName } from '../../constants/SCRIPTS';
 import type { Game, Player } from '../../types/game.types';
 import { PlayerList } from '../PlayerList/PlayerList';
@@ -27,13 +30,28 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
   const { user } = useAuth();
   const { data: players, isLoading } = usePlayersQuery(game.id, true);
   const { mutateAsync: kickPlayer, isPending: isKicking } = useKickPlayerMutation();
+  const { mutateAsync: startGame, isPending: isStarting } = useStartGameMutation();
+  const { mutate: devFill, isPending: isFilling } = useDevFillMutation();
 
   // Joueur dont l'exclusion attend confirmation
   const [playerToKick, setPlayerToKick] = useState<Player>();
   const closeKickSheet = useCallback(() => setPlayerToKick(undefined), []);
+  const [isStartSheetOpen, setIsStartSheetOpen] = useState(false);
+  const closeStartSheet = useCallback(() => setIsStartSheetOpen(false), []);
 
   const joined = players?.length ?? 0;
   const missing = Math.max(0, game.player_count - joined);
+
+  const handleStart = async () => {
+    try {
+      // La partie passe en distribution : la page affiche l'écran suivant
+      await startGame(game.id);
+    } catch {
+      // Toast affiché par la mutation
+    } finally {
+      setIsStartSheetOpen(false);
+    }
+  };
 
   const handleKick = async () => {
     if (!playerToKick) return;
@@ -65,11 +83,20 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
           <p className={styles.footnote}>
             {missing > 0
               ? `Il manque ${missing} joueur${missing > 1 ? 's' : ''} pour lancer.`
-              : 'La table est complète. Le lancement arrive à la prochaine étape.'}
+              : 'La table est complète.'}
           </p>
-          <Button size="xl" disabled>
+          <Button
+            size="xl"
+            disabled={missing > 0 || isLoading}
+            onClick={() => setIsStartSheetOpen(true)}
+          >
             Lancer la partie
           </Button>
+          {ENV === 'DEV' && missing > 0 && (
+            <Button variant="ghost" isLoading={isFilling} onClick={() => devFill(game.id)}>
+              Compléter avec des comptes de test
+            </Button>
+          )}
         </>
       }
     >
@@ -105,6 +132,16 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
         isLoading={isKicking}
         onConfirm={() => void handleKick()}
         onCancel={closeKickSheet}
+      />
+
+      <ConfirmSheet
+        open={isStartSheetOpen}
+        title="Lancer la partie ?"
+        description="Plus personne ne pourra rejoindre la table. Chaque joueur choisira ensuite une carte face cachée, à son tour."
+        confirmLabel="Lancer la partie"
+        isLoading={isStarting}
+        onConfirm={() => void handleStart()}
+        onCancel={closeStartSheet}
       />
     </Screen>
   );

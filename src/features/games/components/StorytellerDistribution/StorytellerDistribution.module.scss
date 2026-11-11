@@ -1,0 +1,36 @@
+.subtitle {
+  @include title-2;
+}
+
+.text {
+  @include body-small;
+}
+
+.footnote {
+  @include body-small;
+  text-align: center;
+}
+
+.picker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.check {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  background: $accent;
+  color: $text-on-accent;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.6;
+  }
+}

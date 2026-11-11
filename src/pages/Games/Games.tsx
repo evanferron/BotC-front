@@ -19,7 +19,7 @@ export const Games = () => {
   const { data: games, isLoading, isError, refetch } = useGamesQuery();
 
   useEffect(() => {
-    document.title = 'Mes parties · Cadran';
+    document.title = 'Mes parties · BotC';
   }, []);
 
   const renderContent = () => {

@@ -40,3 +40,44 @@ export interface CreateGamePayload {
   // Nombre de joueurs prévu, hors conteur
   player_count: number;
 }
+
+// ---------------------------------------------------------------------------
+// Distribution
+// ---------------------------------------------------------------------------
+
+export type CharacterType = 'Townsfolk' | 'Outsider' | 'Minion' | 'Demon';
+
+// Rôle tel qu'un joueur peut le voir (RoleSummary côté API)
+export interface RoleSummary {
+  id: string;
+  name: string;
+  character_type: CharacterType;
+  ability_description: string | null;
+}
+
+// Carte face cachée. role et shown_role ne sont envoyés qu'au conteur.
+export interface GameCardInfo {
+  position: number;
+  // Joueur qui a pris la carte (null tant qu'elle est libre)
+  picked_by: string | null;
+  role?: RoleSummary;
+  // Rôle vu par le joueur s'il diffère du rôle réel (ex. l'Ivrogne)
+  shown_role?: RoleSummary;
+}
+
+// Réponse de GET /games/{id}/cards
+export interface Distribution {
+  cards: GameCardInfo[];
+  // Joueur dont c'est le tour (null quand toutes les cartes sont prises)
+  current_picker_id: string | null;
+  // Rôle du joueur connecté tel qu'il le voit (null pour le conteur ou avant d'avoir pioché)
+  my_role: RoleSummary | null;
+}
+
+// Réponse de POST /games/{id}/cards/{position}/pick
+export interface PickCardResponse {
+  position: number;
+  player_id: string;
+  role: RoleSummary;
+  game_status: GameStatus;
+}

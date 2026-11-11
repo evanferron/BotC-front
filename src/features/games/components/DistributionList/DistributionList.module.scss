@@ -1,0 +1,33 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 4px;
+  border-bottom: 1px solid $line;
+}
+
+.waiting {
+  opacity: 0.55;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font: 500 15px/20px $font-sans;
+  color: $text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  small {
+    display: block;
+    font: 400 12px/16px $font-sans;
+    color: $text-muted;
+  }
+}

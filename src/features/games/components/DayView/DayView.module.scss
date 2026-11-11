@@ -1,0 +1,45 @@
+.eyebrow {
+  @include micro;
+}
+
+.title {
+  @include title-1;
+}
+
+.footnote {
+  @include body-small;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 6px 4px;
+  border-bottom: 1px solid $line;
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font: 500 16px/20px $font-sans;
+  color: $text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  small {
+    display: block;
+    font: 400 12px/16px $font-sans;
+    color: $text-muted;
+  }
+}

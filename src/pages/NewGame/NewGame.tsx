@@ -30,7 +30,7 @@ export const NewGame = () => {
   const [playerCount, setPlayerCount] = useState(DEFAULT_PLAYERS);
 
   useEffect(() => {
-    document.title = 'Nouvelle partie · Cadran';
+    document.title = 'Nouvelle partie · BotC';
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

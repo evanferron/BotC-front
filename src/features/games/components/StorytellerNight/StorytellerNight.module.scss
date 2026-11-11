@@ -1,0 +1,45 @@
+.current {
+  gap: 10px;
+}
+
+.eyebrow {
+  @include micro;
+}
+
+.title {
+  @include title-2;
+}
+
+.actor {
+  color: $accent-hi;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  @include micro;
+  color: $text-muted;
+}
+
+.text {
+  @include body-small;
+}
+
+.quote {
+  font: italic 500 18px/24px $font-serif;
+  color: $text;
+}
+
+.choice {
+  font: 600 22px/26px $font-serif;
+  color: $text;
+}
+
+.warning {
+  font: 500 13px/18px $font-sans;
+  color: $danger-text;
+}

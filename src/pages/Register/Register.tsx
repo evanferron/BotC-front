@@ -28,7 +28,7 @@ export const Register = () => {
   const [formError, setFormError] = useState<string>();
 
   useEffect(() => {
-    document.title = 'Créer un compte · Cadran';
+    document.title = 'Créer un compte · BotC';
   }, []);
 
   const cleanedPseudo = pseudo.trim();
