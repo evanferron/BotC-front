@@ -59,6 +59,13 @@
   white-space: nowrap;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+
 .action {
   width: $target-min;
   height: $target-min;

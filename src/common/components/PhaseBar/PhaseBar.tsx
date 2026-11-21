@@ -43,7 +43,7 @@ export const PhaseBar = ({
     </h1>
     {meta && <span className={styles.meta}>{meta}</span>}
     {tag && <span className={styles.tag}>{tag}</span>}
-    {actions}
+    {actions && <div className={styles.actions}>{actions}</div>}
   </header>
 );
 

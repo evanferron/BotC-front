@@ -8,7 +8,7 @@ import { useCardsQuery } from '../../api/useCardsQuery';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import type { Game } from '../../types/game.types';
 
-interface ScriptRolesSheetForGameProps {
+interface GameScriptRolesSheetProps {
   game: Game;
   isStoryteller: boolean;
   onClose: () => void;
@@ -17,11 +17,11 @@ interface ScriptRolesSheetForGameProps {
 // Les cartes n'existent qu'à partir de la distribution
 const hasCards = (game: Game) => game.status !== 'Lobby';
 
-const ScriptRolesSheetForGame = ({
+export const GameScriptRolesSheet = ({
   game,
   isStoryteller,
   onClose,
-}: ScriptRolesSheetForGameProps) => {
+}: GameScriptRolesSheetProps) => {
   const { data: distribution } = useCardsQuery(hasCards(game) ? game.id : undefined);
   const { data: players } = usePlayersQuery(isStoryteller ? game.id : undefined);
 
@@ -65,7 +65,7 @@ export const ScriptRolesAction = ({ game }: { game: Game }) => {
         <BookOpen aria-hidden="true" />
       </PhaseBarAction>
       {isOpen && (
-        <ScriptRolesSheetForGame
+        <GameScriptRolesSheet
           game={game}
           isStoryteller={game.storyteller_id === userId}
           onClose={() => setIsOpen(false)}

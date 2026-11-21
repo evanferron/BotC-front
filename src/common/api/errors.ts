@@ -48,7 +48,13 @@ export type ErrorCode =
   // Métier : nuit
   | 'NIGHT_STEP_NOT_FOUND'
   | 'INVALID_STEP_STATE'
-  | 'MESSAGE_NOT_FOUND';
+  | 'MESSAGE_NOT_FOUND'
+  // Métier : jour
+  | 'NOMINATION_NOT_FOUND'
+  | 'NOMINATION_NOT_ALLOWED'
+  | 'INVALID_NOMINATION_STATE'
+  | 'ALREADY_VOTED'
+  | 'CANNOT_VOTE';
 
 // Corps d'erreur de l'API, au format RFC 9457 (ErrorResponse côté Rust)
 export interface ApiErrorResponse {

@@ -1,0 +1,56 @@
+.eyebrow {
+  @include micro;
+}
+
+.block {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  > svg {
+    width: 28px;
+    height: 28px;
+    flex: none;
+    color: $danger-text;
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+.block_label {
+  @include micro;
+  color: $text-muted;
+}
+
+.block_name {
+  @include title-2;
+}
+
+.block_hint {
+  @include body-small;
+}
+
+.empty {
+  @include body-small;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

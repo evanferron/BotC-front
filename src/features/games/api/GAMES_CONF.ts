@@ -16,7 +16,6 @@ export const GAMES_ENDPOINTS = {
   nightStep: (id: string, stepId: string, action: 'activate' | 'resolve' | 'skip') =>
     `${GAMES_ENDPOINT}/${id}/night/steps/${stepId}/${action}`,
   nightEnd: (id: string) => `${GAMES_ENDPOINT}/${id}/night/end`,
-  nightStart: (id: string) => `${GAMES_ENDPOINT}/${id}/night/start`,
   prompt: (id: string) => `${GAMES_ENDPOINT}/${id}/night/prompt`,
   respond: (id: string) => `${GAMES_ENDPOINT}/${id}/night/prompt/respond`,
   messages: (id: string) => `${GAMES_ENDPOINT}/${id}/messages`,
@@ -24,6 +23,21 @@ export const GAMES_ENDPOINTS = {
     `${GAMES_ENDPOINT}/${id}/messages/${messageId}/read`,
   sendMessage: (id: string, playerId: string) =>
     `${GAMES_ENDPOINT}/${id}/players/${playerId}/messages`,
+  day: (id: string) => `${GAMES_ENDPOINT}/${id}/day`,
+  council: (id: string) => `${GAMES_ENDPOINT}/${id}/day/council`,
+  endDay: (id: string) => `${GAMES_ENDPOINT}/${id}/day/end`,
+  nominations: (id: string) => `${GAMES_ENDPOINT}/${id}/nominations`,
+  nomination: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}`,
+  openVote: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/open-vote`,
+  vote: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/vote`,
+  closeVote: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/close-vote`,
+  grimoire: (id: string) => `${GAMES_ENDPOINT}/${id}/grimoire`,
+  playerState: (id: string, playerId: string) =>
+    `${GAMES_ENDPOINT}/${id}/players/${playerId}/state`,
 } as const;
 
 export const GAMES_KEYS = {
@@ -37,4 +51,6 @@ export const GAMES_KEYS = {
   night: (id: string) => [...GAMES_KEYS.details(id), 'night'] as const,
   prompt: (id: string) => [...GAMES_KEYS.details(id), 'prompt'] as const,
   messages: (id: string) => [...GAMES_KEYS.details(id), 'messages'] as const,
+  day: (id: string) => [...GAMES_KEYS.details(id), 'day'] as const,
+  grimoire: (id: string) => [...GAMES_KEYS.details(id), 'grimoire'] as const,
 };

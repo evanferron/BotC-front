@@ -1,0 +1,79 @@
+// Grimoire, vue liste (design/C4-Grimoire.dc.html, écran 13a)
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  width: 100%;
+  min-height: $target-std;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid $line;
+  border-radius: 12px;
+  background: $surface;
+  color: $text;
+  text-align: left;
+  cursor: pointer;
+  @include focus-ring;
+
+  &:active {
+    background: $surface-raised;
+  }
+}
+
+.dead {
+  background: $dead-bg;
+  border-color: $dead-line;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  small {
+    font: 400 13px/18px $font-sans;
+    color: $text-muted;
+  }
+}
+
+.name {
+  font: 600 16px/20px $font-sans;
+}
+
+.role {
+  font: 600 17px/20px $font-serif;
+  color: $accent-hi;
+}
+
+.evil {
+  color: $danger-text;
+}
+
+.states {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.note {
+  width: 18px;
+  height: 18px;
+  color: $text-muted;
+}
+
+.chevron {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: $text-muted;
+}

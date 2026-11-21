@@ -6,9 +6,49 @@
   @include title-1;
 }
 
+.message {
+  @include body-player;
+
+  strong {
+    color: $danger-text;
+  }
+}
+
 .footnote {
   @include body-small;
   text-align: center;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.nominated {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nominee {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  strong {
+    @include title-3;
+  }
+
+  span {
+    @include body-small;
+  }
 }
 
 .list {

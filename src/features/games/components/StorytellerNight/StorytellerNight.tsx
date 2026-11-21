@@ -14,13 +14,12 @@ import { useNightStepMutation } from '../../api/useNightStepMutation';
 import { useEndNightMutation } from '../../api/useEndNightMutation';
 import type { Game, Player, RoleSummary } from '../../types/game.types';
 import type { NightStep, StepChoice } from '../../types/night.types';
-import { getPhaseLabel } from '../../utils/game.utils';
 import { getActionHint, getStepTitle, isOpenStatus, isTeamInfoStep } from '../../utils/night.utils';
 import { EndNightSheet } from '../EndNightSheet/EndNightSheet';
 import { NightStepList } from '../NightStepList/NightStepList';
 import { SendInfoSheet } from '../SendInfoSheet/SendInfoSheet';
 import { StepChoiceSheet } from '../StepChoiceSheet/StepChoiceSheet';
-import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
+import { GrimoireAction } from '../GrimoireAction/GrimoireAction';
 import styles from './StorytellerNight.module.scss';
 
 interface StorytellerNightProps {
@@ -62,7 +61,8 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
   const steps = night?.steps ?? [];
   const current = steps.find((s) => isOpenStatus(s.status));
   const openSteps = steps.filter((s) => isOpenStatus(s.status)).length;
-  const title = night?.is_first_night ? 'Première nuit' : `Nuit ${night?.round ?? ''}`;
+  // Titre court : le bandeau porte aussi trois actions (la liste montre l'avancement des étapes)
+  const title = `Nuit ${night?.round ?? game.current_round}`;
 
   const run = async (
     action: 'activate' | 'skip' | 'resolve',
@@ -93,8 +93,6 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
     <PhaseBar
       title={title}
       variant="night"
-      tag={getPhaseLabel(game)}
-      meta={current ? `Étape ${current.step_order} / ${steps.length}` : undefined}
       actions={
         <>
           <PhaseBarAction aria-label="Envoyer une information" onClick={() => setOpenSheet('info')}>
@@ -103,7 +101,7 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
           <PhaseBarAction aria-label="Terminer la nuit" onClick={() => setOpenSheet('end')}>
             <Sunrise aria-hidden="true" />
           </PhaseBarAction>
-          <ScriptRolesAction game={game} />
+          <GrimoireAction game={game} />
           <PhaseBarAction
             aria-label="Retour à mes parties"
             onClick={() => void navigate(AUTH_ROUTES.GAMES)}
