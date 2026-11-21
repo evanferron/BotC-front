@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Loading } from '@/components/Loading/Loading';
-import { AUTH_ROUTES } from '@/config/routes.config';
-import { getErrorStatus } from '@/utils/api.utils';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES } from '@common/config/routes.config';
+import { getErrorCode } from '@common/api/errors';
 import { useAuth } from '@auth/hooks/useAuth';
 import { useGameQuery } from '@games/api/useGameQuery';
 import { StorytellerLobby } from '@games/components/StorytellerLobby/StorytellerLobby';
@@ -35,8 +35,8 @@ export const Game = () => {
 
   // Après une exclusion, la partie répond 404 alors que l'ancienne version reste en cache :
   // l'erreur l'emporte sur les données.
-  const status = getErrorStatus(error);
-  const isGone = status === 404 || status === 400;
+  const code = getErrorCode(error);
+  const isGone = code === 'GAME_NOT_FOUND' || code === 'INVALID_PATH_PARAM';
 
   if (isLoading) {
     return (

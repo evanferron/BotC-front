@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Sheet } from '@/components/Sheet/Sheet';
-import { Button } from '@/components/Button/Button';
-import { ChoiceRow } from '@/components/ChoiceRow/ChoiceRow';
+import { Sheet } from '@common/components/Sheet/Sheet';
+import { Button } from '@common/components/Button/Button';
+import { ChoiceRow } from '@common/components/ChoiceRow/ChoiceRow';
 import { useSendMessageMutation } from '../../api/useSendMessageMutation';
 import type { Player, RoleSummary } from '../../types/game.types';
 import type { SendMessagePayload } from '../../types/night.types';

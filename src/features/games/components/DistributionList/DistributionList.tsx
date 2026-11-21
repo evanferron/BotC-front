@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { Pill } from '@/components/Pill/Pill';
-import { cx } from '@/utils/className.utils';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { Pill } from '@common/components/Pill/Pill';
+import { cx } from '@common/utils/className.utils';
 import type { GameCardInfo, Player } from '../../types/game.types';
 import styles from './DistributionList.module.scss';
 

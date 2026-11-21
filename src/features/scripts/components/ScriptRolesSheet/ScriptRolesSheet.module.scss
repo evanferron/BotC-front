@@ -1,0 +1,46 @@
+// Feuille plein écran par-dessus l'écran de partie
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  background: rgba(6, 7, 10, 0.72);
+  animation: fade $duration-base $ease-soft both;
+}
+
+.panel {
+  width: 100%;
+  max-width: $app-max-width;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $bg-base;
+  animation: rise $duration-base $ease-soft both;
+
+  @media (min-width: $app-max-width) {
+    border-left: 1px solid $line;
+    border-right: 1px solid $line;
+  }
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 16px calc(24px + env(safe-area-inset-bottom));
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}

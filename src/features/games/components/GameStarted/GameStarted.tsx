@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Dial } from '@/components/Dial/Dial';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Dial } from '@common/components/Dial/Dial';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { getPhaseLabel, getPhaseVariant, getWinnerLabel } from '../../utils/game.utils';
 import type { Game } from '../../types/game.types';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './GameStarted.module.scss';
 
 interface GameStartedProps {
@@ -26,12 +27,15 @@ export const GameStarted = ({ game }: GameStartedProps) => {
           variant={getPhaseVariant(game.status)}
           tag={getPhaseLabel(game)}
           actions={
-            <PhaseBarAction
-              aria-label="Retour à mes parties"
-              onClick={() => void navigate(AUTH_ROUTES.GAMES)}
-            >
-              <ArrowLeft aria-hidden="true" />
-            </PhaseBarAction>
+            <>
+              <ScriptRolesAction game={game} />
+              <PhaseBarAction
+                aria-label="Retour à mes parties"
+                onClick={() => void navigate(AUTH_ROUTES.GAMES)}
+              >
+                <ArrowLeft aria-hidden="true" />
+              </PhaseBarAction>
+            </>
           }
         />
       }

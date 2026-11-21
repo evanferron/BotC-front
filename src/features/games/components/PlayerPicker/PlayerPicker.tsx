@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { cx } from '@/utils/className.utils';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { cx } from '@common/utils/className.utils';
 import type { Player } from '../../types/game.types';
 import { toggleSelection } from '../../utils/night.utils';
 import styles from './PlayerPicker.module.scss';

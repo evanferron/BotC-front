@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ENV } from '@/config/api.config';
-import { axiosInstance } from '@/config/axios.config';
-import { showError } from '@/services/toast.service';
-import { getErrorStatus } from '@/utils/api.utils';
+import { ENV } from '@common/config/api.config';
+import { axiosInstance } from '@common/api/http';
+import { showError } from '@common/utils/toast.utils';
+import { getErrorCode } from '@common/api/errors';
 import type { PickCardResponse } from '../types/game.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 
@@ -22,10 +22,10 @@ const pickCard = async ({ gameId, position, playerId }: PickCardPayload) =>
   ).data;
 
 const getPickErrorMessage = (error: unknown) => {
-  switch (getErrorStatus(error)) {
-    case 409:
+  switch (getErrorCode(error)) {
+    case 'CARD_NOT_AVAILABLE':
       return "Cette carte vient d'être prise, choisissez-en une autre";
-    case 403:
+    case 'NOT_YOUR_TURN':
       return "Ce n'est pas votre tour";
     default:
       return 'Impossible de prendre cette carte';

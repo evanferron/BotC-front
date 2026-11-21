@@ -1,3 +1,5 @@
+import type { CharacterType } from '@scripts/types/script.types';
+
 // Phase de la partie. L'API sérialise l'enum Rust tel quel (PascalCase), pas en MAJUSCULES comme en base.
 export type GameStatus =
   'Lobby' | 'Distribution' | 'FirstNight' | 'Day' | 'Council' | 'Voting' | 'Night' | 'Ended';
@@ -44,8 +46,6 @@ export interface CreateGamePayload {
 // ---------------------------------------------------------------------------
 // Distribution
 // ---------------------------------------------------------------------------
-
-export type CharacterType = 'Townsfolk' | 'Outsider' | 'Minion' | 'Demon';
 
 // Rôle tel qu'un joueur peut le voir (RoleSummary côté API)
 export interface RoleSummary {

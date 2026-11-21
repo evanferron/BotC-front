@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '@/config/axios.config';
-import { DEFAULT_QUERY_GC_TIME, GAME_POLLING_INTERVAL } from '@/constants/QUERY';
+import { axiosInstance } from '@common/api/http';
+import { DEFAULT_QUERY_GC_TIME, GAME_POLLING_INTERVAL } from '@common/api/query';
 import type { Player } from '../types/game.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 

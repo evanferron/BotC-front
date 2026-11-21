@@ -1,0 +1,75 @@
+// Ligne de rôle (design/R1-Roles-du-script.dc.html, design/Navigation-Vibrations.dc.html)
+.row {
+  width: 100%;
+  min-height: $target-std;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border: 1px solid $line;
+  border-radius: 12px;
+  background: $surface;
+  color: $text;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background $duration-fast $ease-soft,
+    border-color $duration-fast $ease-soft;
+  @include focus-ring;
+
+  &:active {
+    background: $surface-raised;
+  }
+}
+
+.selected {
+  border-color: $accent-hi;
+  box-shadow:
+    0 0 0 2px $bg-base,
+    0 0 0 3.5px $accent-hi;
+}
+
+.in_play {
+  border-color: $accent;
+}
+
+.medal {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  border: 1.2px solid $accent;
+  background: $bg-sunken;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.6;
+    color: $accent-hi;
+  }
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font: 600 18px/22px $font-serif;
+  color: $text;
+}
+
+.team {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  stroke-width: 2;
+}
+
+.good {
+  color: $team-good;
+}
+
+.evil {
+  color: $team-evil-text;
+}

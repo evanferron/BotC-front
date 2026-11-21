@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { TextField } from '@/components/TextField/TextField';
-import { Button } from '@/components/Button/Button';
-import { Card } from '@/components/Card/Card';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { AUTH_ROUTES, buildGameRoute } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { TextField } from '@common/components/TextField/TextField';
+import { Button } from '@common/components/Button/Button';
+import { Card } from '@common/components/Card/Card';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { AUTH_ROUTES, buildGameRoute } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { useJoinGameMutation } from '@games/api/useJoinGameMutation';
 import {

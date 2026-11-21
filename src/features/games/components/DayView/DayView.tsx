@@ -1,13 +1,13 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, IdCard, MessageSquare, Skull } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { ConfirmSheet } from '@/components/ConfirmSheet/ConfirmSheet';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { Pill } from '@/components/Pill/Pill';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { ConfirmSheet } from '@common/components/ConfirmSheet/ConfirmSheet';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { Pill } from '@common/components/Pill/Pill';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
@@ -19,6 +19,7 @@ import { getPhaseLabel, getPhaseVariant } from '../../utils/game.utils';
 import { MessageView } from '../MessageView/MessageView';
 import { MyRoleSheet } from '../MyRoleSheet/MyRoleSheet';
 import { SendInfoSheet } from '../SendInfoSheet/SendInfoSheet';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './DayView.module.scss';
 
 interface DayViewProps {
@@ -78,6 +79,7 @@ export const DayView = ({ game, isStoryteller }: DayViewProps) => {
               <IdCard aria-hidden="true" />
             </PhaseBarAction>
           )}
+          <ScriptRolesAction game={game} />
           <PhaseBarAction
             aria-label="Retour à mes parties"
             onClick={() => void navigate(AUTH_ROUTES.GAMES)}

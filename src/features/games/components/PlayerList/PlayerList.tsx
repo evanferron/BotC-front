@@ -1,6 +1,6 @@
 import { Check, UserX } from 'lucide-react';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { Pill } from '@/components/Pill/Pill';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { Pill } from '@common/components/Pill/Pill';
 import type { Player } from '../../types/game.types';
 import styles from './PlayerList.module.scss';
 

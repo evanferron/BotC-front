@@ -1,12 +1,12 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, MessageSquare, Sunrise } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Card } from '@/components/Card/Card';
-import { Loading } from '@/components/Loading/Loading';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Card } from '@common/components/Card/Card';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useNightQuery } from '../../api/useNightQuery';
 import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
@@ -20,6 +20,7 @@ import { EndNightSheet } from '../EndNightSheet/EndNightSheet';
 import { NightStepList } from '../NightStepList/NightStepList';
 import { SendInfoSheet } from '../SendInfoSheet/SendInfoSheet';
 import { StepChoiceSheet } from '../StepChoiceSheet/StepChoiceSheet';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './StorytellerNight.module.scss';
 
 interface StorytellerNightProps {
@@ -102,6 +103,7 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
           <PhaseBarAction aria-label="Terminer la nuit" onClick={() => setOpenSheet('end')}>
             <Sunrise aria-hidden="true" />
           </PhaseBarAction>
+          <ScriptRolesAction game={game} />
           <PhaseBarAction
             aria-label="Retour à mes parties"
             onClick={() => void navigate(AUTH_ROUTES.GAMES)}

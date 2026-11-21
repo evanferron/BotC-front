@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { ChoiceRow } from '@/components/ChoiceRow/ChoiceRow';
-import { Pill } from '@/components/Pill/Pill';
-import { Stepper } from '@/components/Stepper/Stepper';
-import { AUTH_ROUTES, buildGameRoute } from '@/config/routes.config';
+import { ArrowLeft, BookOpen } from 'lucide-react';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { ChoiceRow } from '@common/components/ChoiceRow/ChoiceRow';
+import { Pill } from '@common/components/Pill/Pill';
+import { Stepper } from '@common/components/Stepper/Stepper';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES, buildGameRoute, buildScriptRolesRoute } from '@common/config/routes.config';
 import { useCreateGameMutation } from '@games/api/useCreateGameMutation';
 import {
   DEFAULT_PLAYERS,
   DEFAULT_SCRIPT_ID,
   MAX_PLAYERS,
   MIN_PLAYERS,
-  SCRIPTS,
 } from '@games/constants/SCRIPTS';
+import { useScriptsQuery } from '@scripts/api/useScriptsQuery';
 import styles from './NewGame.module.scss';
 
 /**
@@ -25,9 +26,11 @@ import styles from './NewGame.module.scss';
 export const NewGame = () => {
   const navigate = useNavigate();
   const { mutateAsync: createGame, isPending } = useCreateGameMutation();
+  const { data: scripts, isPending: isLoadingScripts } = useScriptsQuery();
 
   const [scriptId, setScriptId] = useState<string>(DEFAULT_SCRIPT_ID);
   const [playerCount, setPlayerCount] = useState(DEFAULT_PLAYERS);
+  const selectedScript = scripts?.find((script) => script.id === scriptId);
 
   useEffect(() => {
     document.title = 'Nouvelle partie · BotC';
@@ -60,7 +63,7 @@ export const NewGame = () => {
       }
       onSubmit={handleSubmit}
       footer={
-        <Button type="submit" size="xl" isLoading={isPending}>
+        <Button type="submit" size="xl" isLoading={isPending} disabled={!selectedScript}>
           Créer la partie
         </Button>
       }
@@ -70,17 +73,27 @@ export const NewGame = () => {
           Choisissez un script
         </h2>
         <div role="radiogroup" aria-labelledby="script-title" className={styles.choices}>
-          {SCRIPTS.map((script) => (
+          {isLoadingScripts && !scripts && <Loading label="Chargement des scripts…" />}
+          {scripts?.map((script) => (
             <ChoiceRow
               key={script.id}
               title={script.name}
-              description={script.description}
+              description={script.description ?? undefined}
               selected={scriptId === script.id}
               onClick={() => setScriptId(script.id)}
             />
           ))}
           <ChoiceRow title="Autres scripts" disabled trailing={<Pill>Bientôt</Pill>} />
         </div>
+        {selectedScript && (
+          <Button
+            variant="ghost"
+            leadingIcon={<BookOpen aria-hidden="true" />}
+            onClick={() => void navigate(buildScriptRolesRoute(selectedScript.id))}
+          >
+            Voir les rôles de {selectedScript.name}
+          </Button>
+        )}
       </section>
 
       <hr className={styles.separator} />

@@ -1,8 +1,8 @@
 import { Copy, Share } from 'lucide-react';
-import { Card } from '@/components/Card/Card';
-import { Button } from '@/components/Button/Button';
-import { buildJoinUrl } from '@/config/routes.config';
-import { showError, showSuccess } from '@/services/toast.service';
+import { Card } from '@common/components/Card/Card';
+import { Button } from '@common/components/Button/Button';
+import { buildJoinUrl } from '@common/config/routes.config';
+import { showError, showSuccess } from '@common/utils/toast.utils';
 import styles from './RoomCodeCard.module.scss';
 
 const canShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';

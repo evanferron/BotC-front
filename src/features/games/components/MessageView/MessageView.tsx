@@ -1,7 +1,7 @@
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { getTypeLabel } from '@scripts/utils/role.utils';
 import type { Player, RoleSummary } from '../../types/game.types';
 import type { PlayerMessage } from '../../types/night.types';
-import { getCharacterTypeLabel } from '../../utils/role.utils';
 import styles from './MessageView.module.scss';
 
 interface MessageViewProps {
@@ -31,9 +31,7 @@ const RoleChips = ({ ids, roles }: { ids: string[]; roles: RoleSummary[] }) => (
       return (
         <li key={id} className={styles.role}>
           <span className={styles.role_name}>{role?.name ?? id}</span>
-          {role && (
-            <span className={styles.role_type}>{getCharacterTypeLabel(role.character_type)}</span>
-          )}
+          {role && <span className={styles.role_type}>{getTypeLabel(role.character_type)}</span>}
         </li>
       );
     })}

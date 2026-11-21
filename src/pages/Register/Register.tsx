@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar } from '@/components/PhaseBar/PhaseBar';
-import { TextField } from '@/components/TextField/TextField';
-import { Button } from '@/components/Button/Button';
-import { PUBLIC_ROUTES } from '@/config/routes.config';
-import { getErrorStatus } from '@/utils/api.utils';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar } from '@common/components/PhaseBar/PhaseBar';
+import { TextField } from '@common/components/TextField/TextField';
+import { Button } from '@common/components/Button/Button';
+import { PUBLIC_ROUTES } from '@common/config/routes.config';
+import { getErrorCode } from '@common/api/errors';
 import { useRegisterMutation } from '@auth/api/useRegisterMutation';
 import { AUTH_ERROR_MESSAGES, getCommonAuthError } from '@auth/utils/authError.utils';
 import {
@@ -45,7 +45,7 @@ export const Register = () => {
       // La redirection est faite par PublicLayout dès que la session existe
       await registerRequest({ pseudo: cleanedPseudo, password });
     } catch (err) {
-      if (getErrorStatus(err) === 409) {
+      if (getErrorCode(err) === 'PSEUDO_ALREADY_USED') {
         setPseudoError(AUTH_ERROR_MESSAGES.PSEUDO_TAKEN);
       } else {
         setFormError(getCommonAuthError(err));

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar } from '@/components/PhaseBar/PhaseBar';
-import { TextField } from '@/components/TextField/TextField';
-import { Button } from '@/components/Button/Button';
-import { PUBLIC_ROUTES } from '@/config/routes.config';
-import { getErrorStatus } from '@/utils/api.utils';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar } from '@common/components/PhaseBar/PhaseBar';
+import { TextField } from '@common/components/TextField/TextField';
+import { Button } from '@common/components/Button/Button';
+import { PUBLIC_ROUTES } from '@common/config/routes.config';
+import { getErrorCode } from '@common/api/errors';
 import { useLoginMutation } from '@auth/api/useLoginMutation';
 import { AUTH_ERROR_MESSAGES, getCommonAuthError } from '@auth/utils/authError.utils';
 import styles from './Login.module.scss';
@@ -38,9 +38,9 @@ export const Login = () => {
       // La redirection est faite par PublicLayout dès que la session existe
       await loginRequest({ pseudo: cleanedPseudo, password });
     } catch (err) {
-      const status = getErrorStatus(err);
+      const code = getErrorCode(err);
       setError(
-        status === 401 || status === 400
+        code === 'INVALID_CREDENTIALS' || code === 'VALIDATION_FAILED'
           ? AUTH_ERROR_MESSAGES.INVALID_CREDENTIALS
           : getCommonAuthError(err)
       );

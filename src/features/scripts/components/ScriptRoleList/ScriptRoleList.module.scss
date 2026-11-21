@@ -1,0 +1,163 @@
+// Liste des rôles d'un script (design/R1-Roles-du-script.dc.html)
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.offline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid $line-control;
+  background: $surface-raised;
+  font: 500 14px/20px $font-sans;
+  color: $text;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    color: $text-muted;
+  }
+}
+
+.storyteller {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  @include micro;
+}
+
+.count {
+  @include mono;
+}
+
+.search {
+  width: 100%;
+  height: 60px;
+  padding: 0 16px;
+  background: $bg-sunken;
+  border: 1.5px solid $line-control;
+  border-radius: 12px;
+  color: $text;
+  font: 500 18px/1 $font-sans;
+  outline: none;
+  transition:
+    border-color $duration-fast $ease-soft,
+    box-shadow $duration-fast $ease-soft;
+
+  &::placeholder {
+    color: $text-faint;
+  }
+
+  &:focus {
+    border-color: $accent-hi;
+    box-shadow: 0 0 0 3px rgba($accent-hi, 0.25);
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  height: $target-min;
+  padding: 0 14px;
+  border-radius: $radius-full;
+  background: $bg-sunken;
+  border: 1.5px solid $line-control;
+  color: $text;
+  font: 500 14px/1 $font-sans;
+  cursor: pointer;
+  @include focus-ring;
+}
+
+.chip_on {
+  background: rgba($accent, 0.2);
+  border-color: $accent;
+}
+
+.results {
+  @include body-small;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.group_head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 6px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    stroke-width: 2;
+  }
+}
+
+.good {
+  color: $team-good;
+}
+
+.evil {
+  color: $team-evil-text;
+}
+
+.group_title {
+  font: 600 11px/16px $font-sans;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $text;
+}
+
+.group_team {
+  font: 400 12px/16px $font-sans;
+  color: $text-muted;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 0;
+  text-align: center;
+
+  > svg {
+    width: 48px;
+    height: 48px;
+    stroke-width: 1.5;
+    color: $text-muted;
+  }
+}
+
+.empty_title {
+  @include title-2;
+}
+
+.empty_text {
+  @include body-small;
+  max-width: 240px;
+}

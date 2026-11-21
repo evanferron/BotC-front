@@ -1,5 +1,5 @@
-import { Pill } from '@/components/Pill/Pill';
-import { cx } from '@/utils/className.utils';
+import { Pill } from '@common/components/Pill/Pill';
+import { cx } from '@common/utils/className.utils';
 import type { NightStep } from '../../types/night.types';
 import {
   getStepStatusLabel,

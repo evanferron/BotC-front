@@ -18,10 +18,12 @@
 
     /* Path aliases */
     "paths": {
-      "@/*": ["./src/*"],
-      "@styles/*": ["./src/styles/*"],
+      "@app/*": ["./src/app/*"],
+      "@pages/*": ["./src/pages/*"],
       "@auth/*": ["./src/features/auth/*"],
-      "@games/*": ["./src/features/games/*"]
+      "@games/*": ["./src/features/games/*"],
+      "@scripts/*": ["./src/features/scripts/*"],
+      "@common/*": ["./src/common/*"]
     },
 
     /* Linting */

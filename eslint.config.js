@@ -9,6 +9,24 @@ import tseslint from 'typescript-eslint'
 import eslintPluginReact from 'eslint-plugin-react'
 import eslintConfigPrettier from 'eslint-config-prettier'
 
+// Interdit, par zone, les imports vers les couches du dessus. Un import relatif qui remonte de
+// trois niveaux sort de sa zone : il doit passer par l'alias de la couche visée.
+const layerRules = (zones) =>
+  zones.map(({ files, forbidden, reason }) => ({
+    files,
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            { group: forbidden.flatMap((alias) => [alias, `${alias}/*`]), message: `Import interdit : ${reason}.` },
+            { group: ['../../../*'], message: "Import hors de la zone : utiliser l'alias de la couche (@common, @auth…)." },
+          ],
+        },
+      ],
+    },
+  }))
+
 export default [
   // Ignorer les dossiers de build et dépendances
   {
@@ -120,6 +138,22 @@ export default [
       'no-console': 'off',
     },
   },
+
+  // ==================== COUCHES (app → pages → features → common) ====================
+  // Même règle que le back : une couche n'importe que les couches en dessous d'elle.
+  // Entre features, un seul sens : auth ← scripts ← games.
+  ...layerRules([
+    { files: ['src/common/**'], forbidden: ['@app', '@pages', '@auth', '@scripts', '@games'],
+      reason: 'common ne dépend d\'aucune feature ni de l\'application' },
+    { files: ['src/features/auth/**'], forbidden: ['@app', '@pages', '@scripts', '@games'],
+      reason: 'auth est la feature la plus basse' },
+    { files: ['src/features/scripts/**'], forbidden: ['@app', '@pages', '@games'],
+      reason: 'scripts peut utiliser auth, jamais games' },
+    { files: ['src/features/games/**'], forbidden: ['@app', '@pages'],
+      reason: 'une feature ne dépend ni des pages ni de l\'application' },
+    { files: ['src/pages/**'], forbidden: ['@app'],
+      reason: 'les pages ne dépendent pas de l\'assemblage (app/)' },
+  ]),
 
   eslintConfigPrettier,
   ...storybook.configs["flat/recommended"],

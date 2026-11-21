@@ -1,4 +1,4 @@
-import { getApiErrorMessage, getErrorStatus, isNetworkError } from '@/utils/api.utils';
+import { getErrorCode, isNetworkError } from '@common/api/errors';
 
 export const JOIN_ERROR_MESSAGES = {
   NOT_FOUND: "Ce code n'ouvre aucune table. Vérifiez-le auprès du Conteur.",
@@ -9,20 +9,23 @@ export const JOIN_ERROR_MESSAGES = {
   UNKNOWN: 'Impossible de rejoindre la table. Réessayez.',
 } as const;
 
-/**
- * Message affiché sous le champ du code.
- * L'API renvoie la même erreur 409 pour plusieurs cas : on les distingue par son message.
- */
+// Message affiché sous le champ du code, selon le code d'erreur de l'API
 export const getJoinErrorMessage = (error: unknown): string => {
   if (isNetworkError(error)) return JOIN_ERROR_MESSAGES.NETWORK;
 
-  const status = getErrorStatus(error);
-  if (status === 404 || status === 400) return JOIN_ERROR_MESSAGES.NOT_FOUND;
-  if (status === 409) {
-    const message = getApiErrorMessage(error)?.toLowerCase() ?? '';
-    if (message.includes('full')) return JOIN_ERROR_MESSAGES.FULL;
-    if (message.includes('started')) return JOIN_ERROR_MESSAGES.STARTED;
-    if (message.includes('storyteller')) return JOIN_ERROR_MESSAGES.STORYTELLER;
+  switch (getErrorCode(error)) {
+    case 'ROOM_CODE_NOT_FOUND':
+    case 'BAD_REQUEST':
+    case 'VALIDATION_FAILED':
+      return JOIN_ERROR_MESSAGES.NOT_FOUND;
+    case 'GAME_FULL':
+      return JOIN_ERROR_MESSAGES.FULL;
+    case 'GAME_ALREADY_STARTED':
+      return JOIN_ERROR_MESSAGES.STARTED;
+    // Seul conflit restant de POST /games/join : le conteur qui rejoint sa propre table
+    case 'CONFLICT':
+      return JOIN_ERROR_MESSAGES.STORYTELLER;
+    default:
+      return JOIN_ERROR_MESSAGES.UNKNOWN;
   }
-  return JOIN_ERROR_MESSAGES.UNKNOWN;
 };

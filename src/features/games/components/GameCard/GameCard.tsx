@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@/components/Card/Card';
-import { Pill } from '@/components/Pill/Pill';
-import { Button } from '@/components/Button/Button';
-import { buildGameRoute } from '@/config/routes.config';
+import { Card } from '@common/components/Card/Card';
+import { Pill } from '@common/components/Pill/Pill';
+import { Button } from '@common/components/Button/Button';
+import { buildGameRoute } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
-import { getScriptName } from '../../constants/SCRIPTS';
+import { useScriptName } from '@scripts/api/useScriptsQuery';
 import {
   formatPlayerCount,
   getPhaseLabel,
@@ -22,10 +22,11 @@ interface GameCardProps {
 export const GameCard = ({ game }: GameCardProps) => {
   const navigate = useNavigate();
   const { userId } = useAuth();
+  const scriptName = useScriptName(game.script_id);
   const isEnded = game.status === 'Ended';
   const summary = [
     game.storyteller_id === userId ? 'Conteur' : 'Joueur',
-    getScriptName(game.script_id),
+    scriptName,
     formatPlayerCount(game.player_count),
     getWinnerLabel(game) ?? (isGameInProgress(game.status) ? getPhaseLabel(game) : undefined),
   ]

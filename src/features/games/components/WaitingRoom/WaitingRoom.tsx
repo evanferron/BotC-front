@@ -1,17 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
-import { Loading } from '@/components/Loading/Loading';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { ProgressBar } from '@common/components/ProgressBar/ProgressBar';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { useUserQuery } from '@auth/api/useUserQuery';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useLeaveGameMutation } from '../../api/useLeaveGameMutation';
 import type { Game } from '../../types/game.types';
 import { PlayerList } from '../PlayerList/PlayerList';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './WaitingRoom.module.scss';
 
 interface WaitingRoomProps {
@@ -47,12 +48,15 @@ export const WaitingRoom = ({ game }: WaitingRoomProps) => {
           title="Salle d'attente"
           meta={`${joined} / ${game.player_count}`}
           actions={
-            <PhaseBarAction
-              aria-label="Retour à mes parties"
-              onClick={() => void navigate(AUTH_ROUTES.GAMES)}
-            >
-              <ArrowLeft aria-hidden="true" />
-            </PhaseBarAction>
+            <>
+              <ScriptRolesAction game={game} />
+              <PhaseBarAction
+                aria-label="Retour à mes parties"
+                onClick={() => void navigate(AUTH_ROUTES.GAMES)}
+              >
+                <ArrowLeft aria-hidden="true" />
+              </PhaseBarAction>
+            </>
           }
         />
       }

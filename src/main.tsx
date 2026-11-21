@@ -4,9 +4,11 @@ import { Toaster } from 'react-hot-toast';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '@auth/providers/AuthProvider';
-import { Router } from '@/router/router';
-import { ENV } from '@/config/api.config';
-import { queryClient } from '@/config/queryClient.config';
+import { httpAuth } from '@auth/api/httpAuth';
+import { configureHttpAuth } from '@common/api/http';
+import { Router } from '@app/router';
+import { ENV } from '@common/config/api.config';
+import { queryClient } from '@app/queryClient';
 import '@fontsource/cormorant-garamond/500.css';
 import '@fontsource/cormorant-garamond/600.css';
 import '@fontsource/cormorant-garamond/500-italic.css';
@@ -15,7 +17,10 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '@fontsource/jetbrains-mono/700.css';
-import './styles/index.scss';
+import '@common/styles/index.scss';
+
+// Assemblage : le client HTTP partagé reçoit l'authentification avant toute requête
+configureHttpAuth(httpAuth);
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

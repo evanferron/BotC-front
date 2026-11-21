@@ -15,11 +15,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(dirname, './src'),
-      '@styles': path.resolve(dirname, './src/styles'),
-      // Un alias par feature, pour les imports entre features
+      // Un alias par couche (app → pages → features → common) : chaque import montre sa couche
+      '@app': path.resolve(dirname, './src/app'),
+      '@pages': path.resolve(dirname, './src/pages'),
       '@auth': path.resolve(dirname, './src/features/auth'),
       '@games': path.resolve(dirname, './src/features/games'),
+      '@scripts': path.resolve(dirname, './src/features/scripts'),
+      '@common': path.resolve(dirname, './src/common'),
     },
   },
   server: {
@@ -35,7 +37,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@styles/colors" as *; @use "@styles/variables" as *; @use "@styles/fonts" as *; @use "@styles/mixins" as *;`,
+        additionalData: `@use "@common/styles/colors" as *; @use "@common/styles/variables" as *; @use "@common/styles/fonts" as *; @use "@common/styles/mixins" as *;`,
       },
     },
   },

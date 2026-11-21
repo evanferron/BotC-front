@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { showError } from '@/services/toast.service';
+import { showError } from '@common/utils/toast.utils';
 import { useSessionQuery } from '../api/useSessionQuery';
 import { useUserQuery } from '../api/useUserQuery';
 import { useLogoutMutation } from '../api/useLogoutMutation';

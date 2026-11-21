@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Check } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Card } from '@/components/Card/Card';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { Loading } from '@/components/Loading/Loading';
-import { ENV } from '@/config/api.config';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Card } from '@common/components/Card/Card';
+import { ProgressBar } from '@common/components/ProgressBar/ProgressBar';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { Loading } from '@common/components/Loading/Loading';
+import { ENV } from '@common/config/api.config';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useCardsQuery } from '../../api/useCardsQuery';
 import { usePickCardMutation } from '../../api/usePickCardMutation';
 import type { Distribution, Game } from '../../types/game.types';
 import { getPhaseLabel, getPhaseVariant } from '../../utils/game.utils';
 import { DistributionList } from '../DistributionList/DistributionList';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './StorytellerDistribution.module.scss';
 
 interface StorytellerDistributionProps {
@@ -81,12 +82,15 @@ export const StorytellerDistribution = ({ game }: StorytellerDistributionProps) 
       tag={getPhaseLabel(game)}
       meta={cards.length > 0 ? `${picked} / ${cards.length}` : undefined}
       actions={
-        <PhaseBarAction
-          aria-label="Retour à mes parties"
-          onClick={() => void navigate(AUTH_ROUTES.GAMES)}
-        >
-          <ArrowLeft aria-hidden="true" />
-        </PhaseBarAction>
+        <>
+          <ScriptRolesAction game={game} />
+          <PhaseBarAction
+            aria-label="Retour à mes parties"
+            onClick={() => void navigate(AUTH_ROUTES.GAMES)}
+          >
+            <ArrowLeft aria-hidden="true" />
+          </PhaseBarAction>
+        </>
       }
     />
   );

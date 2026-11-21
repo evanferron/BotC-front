@@ -1,0 +1,10 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  text-align: center;
+}
+
+.text {
+  @include body-small;
+}
