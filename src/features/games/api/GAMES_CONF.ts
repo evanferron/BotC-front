@@ -15,6 +15,7 @@ export const GAMES_ENDPOINTS = {
   night: (id: string) => `${GAMES_ENDPOINT}/${id}/night`,
   nightStep: (id: string, stepId: string, action: 'activate' | 'resolve' | 'skip') =>
     `${GAMES_ENDPOINT}/${id}/night/steps/${stepId}/${action}`,
+  nightSteps: (id: string) => `${GAMES_ENDPOINT}/${id}/night/steps`,
   nightEnd: (id: string) => `${GAMES_ENDPOINT}/${id}/night/end`,
   prompt: (id: string) => `${GAMES_ENDPOINT}/${id}/night/prompt`,
   respond: (id: string) => `${GAMES_ENDPOINT}/${id}/night/prompt/respond`,

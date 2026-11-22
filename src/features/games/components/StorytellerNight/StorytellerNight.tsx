@@ -15,6 +15,7 @@ import { useEndNightMutation } from '../../api/useEndNightMutation';
 import type { Game, Player, RoleSummary } from '../../types/game.types';
 import type { NightStep, StepChoice } from '../../types/night.types';
 import { getActionHint, getStepTitle, isOpenStatus, isTeamInfoStep } from '../../utils/night.utils';
+import { AddStepSheet } from '../AddStepSheet/AddStepSheet';
 import { EndNightSheet } from '../EndNightSheet/EndNightSheet';
 import { NightStepList } from '../NightStepList/NightStepList';
 import { SendInfoSheet } from '../SendInfoSheet/SendInfoSheet';
@@ -26,7 +27,7 @@ interface StorytellerNightProps {
   game: Game;
 }
 
-type OpenSheet = 'info' | 'choice' | 'end';
+type OpenSheet = 'info' | 'choice' | 'end' | 'add';
 
 // Choix d'une étape en clair : « Inès », « Marc et Lou », « Moine »
 const formatChoice = (step: NightStep, players: Player[], roles: RoleSummary[]) => {
@@ -286,6 +287,9 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
       )}
 
       <NightStepList steps={steps} currentId={current?.id} />
+      <Button variant="ghost" onClick={() => setOpenSheet('add')}>
+        Ajouter une étape
+      </Button>
 
       {openSheet === 'info' && (
         <SendInfoSheet
@@ -307,6 +311,9 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
           onApply={(choice) => void run('resolve', { decision: 'Modified', choice })}
           onClose={closeSheet}
         />
+      )}
+      {openSheet === 'add' && (
+        <AddStepSheet gameId={game.id} players={players} roles={roles} onClose={closeSheet} />
       )}
       {openSheet === 'end' && (
         <EndNightSheet
