@@ -6,6 +6,8 @@ import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
 import { Pill } from '@common/components/Pill/Pill';
 import { vibrate } from '@common/utils/haptics.utils';
 import { useAuth } from '@auth/hooks/useAuth';
+import { PinnedRoleRow } from '@scripts/components/PinnedRoleRow/PinnedRoleRow';
+import { useCardsQuery } from '../../api/useCardsQuery';
 import { useDayQuery } from '../../api/useDayQuery';
 import { useVoteMutation } from '../../api/useDayMutations';
 import type { Game, Player } from '../../types/game.types';
@@ -36,6 +38,7 @@ const VOTE_SENT = [12, 60, 12];
 export const PlayerDay = ({ game, players, header }: PlayerDayProps) => {
   const { userId } = useAuth();
   const { data: day } = useDayQuery(game.id);
+  const { data: distribution } = useCardsQuery(game.id);
   const { mutate: vote, isPending: isVoting, variables } = useVoteMutation();
   const me = players.find((p) => p.user_id === userId);
   const voting = getOpenVote(day);
@@ -134,6 +137,12 @@ export const PlayerDay = ({ game, players, header }: PlayerDayProps) => {
       header={header}
       footer={<p className={styles.footnote}>Discutez. Le Conteur annoncera la suite.</p>}
     >
+      {me && !me.is_alive && (
+        <DeadCard hasGhostVote={me.has_ghost_vote}>
+          {distribution?.my_role && <PinnedRoleRow role={distribution.my_role} />}
+        </DeadCard>
+      )}
+
       {day && pending ? (
         <PendingNomination nomination={pending} players={players} />
       ) : (
@@ -170,6 +179,29 @@ export const PlayerDay = ({ game, players, header }: PlayerDayProps) => {
     </Screen>
   );
 };
+
+// Écran 22a : un mort garde la parole, et sa voix fantôme tant qu'il ne l'a pas utilisée
+const DeadCard = ({
+  hasGhostVote,
+  children,
+}: {
+  hasGhostVote: boolean;
+  children: React.ReactNode;
+}) => (
+  <Card className={styles.dead}>
+    <span className={styles.eyebrow}>Vous êtes mort</span>
+    <p className={styles.message}>
+      {hasGhostVote
+        ? 'Vous gardez la parole et une voix fantôme pour condamner.'
+        : 'Vous gardez la parole. Votre voix fantôme est utilisée.'}
+    </p>
+    <Pill icon={hasGhostVote ? <Ghost aria-hidden="true" /> : <Skull aria-hidden="true" />}>
+      {hasGhostVote ? 'Voix fantôme disponible' : 'Voix fantôme utilisée'}
+    </Pill>
+    {children}
+    <small className={styles.hint}>Votre rôle reste secret. Les vivants ne le voient pas.</small>
+  </Card>
+);
 
 // Écran 14b : un joueur est nommé, la table délibère
 const PendingNomination = ({

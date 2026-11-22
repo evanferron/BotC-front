@@ -5,6 +5,7 @@ import { Screen } from '@common/components/Screen/Screen';
 import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
 import { Button } from '@common/components/Button/Button';
 import { AUTH_ROUTES } from '@common/config/routes.config';
+import { useAuth } from '@auth/hooks/useAuth';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
 import { useMessagesQuery } from '../../api/useMessagesQuery';
@@ -32,6 +33,7 @@ type OpenSheet = 'info' | 'role';
  */
 export const DayView = ({ game, isStoryteller }: DayViewProps) => {
   const navigate = useNavigate();
+  const { userId } = useAuth();
   const { data: players = [] } = usePlayersQuery(game.id, true);
   const { data: roles = [] } = useScriptRolesQuery(game.id);
   const { data: messages = [] } = useMessagesQuery(game.id, !isStoryteller);
@@ -40,13 +42,16 @@ export const DayView = ({ game, isStoryteller }: DayViewProps) => {
   const closeSheet = useCallback(() => setOpenSheet(undefined), []);
 
   const alive = players.filter((p) => p.is_alive).length;
+  const isDead = players.find((p) => p.user_id === userId)?.is_alive === false;
   const unread = isStoryteller ? undefined : messages.find((m) => !m.read_at);
 
   const header = (
     <PhaseBar
       title={getPhaseLabel(game)}
       variant={getPhaseVariant(game.status)}
-      meta={`${alive} en vie`}
+      // Pour un mort, l'étiquette remplace le compteur (visible dans la liste) : le titre reste lisible
+      meta={isDead ? undefined : `${alive} en vie`}
+      tag={isDead ? 'Mort' : undefined}
       actions={
         <>
           {isStoryteller ? (

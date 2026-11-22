@@ -83,3 +83,15 @@
     color: $text-muted;
   }
 }
+
+.dead {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: $dead-bg;
+  border-color: $dead-line;
+}
+
+.hint {
+  @include body-small;
+}
