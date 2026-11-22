@@ -41,6 +41,7 @@ export const GAMES_ENDPOINTS = {
   summary: (id: string) => `${GAMES_ENDPOINT}/${id}/summary`,
   playerState: (id: string, playerId: string) =>
     `${GAMES_ENDPOINT}/${id}/players/${playerId}/state`,
+  seats: (id: string) => `${GAMES_ENDPOINT}/${id}/seats`,
 } as const;
 
 export const GAMES_KEYS = {
