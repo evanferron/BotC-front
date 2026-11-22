@@ -1,0 +1,76 @@
+// Composition (design/C1-Creation.dc.html, écrans 02b et 02c)
+.hint {
+  margin: 0;
+  @include body-small;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: $space-3 $space-4;
+  border: 1px solid $line;
+  border-radius: $radius-m;
+  background: $surface;
+}
+
+.total {
+  font: 700 20px/1.2 $font-mono;
+  color: $text;
+}
+
+.status {
+  @include body-small;
+}
+
+.invalid {
+  border-color: $danger-text;
+  background: $danger-veil;
+
+  .status {
+    color: $danger-text;
+  }
+}
+
+.warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  @include body-small;
+  color: $accent-hi;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex: none;
+    margin-top: 1px;
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.group_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: $space-2 0 0;
+  @include micro;
+}
+
+.group_count {
+  font: 700 13px/1 $font-mono;
+  letter-spacing: 0;
+  color: $text-muted;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-top: $space-2;
+}

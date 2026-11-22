@@ -45,6 +45,7 @@ export type ErrorCode =
   | 'WRONG_PHASE'
   | 'NOT_YOUR_TURN'
   | 'CARD_NOT_AVAILABLE'
+  | 'INVALID_COMPOSITION'
   // Métier : nuit
   | 'NIGHT_STEP_NOT_FOUND'
   | 'INVALID_STEP_STATE'

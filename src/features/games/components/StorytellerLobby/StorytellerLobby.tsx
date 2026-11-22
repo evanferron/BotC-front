@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Layers } from 'lucide-react';
 import { Screen } from '@common/components/Screen/Screen';
 import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
 import { Button } from '@common/components/Button/Button';
@@ -15,7 +15,9 @@ import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useKickPlayerMutation } from '../../api/useKickPlayerMutation';
 import { useStartGameMutation } from '../../api/useStartGameMutation';
 import { useDevFillMutation } from '../../api/useDevFillMutation';
+import { useCompositionQuery } from '../../api/useCompositionQuery';
 import type { Game, Player } from '../../types/game.types';
+import { CompositionSheet } from '../CompositionSheet/CompositionSheet';
 import { PlayerList } from '../PlayerList/PlayerList';
 import { RoomCodeCard } from '../RoomCodeCard/RoomCodeCard';
 import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
@@ -34,6 +36,8 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
   const { mutateAsync: kickPlayer, isPending: isKicking } = useKickPlayerMutation();
   const { mutateAsync: startGame, isPending: isStarting } = useStartGameMutation();
   const { mutate: devFill, isPending: isFilling } = useDevFillMutation();
+  const { data: composition } = useCompositionQuery(game.id);
+  const [isCompositionOpen, setIsCompositionOpen] = useState(false);
 
   // Joueur dont l'exclusion attend confirmation
   const [playerToKick, setPlayerToKick] = useState<Player>();
@@ -107,6 +111,23 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
     >
       <RoomCodeCard roomCode={game.room_code} />
 
+      <button
+        type="button"
+        className={styles.composition}
+        onClick={() => setIsCompositionOpen(true)}
+      >
+        <Layers aria-hidden="true" className={styles.composition_icon} />
+        <span className={styles.composition_text}>
+          <span className={styles.composition_title}>Composition</span>
+          <small>
+            {!composition || composition.random
+              ? 'Tirée au hasard au lancement'
+              : `Choisie · ${composition.cards.length} rôles`}
+          </small>
+        </span>
+        <ChevronRight aria-hidden="true" className={styles.composition_icon} />
+      </button>
+
       <section className={styles.section} aria-labelledby="lobby-count">
         <div className={styles.count_row}>
           <h2 id="lobby-count" className={styles.count}>
@@ -138,6 +159,10 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
         onConfirm={() => void handleKick()}
         onCancel={closeKickSheet}
       />
+
+      {isCompositionOpen && (
+        <CompositionSheet game={game} onClose={() => setIsCompositionOpen(false)} />
+      )}
 
       <ConfirmSheet
         open={isStartSheetOpen}
