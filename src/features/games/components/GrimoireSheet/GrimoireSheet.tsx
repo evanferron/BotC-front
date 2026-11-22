@@ -14,6 +14,7 @@ import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
 import type { Game } from '../../types/game.types';
 import type { GrimoirePlayer, PlayerStateCorrection } from '../../types/grimoire.types';
 import { CorrectionSheet } from '../CorrectionSheet/CorrectionSheet';
+import { EndGameSheet } from '../EndGameSheet/EndGameSheet';
 import { GameScriptRolesSheet } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './GrimoireSheet.module.scss';
 
@@ -38,6 +39,7 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
   const { mutateAsync: correct, isPending } = useCorrectPlayerMutation();
   const [selectedId, setSelectedId] = useState<string>();
   const [showRoles, setShowRoles] = useState(false);
+  const [isEnding, setIsEnding] = useState(false);
   const selected = players?.find((p) => p.id === selectedId);
 
   const apply = async (player: GrimoirePlayer, correction: PlayerStateCorrection) => {
@@ -96,6 +98,12 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
           ))}
         </ul>
       )}
+      {game.status !== 'Ended' && (
+        <Button variant="secondary" onClick={() => setIsEnding(true)}>
+          Terminer la partie
+        </Button>
+      )}
+      {isEnding && <EndGameSheet game={game} onClose={() => setIsEnding(false)} />}
       {showRoles && (
         <GameScriptRolesSheet game={game} isStoryteller onClose={() => setShowRoles(false)} />
       )}

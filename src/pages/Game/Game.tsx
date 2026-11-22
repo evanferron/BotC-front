@@ -11,12 +11,12 @@ import { useAuth } from '@auth/hooks/useAuth';
 import { useGameQuery } from '@games/api/useGameQuery';
 import { StorytellerLobby } from '@games/components/StorytellerLobby/StorytellerLobby';
 import { WaitingRoom } from '@games/components/WaitingRoom/WaitingRoom';
-import { GameStarted } from '@games/components/GameStarted/GameStarted';
 import { PlayerDistribution } from '@games/components/PlayerDistribution/PlayerDistribution';
 import { StorytellerDistribution } from '@games/components/StorytellerDistribution/StorytellerDistribution';
 import { StorytellerNight } from '@games/components/StorytellerNight/StorytellerNight';
 import { PlayerNight } from '@games/components/PlayerNight/PlayerNight';
 import { DayView } from '@games/components/DayView/DayView';
+import { EndView } from '@games/components/EndView/EndView';
 import styles from './Game.module.scss';
 
 /**
@@ -92,12 +92,12 @@ export const Game = () => {
     case 'FirstNight':
     case 'Night':
       return isStoryteller ? <StorytellerNight game={game} /> : <PlayerNight game={game} />;
-    // Le conseil et le vote (étape 7) s'afficheront ici ; en attendant, l'écran du jour
+    // Jour, conseil et vote
     case 'Day':
     case 'Council':
     case 'Voting':
       return <DayView game={game} isStoryteller={isStoryteller} />;
-    default:
-      return <GameStarted game={game} />;
+    case 'Ended':
+      return <EndView game={game} isStoryteller={isStoryteller} />;
   }
 };

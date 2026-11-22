@@ -16,6 +16,8 @@ export interface Game {
   player_count: number;
   current_round: number;
   winner: Alignment | null;
+  // Raison de la fin, annoncée avec le camp vainqueur
+  end_reason: string | null;
   created_at: string;
   updated_at: string;
 }

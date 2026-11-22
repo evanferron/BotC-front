@@ -36,6 +36,8 @@ export const GAMES_ENDPOINTS = {
   closeVote: (id: string, nominationId: string) =>
     `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/close-vote`,
   grimoire: (id: string) => `${GAMES_ENDPOINT}/${id}/grimoire`,
+  end: (id: string) => `${GAMES_ENDPOINT}/${id}/end`,
+  summary: (id: string) => `${GAMES_ENDPOINT}/${id}/summary`,
   playerState: (id: string, playerId: string) =>
     `${GAMES_ENDPOINT}/${id}/players/${playerId}/state`,
 } as const;
@@ -53,4 +55,5 @@ export const GAMES_KEYS = {
   messages: (id: string) => [...GAMES_KEYS.details(id), 'messages'] as const,
   day: (id: string) => [...GAMES_KEYS.details(id), 'day'] as const,
   grimoire: (id: string) => [...GAMES_KEYS.details(id), 'grimoire'] as const,
+  summary: (id: string) => [...GAMES_KEYS.details(id), 'summary'] as const,
 };
