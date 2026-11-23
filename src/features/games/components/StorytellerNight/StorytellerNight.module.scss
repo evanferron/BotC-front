@@ -43,3 +43,40 @@
   font: 500 13px/18px $font-sans;
   color: $danger-text;
 }
+
+// Étapes qui retiennent la nuit : le conteur aide sans prendre la main
+.help {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.help_row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid $line;
+  border-radius: $radius-m;
+  background: $surface;
+}
+
+.help_text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  small {
+    @include body-small;
+  }
+}
+
+.help_title {
+  font: 600 16px/20px $font-sans;
+}
+
+.help_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

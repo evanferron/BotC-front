@@ -8,6 +8,8 @@ interface EndNightSheetProps {
   players: Player[];
   // Étapes encore ouvertes : elles seront passées
   openSteps: number;
+  // Morts calculés par la nuit automatique : cochés d'avance
+  proposedDeaths?: string[];
   isLoading: boolean;
   onConfirm: (deaths: string[]) => void;
   onClose: () => void;
@@ -17,11 +19,12 @@ interface EndNightSheetProps {
 export const EndNightSheet = ({
   players,
   openSteps,
+  proposedDeaths = [],
   isLoading,
   onConfirm,
   onClose,
 }: EndNightSheetProps) => {
-  const [deaths, setDeaths] = useState<string[]>([]);
+  const [deaths, setDeaths] = useState<string[]>(proposedDeaths);
   const alive = players.filter((p) => p.is_alive);
   let remaining = '';
   if (openSteps === 1) remaining = ' 1 étape non traitée sera passée.';
@@ -31,7 +34,7 @@ export const EndNightSheet = ({
     <Sheet
       open
       title="Terminer la nuit ?"
-      description={`Touchez les joueurs morts cette nuit. Vous les annoncez à voix haute.${remaining}`}
+      description={`${proposedDeaths.length > 0 ? 'Les morts calculés par la nuit sont cochés ; corrigez si besoin.' : 'Touchez les joueurs morts cette nuit.'} Vous les annoncez à voix haute.${remaining}`}
       onClose={onClose}
       footer={
         <>

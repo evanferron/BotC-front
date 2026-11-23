@@ -46,8 +46,11 @@ export const MessageView = ({ message, players, roles }: MessageViewProps) => {
       <span className={styles.eyebrow}>Le Conteur vous montre</span>
       {message.content && <p className={styles.content}>{message.content}</p>}
 
-      {message.kind === 'Players' && (
-        <PlayerChips ids={payload.player_ids ?? []} players={players} />
+      {(message.kind === 'Players' || message.kind === 'YesNo') && payload.player_ids && (
+        <PlayerChips ids={payload.player_ids} players={players} />
+      )}
+      {message.kind === 'Players' && payload.role_ids && (
+        <RoleChips ids={payload.role_ids} roles={roles} />
       )}
       {message.kind === 'Roles' && <RoleChips ids={payload.role_ids ?? []} roles={roles} />}
       {message.kind === 'Number' && <p className={styles.big}>{payload.number}</p>}
