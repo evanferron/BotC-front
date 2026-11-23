@@ -106,9 +106,11 @@ export const StorytellerDay = ({ game, players, header }: StorytellerDayProps) =
     try {
       const result = await endDay({ gameId: game.id, execute, suppressAbilities: suppress });
       if (result.winner) {
-        showSuccess('Le Maire fait gagner son équipe : trois vivants, aucune exécution.', {
-          duration: 8000,
-        });
+        // La raison (Maire, Saint, Démon exécuté, deux vivants) s'affiche sur l'écran de fin
+        showSuccess(
+          `Fin de partie : victoire ${result.winner === 'Good' ? 'du bon' : 'du mauvais'} camp.`,
+          { duration: 8000 }
+        );
       } else if (result.executed_player_id) {
         showInfo(`${playerName(players, result.executed_player_id)} est exécuté.`);
       }
