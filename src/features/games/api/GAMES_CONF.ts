@@ -43,6 +43,8 @@ export const GAMES_ENDPOINTS = {
     `${GAMES_ENDPOINT}/${id}/players/${playerId}/state`,
   seats: (id: string) => `${GAMES_ENDPOINT}/${id}/seats`,
   composition: (id: string) => `${GAMES_ENDPOINT}/${id}/composition`,
+  compositionSuggestions: (id: string) => `${GAMES_ENDPOINT}/${id}/composition/suggestions`,
+  compositionDraw: (id: string) => `${GAMES_ENDPOINT}/${id}/composition/draw`,
 } as const;
 
 export const GAMES_KEYS = {
@@ -60,4 +62,5 @@ export const GAMES_KEYS = {
   grimoire: (id: string) => [...GAMES_KEYS.details(id), 'grimoire'] as const,
   summary: (id: string) => [...GAMES_KEYS.details(id), 'summary'] as const,
   composition: (id: string) => [...GAMES_KEYS.details(id), 'composition'] as const,
+  compositionSuggestions: (id: string) => [...GAMES_KEYS.composition(id), 'suggestions'] as const,
 };

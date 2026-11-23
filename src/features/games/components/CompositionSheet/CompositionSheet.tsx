@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Dices } from 'lucide-react';
 import { Button } from '@common/components/Button/Button';
 import { CheckboxRow } from '@common/components/CheckboxRow/CheckboxRow';
 import { FullScreenSheet } from '@common/components/FullScreenSheet/FullScreenSheet';
@@ -9,9 +9,11 @@ import { showSuccess } from '@common/utils/toast.utils';
 import { cx } from '@common/utils/className.utils';
 import { CHARACTER_TYPES, getGroupLabel } from '@scripts/utils/role.utils';
 import { useCompositionQuery } from '../../api/useCompositionQuery';
+import { useCompositionSuggestionsQuery } from '../../api/useCompositionSuggestionsQuery';
+import { useDrawCompositionMutation } from '../../api/useDrawCompositionMutation';
 import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
 import { useSetCompositionMutation } from '../../api/useSetCompositionMutation';
-import type { Composition } from '../../types/composition.types';
+import type { Composition, CompositionCard } from '../../types/composition.types';
 import type { Game, RoleSummary } from '../../types/game.types';
 import {
   DRUNK_ROLE_ID,
@@ -27,7 +29,7 @@ import styles from './CompositionSheet.module.scss';
 type Mode = 'random' | 'chosen';
 
 const MODE_OPTIONS = [
-  { value: 'random' as const, label: 'Au hasard' },
+  { value: 'random' as const, label: 'Tirée au lancement' },
   { value: 'chosen' as const, label: 'Choisie' },
 ];
 
@@ -50,6 +52,8 @@ const byName = (a: RoleSummary, b: RoleSummary) => a.name.localeCompare(b.name, 
  */
 const CompositionEditor = ({ game, composition, roles, onClose }: CompositionEditorProps) => {
   const { mutateAsync: save, isPending } = useSetCompositionMutation();
+  const { data: suggestions = [] } = useCompositionSuggestionsQuery(game.id);
+  const { mutateAsync: draw, isPending: isDrawing } = useDrawCompositionMutation();
   const [mode, setMode] = useState<Mode>(composition.random ? 'random' : 'chosen');
   const [selected, setSelected] = useState(() => composition.cards.map((c) => c.role_id));
   const [drunkShown, setDrunkShown] = useState(
@@ -68,6 +72,25 @@ const CompositionEditor = ({ game, composition, roles, onClose }: CompositionEdi
     .sort(byName);
   // Un rôle affiché devenu en jeu n'est plus valable : retour au tirage
   const shown = drunkShown && !selected.includes(drunkShown) ? drunkShown : undefined;
+
+  // Point de départ (tirage ou composition conseillée), retouché ensuite case par case
+  const apply = (cards: CompositionCard[]) => {
+    setSelected(cards.map((c) => c.role_id));
+    setDrunkShown(cards.find((c) => c.role_id === DRUNK_ROLE_ID)?.shown_role_id ?? undefined);
+    setMode('chosen');
+  };
+  const isApplied = (cards: CompositionCard[]) =>
+    mode === 'chosen' &&
+    cards.length === selected.length &&
+    cards.every((c) => selected.includes(c.role_id));
+
+  const generate = async () => {
+    try {
+      apply(await draw(game.id));
+    } catch {
+      // Toast affiché par la mutation
+    }
+  };
 
   const toggle = (roleId: string, checked: boolean) =>
     setSelected((current) =>
@@ -95,13 +118,42 @@ const CompositionEditor = ({ game, composition, roles, onClose }: CompositionEdi
     <FullScreenSheet title="Composition" closeLabel="Fermer la composition" onClose={onClose}>
       <Segmented label="Rôles en jeu" options={MODE_OPTIONS} value={mode} onChange={setMode} />
 
-      {mode === 'random' ? (
+      {mode === 'random' && (
         <p className={styles.hint}>
           Les rôles seront tirés au lancement
           {composition.recommended && ` : ${describeBreakdown(composition.recommended)}`}. Le Baron
           ajoute deux Étrangers, l’Ivrogne reçoit un Villageois absent.
         </p>
-      ) : (
+      )}
+
+      <section className={styles.start} aria-labelledby="composition-start">
+        <h3 id="composition-start" className={styles.group_title}>
+          Partir d’une composition
+        </h3>
+        <Button
+          variant="secondary"
+          leadingIcon={<Dices aria-hidden="true" />}
+          isLoading={isDrawing}
+          onClick={() => void generate()}
+        >
+          Générer au hasard
+        </Button>
+        {suggestions.map((suggestion) => (
+          <button
+            key={suggestion.id}
+            type="button"
+            className={styles.suggestion}
+            aria-pressed={isApplied(suggestion.cards)}
+            onClick={() => apply(suggestion.cards)}
+          >
+            <span className={styles.suggestion_name}>{suggestion.name}</span>
+            <small>{suggestion.description}</small>
+          </button>
+        ))}
+        <p className={styles.hint}>Vous pourrez ensuite la retoucher rôle par rôle.</p>
+      </section>
+
+      {mode === 'chosen' && (
         <>
           <div className={cx(styles.counter, !status.ready && styles.invalid)} aria-live="polite">
             <span className={styles.total}>

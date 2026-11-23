@@ -24,3 +24,11 @@ export interface Composition {
   cards: CompositionCard[];
   recommended: RecommendedBreakdown | null;
 }
+
+// Composition conseillée, construite pour le nombre de joueurs de la partie
+export interface CompositionSuggestion {
+  id: string;
+  name: string;
+  description: string;
+  cards: CompositionCard[];
+}
