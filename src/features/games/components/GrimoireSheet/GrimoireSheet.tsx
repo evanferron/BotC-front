@@ -20,6 +20,7 @@ import { EndGameSheet } from '../EndGameSheet/EndGameSheet';
 import { GrimoireCircle } from '../GrimoireCircle/GrimoireCircle';
 import { GameScriptRolesSheet } from '../ScriptRolesAction/ScriptRolesAction';
 import { SeatOrderList } from '../SeatOrderList/SeatOrderList';
+import { TokenBadges } from '../TokenBadges/TokenBadges';
 import styles from './GrimoireSheet.module.scss';
 
 interface GrimoireSheetProps {
@@ -65,6 +66,7 @@ const GrimoireList = ({ players, onSelect }: GrimoireListProps) => (
             {player.registered_role && <small>Perçu comme {player.registered_role.name}</small>}
           </span>
           <span className={styles.states}>
+            <TokenBadges tokens={player.tokens} />
             {!player.is_alive &&
               (player.has_ghost_vote ? (
                 <Pill icon={<Ghost aria-hidden="true" />}>Voix</Pill>

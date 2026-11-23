@@ -1,5 +1,8 @@
 import type { Alignment, RoleSummary } from './game.types';
 
+// Statut posé par le conteur, invisible des joueurs
+export type TokenKind = 'Poisoned' | 'Drunk' | 'Protected' | 'RedHerring' | 'Marked';
+
 // Joueur vu par le conteur (GrimoirePlayerResponse côté API) : tout, y compris le secret
 export interface GrimoirePlayer {
   id: string;
@@ -16,6 +19,7 @@ export interface GrimoirePlayer {
   registered_role: RoleSummary | null;
   alignment: Alignment | null;
   note: string | null;
+  tokens: TokenKind[];
 }
 
 // Correction : seuls les champs présents changent ; null efface les champs facultatifs
@@ -27,4 +31,6 @@ export interface PlayerStateCorrection {
   registered_role_id?: string | null;
   alignment?: Alignment;
   note?: string | null;
+  // Liste complète : remplace les statuts actuels
+  tokens?: TokenKind[];
 }

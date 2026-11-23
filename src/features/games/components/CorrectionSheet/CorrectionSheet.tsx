@@ -4,7 +4,8 @@ import { Button } from '@common/components/Button/Button';
 import { Segmented } from '@common/components/Segmented/Segmented';
 import { CHARACTER_TYPES, getTeamLabel } from '@scripts/utils/role.utils';
 import type { Alignment, RoleSummary } from '../../types/game.types';
-import type { GrimoirePlayer, PlayerStateCorrection } from '../../types/grimoire.types';
+import type { GrimoirePlayer, PlayerStateCorrection, TokenKind } from '../../types/grimoire.types';
+import { TOKENS, TOKEN_KINDS, sortTokens } from '../../utils/token.utils';
 import { RolePicker } from '../RolePicker/RolePicker';
 import styles from './CorrectionSheet.module.scss';
 
@@ -76,7 +77,7 @@ const RoleField = ({
 
 /**
  * Fiche de correction d'un joueur (design/C4-Grimoire 13c, design/Correction.dc.html) :
- * vie, vote fantôme, rôle, rôle affiché, rôle de façade, équipe et note. Rien ne s'applique
+ * vie, vote fantôme, statuts, rôle, rôle affiché, rôle de façade, équipe et note. Rien ne s'applique
  * avant « Appliquer » ; seuls les champs modifiés sont envoyés. Le joueur ne reçoit aucune alerte.
  */
 export const CorrectionSheet = ({
@@ -93,6 +94,7 @@ export const CorrectionSheet = ({
   const [registeredRoleId, setRegisteredRoleId] = useState(player.registered_role?.id ?? null);
   const [alignment, setAlignment] = useState<Alignment>(player.alignment ?? 'Good');
   const [note, setNote] = useState(player.note ?? '');
+  const [tokens, setTokens] = useState<TokenKind[]>(player.tokens);
   const [openPicker, setOpenPicker] = useState<RoleKey>();
 
   const correction: PlayerStateCorrection = {};
@@ -105,6 +107,7 @@ export const CorrectionSheet = ({
   }
   if (alignment !== player.alignment) correction.alignment = alignment;
   if (note.trim() !== (player.note ?? '')) correction.note = note.trim() || null;
+  if (sortTokens(tokens).join() !== sortTokens(player.tokens).join()) correction.tokens = tokens;
   const changes = Object.keys(correction).length;
 
   // Rôles rangés comme sur la feuille de script : par type, puis par nom
@@ -157,6 +160,38 @@ export const CorrectionSheet = ({
         ]}
         hint="Le vote fantôme ne sert qu'à un joueur mort."
       />
+      <div className={styles.field}>
+        <span className={styles.label} id="correction-tokens">
+          Statuts
+        </span>
+        <div className={styles.tokens} role="group" aria-labelledby="correction-tokens">
+          {TOKEN_KINDS.map((kind) => {
+            const { label, hint, icon: Icon } = TOKENS[kind];
+            const isOn = tokens.includes(kind);
+            return (
+              <button
+                key={kind}
+                type="button"
+                className={styles.token}
+                aria-pressed={isOn}
+                title={hint}
+                onClick={() =>
+                  setTokens((current) =>
+                    isOn ? current.filter((t) => t !== kind) : [...current, kind]
+                  )
+                }
+              >
+                <Icon aria-hidden="true" />
+                {label}
+              </button>
+            );
+          })}
+        </div>
+        <small className={styles.hint}>
+          Visibles par vous seul. Empoisonné et Ivre neutralisent la Vierge et le Maire ; le poison
+          et la protection tombent à la nuit suivante.
+        </small>
+      </div>
       <RoleField
         label="Rôle réel"
         hint="Le rôle qui compte pour l'ordre de nuit et les capacités."

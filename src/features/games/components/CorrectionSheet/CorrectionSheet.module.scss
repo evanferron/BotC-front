@@ -45,3 +45,36 @@
     border-color: $accent-hi;
   }
 }
+
+// Statuts : boutons à bascule, icône et libellé (design/Correction.dc.html)
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.token {
+  min-height: $target-min;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border-radius: $radius-full;
+  border: 1.5px solid $line-control;
+  background: $bg-sunken;
+  color: $text;
+  font: 500 14px/1.2 $font-sans;
+  cursor: pointer;
+  @include focus-ring;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: $accent-hi;
+    background: rgba($accent, 0.2);
+  }
+}

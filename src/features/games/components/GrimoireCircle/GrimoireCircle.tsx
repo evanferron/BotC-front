@@ -1,5 +1,7 @@
 import { cx } from '@common/utils/className.utils';
 import type { GrimoirePlayer } from '../../types/grimoire.types';
+import { describeTokens } from '../../utils/token.utils';
+import { TokenBadges } from '../TokenBadges/TokenBadges';
 import styles from './GrimoireCircle.module.scss';
 
 interface GrimoireCircleProps {
@@ -34,9 +36,14 @@ export const GrimoireCircle = ({ players, onSelect }: GrimoireCircleProps) => {
                 !player.is_alive && styles.dead,
                 player.alignment === 'Evil' && styles.evil
               )}
-              aria-label={`${player.pseudo}, ${player.role?.name ?? 'sans rôle'}, ${
-                player.is_alive ? 'en vie' : 'mort'
-              }`}
+              aria-label={[
+                player.pseudo,
+                player.role?.name ?? 'sans rôle',
+                player.is_alive ? 'en vie' : 'mort',
+                describeTokens(player.tokens),
+              ]
+                .filter(Boolean)
+                .join(', ')}
               onClick={() => onSelect(player)}
             >
               <span className={styles.disc} aria-hidden="true">
@@ -44,6 +51,9 @@ export const GrimoireCircle = ({ players, onSelect }: GrimoireCircleProps) => {
               </span>
               <span className={styles.name}>{player.pseudo}</span>
               <span className={styles.role}>{player.role?.name ?? '—'}</span>
+              <span aria-hidden="true">
+                <TokenBadges tokens={player.tokens} />
+              </span>
             </button>
           </li>
         ))}
