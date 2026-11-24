@@ -22,6 +22,9 @@ const FATAL_CODES = new Set([
 ]);
 // Token refusé : un nouveau token, puis la reconnexion automatique renvoie le hello
 const AUTH_CODES = new Set(['TOKEN_EXPIRED', 'INVALID_TOKEN', 'UNAUTHORIZED']);
+// Fenêtre de regroupement des signaux : plusieurs changements rapprochés (joueurs qui répondent la
+// nuit, votes en rafale, connexions) ne déclenchent qu'une relecture, faite après le dernier
+const SIGNAL_BATCH_MS = 150;
 
 /**
  * Temps réel d'une partie : un WebSocket qui prévient quand elle change. Chaque signal invalide
@@ -38,6 +41,15 @@ export const useGameRealtime = (gameId: string | undefined) => {
     if (!gameId) return;
     const refresh = () =>
       void queryClient.invalidateQueries({ queryKey: GAMES_KEYS.details(gameId) });
+    // Une relecture au plus par fenêtre ; un signal arrivé pendant la fenêtre est couvert par la
+    // relecture qui la termine, puisqu'elle part après lui
+    let pending: ReturnType<typeof setTimeout> | undefined;
+    const scheduleRefresh = () => {
+      pending ??= setTimeout(() => {
+        pending = undefined;
+        refresh();
+      }, SIGNAL_BATCH_MS);
+    };
     const goOffline = () => {
       if (!isGameLive(gameId)) return;
       setGameLive(gameId, false);
@@ -60,9 +72,8 @@ export const useGameRealtime = (gameId: string | undefined) => {
       }
     };
 
-    socket.addEventListener('open', () => void sendHello());
-    socket.addEventListener('close', goOffline);
-    socket.addEventListener('message', (event) => {
+    const onOpen = () => void sendHello();
+    const onMessage = (event: MessageEvent) => {
       const message = parseRealtimeMessage(event.data);
       if (!message) return;
       switch (message.type) {
@@ -71,7 +82,7 @@ export const useGameRealtime = (gameId: string | undefined) => {
           refresh();
           break;
         case 'game_changed':
-          refresh();
+          scheduleRefresh();
           break;
         case 'error':
           if (AUTH_CODES.has(message.code)) {
@@ -82,9 +93,17 @@ export const useGameRealtime = (gameId: string | undefined) => {
           }
           break;
       }
-    });
+    };
+
+    socket.addEventListener('open', onOpen);
+    socket.addEventListener('close', goOffline);
+    socket.addEventListener('message', onMessage);
 
     return () => {
+      clearTimeout(pending);
+      socket.removeEventListener('open', onOpen);
+      socket.removeEventListener('close', goOffline);
+      socket.removeEventListener('message', onMessage);
       socket.close();
       setGameLive(gameId, false);
     };

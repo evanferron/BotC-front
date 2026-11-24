@@ -9,12 +9,13 @@ const GRACE_MS = 4000;
 const useLasting = (active: boolean, delayMs: number) => {
   const [lasting, setLasting] = useState(false);
   useEffect(() => {
-    if (!active) {
-      setLasting(false);
-      return undefined;
-    }
+    if (!active) return undefined;
     const timer = window.setTimeout(() => setLasting(true), delayMs);
-    return () => window.clearTimeout(timer);
+    // Fin de la coupure : la prochaine devra de nouveau durer `delayMs` avant d'être affichée
+    return () => {
+      window.clearTimeout(timer);
+      setLasting(false);
+    };
   }, [active, delayMs]);
   return lasting && active;
 };

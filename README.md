@@ -80,6 +80,7 @@ changer.
 npm run dev         # Vite sur :5173, /api relayé vers l'API sur :8080
 npm run build       # tsc + build de production
 npm run gen:api     # régénère les types de l'API depuis ../BotC-back/openapi.json
-npm run validate    # lint + vérification des types
+npm test            # tests unitaires des fonctions pures (Vitest, fichiers *.test.ts à côté du code)
+npm run validate    # lint + vérification des types + tests (comme la CI, .github/workflows/ci.yml)
 npm run format      # Prettier
 ```

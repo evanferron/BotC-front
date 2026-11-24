@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -79,5 +80,10 @@ export default defineConfig({
         additionalData: `@use "@common/styles/colors" as *; @use "@common/styles/variables" as *; @use "@common/styles/fonts" as *; @use "@common/styles/mixins" as *;`,
       },
     },
+  },
+  // Tests unitaires des fonctions pures (utils) : pas de navigateur, pas de DOM
+  test: {
+    environment: 'node',
+    include: ['src/**/*.test.ts'],
   },
 });

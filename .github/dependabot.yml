@@ -1,0 +1,56 @@
+# Mises à jour automatiques des dépendances (PR hebdomadaires), sur le modèle de BotC-back.
+#
+# Les PR de sécurité (dépendance vulnérable) sont ouvertes immédiatement, indépendamment de ce
+# planning, si "Dependabot security updates" est activé dans Settings > Code security.
+
+version: 2
+
+updates:
+  # Paquets npm (package.json / package-lock.json)
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: deps
+      prefix-development: deps-dev
+    groups:
+      # Mises à jour mineures et correctifs regroupés dans une seule PR.
+      # Les montées majeures restent des PR séparées (changements cassants probables).
+      npm-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      # Les types de Node suivent la version majeure de Node utilisée (Dockerfile, CI) : à monter
+      # avec elle, pas seuls
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  # Actions utilisées par les workflows
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Paris
+    commit-message:
+      prefix: ci
+    groups:
+      github-actions:
+        patterns: ["*"]
+
+  # Images de base du Dockerfile (node, caddy)
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Paris
+    commit-message:
+      prefix: docker
