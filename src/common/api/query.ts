@@ -4,7 +4,7 @@ import '@tanstack/react-query';
 export const DEFAULT_QUERY_STALE_TIME = 60 * 1000;
 export const DEFAULT_QUERY_GC_TIME = 10 * 60 * 1000;
 
-// Rafraîchissement de l'état d'une partie en attendant le temps réel (WebSocket)
+// Relecture d'une partie quand le temps réel (WebSocket) est coupé
 export const GAME_POLLING_INTERVAL = 3000;
 
 // Message d'erreur affiché en toast par le QueryCache quand une lecture échoue

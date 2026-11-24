@@ -9,6 +9,7 @@ import { AUTH_ROUTES } from '@common/config/routes.config';
 import { getErrorCode } from '@common/api/errors';
 import { useAuth } from '@auth/hooks/useAuth';
 import { useGameQuery } from '@games/api/useGameQuery';
+import { useGameRealtime } from '@games/hooks/useGameRealtime';
 import { StorytellerLobby } from '@games/components/StorytellerLobby/StorytellerLobby';
 import { WaitingRoom } from '@games/components/WaitingRoom/WaitingRoom';
 import { PlayerDistribution } from '@games/components/PlayerDistribution/PlayerDistribution';
@@ -28,6 +29,8 @@ export const Game = () => {
   const navigate = useNavigate();
   const { userId } = useAuth();
   const { data: game, isLoading, error } = useGameQuery(gameId);
+  // Signaux du serveur : chaque changement de la partie recharge l'écran
+  useGameRealtime(gameId);
 
   useEffect(() => {
     document.title = game ? `Partie ${game.room_code} · BotC` : 'Partie · BotC';

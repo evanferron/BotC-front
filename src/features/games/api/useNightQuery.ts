@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '@common/api/http';
-import { DEFAULT_QUERY_GC_TIME, GAME_POLLING_INTERVAL } from '@common/api/query';
+import { DEFAULT_QUERY_GC_TIME } from '@common/api/query';
 import type { Night } from '../types/night.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
+import { gamePollingInterval } from '../utils/realtime.utils';
 
 const getNight = async (gameId: string) =>
   (await axiosInstance.get<Night>(GAMES_ENDPOINTS.night(gameId))).data;
@@ -19,6 +20,6 @@ export const useNightQuery = (gameId: string | undefined, polling = false) =>
     staleTime: 0,
     gcTime: DEFAULT_QUERY_GC_TIME,
     refetchInterval: (query) =>
-      polling && query.state.status !== 'error' ? GAME_POLLING_INTERVAL : false,
+      polling && query.state.status !== 'error' ? gamePollingInterval(gameId) : false,
     meta: { errorMessage: 'Impossible de récupérer la nuit' },
   });
