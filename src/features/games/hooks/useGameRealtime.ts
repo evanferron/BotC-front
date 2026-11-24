@@ -13,7 +13,13 @@ import {
 } from '../utils/realtime.utils';
 
 // Refus définitifs : se reconnecter n'y changerait rien
-const FATAL_CODES = new Set(['GAME_NOT_FOUND', 'INVALID_PATH_PARAM', 'MALFORMED_JSON']);
+// RATE_LIMITED : trop d'écrans ouverts par ce compte ; cet écran se contente de la relecture périodique
+const FATAL_CODES = new Set([
+  'GAME_NOT_FOUND',
+  'INVALID_PATH_PARAM',
+  'MALFORMED_JSON',
+  'RATE_LIMITED',
+]);
 // Token refusé : un nouveau token, puis la reconnexion automatique renvoie le hello
 const AUTH_CODES = new Set(['TOKEN_EXPIRED', 'INVALID_TOKEN', 'UNAUTHORIZED']);
 
