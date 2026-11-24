@@ -8,6 +8,8 @@ import type {
   EndDayResponse,
   NominatePayload,
   NominateResponse,
+  SlayPayload,
+  SlayResponse,
 } from '../types/day.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 
@@ -118,4 +120,17 @@ export const useEndDayMutation = () =>
         })
       ).data,
     () => 'Impossible de terminer le jour'
+  );
+
+// Conteur : saisir le tir du Pourfendeur annoncé à voix haute
+export const useSlayMutation = () =>
+  useDayMutation(
+    async ({ gameId, shooterId, targetId }: SlayPayload) =>
+      (
+        await axiosInstance.post<SlayResponse>(GAMES_ENDPOINTS.slay(gameId), {
+          shooter_id: shooterId,
+          target_id: targetId,
+        })
+      ).data,
+    () => 'Impossible de noter le tir du Pourfendeur'
   );

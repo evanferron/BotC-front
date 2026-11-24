@@ -27,6 +27,7 @@ export const GAMES_ENDPOINTS = {
   day: (id: string) => `${GAMES_ENDPOINT}/${id}/day`,
   council: (id: string) => `${GAMES_ENDPOINT}/${id}/day/council`,
   endDay: (id: string) => `${GAMES_ENDPOINT}/${id}/day/end`,
+  slay: (id: string) => `${GAMES_ENDPOINT}/${id}/day/slay`,
   nominations: (id: string) => `${GAMES_ENDPOINT}/${id}/nominations`,
   nomination: (id: string, nominationId: string) =>
     `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}`,

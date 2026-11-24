@@ -63,3 +63,17 @@ export interface EndDayResponse {
   game_status: GameStatus;
   winner: 'Good' | 'Evil' | null;
 }
+
+// Tir du Pourfendeur annoncé à voix haute, saisi par le conteur
+export interface SlayPayload {
+  gameId: string;
+  shooterId: string;
+  targetId: string;
+}
+
+export interface SlayResponse {
+  // La cible meurt : le jour se termine (nuit, ou fin de partie)
+  target_died: boolean;
+  game_status: GameStatus;
+  winner: 'Good' | 'Evil' | null;
+}

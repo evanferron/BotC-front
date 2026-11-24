@@ -14,6 +14,7 @@ import {
   useEndDayMutation,
   useNominateMutation,
   useOpenVoteMutation,
+  useSlayMutation,
 } from '../../api/useDayMutations';
 import type { Game, Player } from '../../types/game.types';
 import type { Nomination } from '../../types/day.types';
@@ -21,6 +22,7 @@ import { getOpenVote, getPendingVoters, playerName } from '../../utils/day.utils
 import { getPhaseLabel } from '../../utils/game.utils';
 import { EndDaySheet } from '../EndDaySheet/EndDaySheet';
 import { NominateSheet } from '../NominateSheet/NominateSheet';
+import { SlaySheet } from '../SlaySheet/SlaySheet';
 import { NominationCard } from '../NominationCard/NominationCard';
 import styles from './StorytellerDay.module.scss';
 
@@ -30,7 +32,7 @@ interface StorytellerDayProps {
   header: React.ReactNode;
 }
 
-type OpenSheet = 'nominate' | 'end' | 'close' | 'cancel';
+type OpenSheet = 'nominate' | 'end' | 'close' | 'cancel' | 'slay';
 
 /**
  * Jour côté conteur (design/C5-Jour-Vote) : convoquer le conseil, nommer, ouvrir le vote,
@@ -44,6 +46,7 @@ export const StorytellerDay = ({ game, players, header }: StorytellerDayProps) =
   const { mutateAsync: closeVote, isPending: isClosing } = useCloseVoteMutation();
   const { mutateAsync: cancel, isPending: isCancelling } = useCancelNominationMutation();
   const { mutateAsync: endDay, isPending: isEnding } = useEndDayMutation();
+  const { mutateAsync: slay, isPending: isSlaying } = useSlayMutation();
   const [openSheet, setOpenSheet] = useState<OpenSheet>();
   const [target, setTarget] = useState<Nomination>();
   const close = () => setOpenSheet(undefined);
@@ -120,6 +123,23 @@ export const StorytellerDay = ({ game, players, header }: StorytellerDayProps) =
     }
   };
 
+  const handleSlay = async (shooterId: string, targetId: string) => {
+    try {
+      const result = await slay({ gameId: game.id, shooterId, targetId });
+      const target = playerName(players, targetId);
+      if (result.winner) {
+        showSuccess(`${target} meurt. Fin de partie : victoire du bon camp.`, { duration: 8000 });
+      } else if (result.target_died) {
+        showInfo(`${target} meurt. Annoncez-le : la nuit tombe.`, { duration: 8000 });
+      } else {
+        showInfo('Rien ne se passe. Annoncez-le à voix haute.');
+      }
+      close();
+    } catch {
+      // Toast affiché par la mutation
+    }
+  };
+
   const askCancel = (nomination: Nomination) => {
     setTarget(nomination);
     setOpenSheet('cancel');
@@ -170,6 +190,9 @@ export const StorytellerDay = ({ game, players, header }: StorytellerDayProps) =
       </Button>
       <Button size="xl" onClick={() => setOpenSheet('end')}>
         Terminer le jour
+      </Button>
+      <Button variant="ghost" onClick={() => setOpenSheet('slay')}>
+        Quelqu’un pourfend
       </Button>
       <Button
         variant="ghost"
@@ -226,6 +249,14 @@ export const StorytellerDay = ({ game, players, header }: StorytellerDayProps) =
           onConfirm={(nominator, nominee, suppress) =>
             void handleNominate(nominator, nominee, suppress)
           }
+          onClose={close}
+        />
+      )}
+      {openSheet === 'slay' && (
+        <SlaySheet
+          players={players}
+          isLoading={isSlaying}
+          onConfirm={(shooter, target) => void handleSlay(shooter, target)}
           onClose={close}
         />
       )}
