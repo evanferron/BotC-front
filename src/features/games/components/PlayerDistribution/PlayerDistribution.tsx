@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, IdCard } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
-import { PlayerDisc } from '@/components/PlayerDisc/PlayerDisc';
-import { Loading } from '@/components/Loading/Loading';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { ProgressBar } from '@common/components/ProgressBar/ProgressBar';
+import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useCardsQuery } from '../../api/useCardsQuery';
@@ -18,6 +18,7 @@ import { markRoleSeen } from '../../utils/roleSeen.utils';
 import { CardFan } from '../CardFan/CardFan';
 import { DistributionList } from '../DistributionList/DistributionList';
 import { RoleCard } from '../RoleCard/RoleCard';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './PlayerDistribution.module.scss';
 
 interface PlayerDistributionProps {
@@ -67,6 +68,7 @@ export const PlayerDistribution = ({ game }: PlayerDistributionProps) => {
               <IdCard aria-hidden="true" />
             </PhaseBarAction>
           )}
+          <ScriptRolesAction game={game} />
           <PhaseBarAction
             aria-label="Retour à mes parties"
             onClick={() => void navigate(AUTH_ROUTES.GAMES)}

@@ -1,0 +1,58 @@
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: $target-std;
+  padding: 0 20px;
+  overflow: hidden;
+  border: 1.5px solid $danger;
+  border-radius: $radius-s;
+  color: $text;
+  font: 600 16px/20px $font-sans;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  @include focus-ring;
+
+  &:disabled {
+    border-color: $dead-line;
+    color: $dead-text;
+    cursor: not-allowed;
+  }
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: $danger;
+}
+
+.holding .fill {
+  animation: fill var(--hold-duration) linear forwards;
+}
+
+.label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.holding .label {
+  color: $text-on-danger;
+}
+
+@keyframes fill {
+  to {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holding .fill {
+    animation-timing-function: steps(4);
+  }
+}

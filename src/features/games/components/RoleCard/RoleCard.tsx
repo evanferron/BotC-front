@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Compass, Eye, Flame, Moon, Shield, Skull, TriangleAlert } from 'lucide-react';
-import { cx } from '@/utils/className.utils';
-import type { CharacterType, RoleSummary } from '../../types/game.types';
-import { getCharacterTypeLabel, isEvilType } from '../../utils/role.utils';
+import { Eye } from 'lucide-react';
+import { cx } from '@common/utils/className.utils';
+import { TEAM_ICONS, TYPE_ICONS } from '@scripts/constants/ROLE_ICONS';
+import { getTeamLabel, getTypeLabel, getTypeTeam, isEvilType } from '@scripts/utils/role.utils';
+import type { RoleSummary } from '../../types/game.types';
 import styles from './RoleCard.module.scss';
 
 interface RoleCardProps {
@@ -13,27 +14,21 @@ interface RoleCardProps {
   onReveal?: () => void;
 }
 
-const TYPE_ICONS: Record<CharacterType, typeof Shield> = {
-  Townsfolk: Shield,
-  Outsider: Compass,
-  Minion: Skull,
-  Demon: Flame,
-};
-
 const RoleFace = ({ role }: { role: RoleSummary }) => {
-  const evil = isEvilType(role.character_type);
+  const team = getTypeTeam(role.character_type);
   const Icon = TYPE_ICONS[role.character_type];
+  const TeamIcon = TEAM_ICONS[team];
   return (
     <div className={styles.face}>
       <div className={styles.team}>
-        {evil ? <TriangleAlert aria-hidden="true" /> : <Moon aria-hidden="true" />}
-        {evil ? 'Mauvaise équipe' : 'Bonne équipe'}
+        <TeamIcon aria-hidden="true" />
+        {getTeamLabel(team)}
       </div>
       <div className={styles.medal}>
         <Icon aria-hidden="true" />
       </div>
       <div className={styles.name}>{role.name}</div>
-      <span className={styles.type}>{getCharacterTypeLabel(role.character_type)}</span>
+      <span className={styles.type}>{getTypeLabel(role.character_type)}</span>
       <div className={styles.divider} />
       {role.ability_description && <p className={styles.ability}>{role.ability_description}</p>}
     </div>

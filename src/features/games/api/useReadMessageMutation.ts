@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ENV } from '@/config/api.config';
-import { axiosInstance } from '@/config/axios.config';
+import { ENV } from '@common/config/api.config';
+import { axiosInstance } from '@common/api/http';
 import type { PlayerMessage } from '../types/night.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 

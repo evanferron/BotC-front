@@ -1,0 +1,29 @@
+// Case à cocher d'option, en pied de feuille
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 4px 0;
+  cursor: pointer;
+  font: 500 15px/20px $font-sans;
+  color: $text;
+
+  input {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    flex: none;
+    accent-color: $accent;
+    @include focus-ring;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  small {
+    @include body-small;
+  }
+}

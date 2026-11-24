@@ -1,6 +1,6 @@
-import { cx } from '@/utils/className.utils';
+import { cx } from '@common/utils/className.utils';
+import { getTypeLabel, isEvilType } from '@scripts/utils/role.utils';
 import type { RoleSummary } from '../../types/game.types';
-import { getCharacterTypeLabel, isEvilType } from '../../utils/role.utils';
 import { toggleSelection } from '../../utils/night.utils';
 import styles from './RolePicker.module.scss';
 
@@ -30,7 +30,7 @@ export const RolePicker = ({ roles, selected, max, onChange, label }: RolePicker
           onClick={() => onChange(toggleSelection(selected, role.id, max))}
         >
           <span className={styles.name}>{role.name}</span>
-          <span className={styles.type}>{getCharacterTypeLabel(role.character_type)}</span>
+          <span className={styles.type}>{getTypeLabel(role.character_type)}</span>
         </button>
       );
     })}

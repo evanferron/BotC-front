@@ -15,8 +15,8 @@ export const GAMES_ENDPOINTS = {
   night: (id: string) => `${GAMES_ENDPOINT}/${id}/night`,
   nightStep: (id: string, stepId: string, action: 'activate' | 'resolve' | 'skip') =>
     `${GAMES_ENDPOINT}/${id}/night/steps/${stepId}/${action}`,
+  nightSteps: (id: string) => `${GAMES_ENDPOINT}/${id}/night/steps`,
   nightEnd: (id: string) => `${GAMES_ENDPOINT}/${id}/night/end`,
-  nightStart: (id: string) => `${GAMES_ENDPOINT}/${id}/night/start`,
   prompt: (id: string) => `${GAMES_ENDPOINT}/${id}/night/prompt`,
   respond: (id: string) => `${GAMES_ENDPOINT}/${id}/night/prompt/respond`,
   messages: (id: string) => `${GAMES_ENDPOINT}/${id}/messages`,
@@ -24,6 +24,34 @@ export const GAMES_ENDPOINTS = {
     `${GAMES_ENDPOINT}/${id}/messages/${messageId}/read`,
   sendMessage: (id: string, playerId: string) =>
     `${GAMES_ENDPOINT}/${id}/players/${playerId}/messages`,
+  day: (id: string) => `${GAMES_ENDPOINT}/${id}/day`,
+  council: (id: string) => `${GAMES_ENDPOINT}/${id}/day/council`,
+  endDay: (id: string) => `${GAMES_ENDPOINT}/${id}/day/end`,
+  slay: (id: string) => `${GAMES_ENDPOINT}/${id}/day/slay`,
+  nominations: (id: string) => `${GAMES_ENDPOINT}/${id}/nominations`,
+  nomination: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}`,
+  openVote: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/open-vote`,
+  vote: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/vote`,
+  closeVote: (id: string, nominationId: string) =>
+    `${GAMES_ENDPOINT}/${id}/nominations/${nominationId}/close-vote`,
+  grimoire: (id: string) => `${GAMES_ENDPOINT}/${id}/grimoire`,
+  end: (id: string) => `${GAMES_ENDPOINT}/${id}/end`,
+  summary: (id: string) => `${GAMES_ENDPOINT}/${id}/summary`,
+  playerState: (id: string, playerId: string) =>
+    `${GAMES_ENDPOINT}/${id}/players/${playerId}/state`,
+  seats: (id: string) => `${GAMES_ENDPOINT}/${id}/seats`,
+  journal: (id: string) => `${GAMES_ENDPOINT}/${id}/journal`,
+  undo: (id: string) => `${GAMES_ENDPOINT}/${id}/undo`,
+  pause: (id: string) => `${GAMES_ENDPOINT}/${id}/pause`,
+  resume: (id: string) => `${GAMES_ENDPOINT}/${id}/resume`,
+  storyteller: (id: string) => `${GAMES_ENDPOINT}/${id}/storyteller`,
+  close: (id: string) => `${GAMES_ENDPOINT}/${id}/close`,
+  composition: (id: string) => `${GAMES_ENDPOINT}/${id}/composition`,
+  compositionSuggestions: (id: string) => `${GAMES_ENDPOINT}/${id}/composition/suggestions`,
+  compositionDraw: (id: string) => `${GAMES_ENDPOINT}/${id}/composition/draw`,
 } as const;
 
 export const GAMES_KEYS = {
@@ -37,4 +65,10 @@ export const GAMES_KEYS = {
   night: (id: string) => [...GAMES_KEYS.details(id), 'night'] as const,
   prompt: (id: string) => [...GAMES_KEYS.details(id), 'prompt'] as const,
   messages: (id: string) => [...GAMES_KEYS.details(id), 'messages'] as const,
+  day: (id: string) => [...GAMES_KEYS.details(id), 'day'] as const,
+  grimoire: (id: string) => [...GAMES_KEYS.details(id), 'grimoire'] as const,
+  summary: (id: string) => [...GAMES_KEYS.details(id), 'summary'] as const,
+  journal: (id: string) => [...GAMES_KEYS.details(id), 'journal'] as const,
+  composition: (id: string) => [...GAMES_KEYS.details(id), 'composition'] as const,
+  compositionSuggestions: (id: string) => [...GAMES_KEYS.composition(id), 'suggestions'] as const,
 };

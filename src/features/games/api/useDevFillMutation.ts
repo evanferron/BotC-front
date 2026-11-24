@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { axiosInstance } from '@/config/axios.config';
-import { showError, showSuccess } from '@/services/toast.service';
+import { axiosInstance } from '@common/api/http';
+import { showError, showSuccess } from '@common/utils/toast.utils';
 import type { Player } from '../types/game.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 

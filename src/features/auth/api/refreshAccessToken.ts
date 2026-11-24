@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL } from '@/config/api.config';
+import { API_BASE_URL } from '@common/config/api.config';
 import { setAccessToken } from '../utils/token.utils';
 import type { TokenResponse } from '../types/auth.types';
 import { AUTH_ENDPOINTS } from './AUTH_CONF';

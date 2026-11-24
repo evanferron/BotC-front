@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Card } from '@/components/Card/Card';
-import { Loading } from '@/components/Loading/Loading';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { BookOpen, LogOut } from 'lucide-react';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Card } from '@common/components/Card/Card';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { useGamesQuery } from '@games/api/useGamesQuery';
 import { GameCard } from '@games/components/GameCard/GameCard';
@@ -61,9 +61,17 @@ export const Games = () => {
         <PhaseBar
           title="Mes parties"
           actions={
-            <PhaseBarAction aria-label="Se déconnecter" onClick={() => void logout()}>
-              <LogOut aria-hidden="true" />
-            </PhaseBarAction>
+            <>
+              <PhaseBarAction
+                aria-label="Rôles des scripts"
+                onClick={() => void navigate(AUTH_ROUTES.SCRIPTS)}
+              >
+                <BookOpen aria-hidden="true" />
+              </PhaseBarAction>
+              <PhaseBarAction aria-label="Se déconnecter" onClick={() => void logout()}>
+                <LogOut aria-hidden="true" />
+              </PhaseBarAction>
+            </>
           }
         />
       }

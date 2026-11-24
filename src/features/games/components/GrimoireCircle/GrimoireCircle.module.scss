@@ -1,0 +1,95 @@
+// Grimoire, vue cercle (design/C4-Grimoire.dc.html, écran 13b)
+.table {
+  position: relative;
+  width: 100%;
+  // Ovale en hauteur : un téléphone tenu droit
+  aspect-ratio: 4 / 5;
+  max-height: calc(100dvh - 220px);
+  // Les jetons débordent de l'ellipse de la moitié de leur hauteur
+  margin: $space-5 auto;
+}
+
+.ring {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.seat {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.token {
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 2px;
+  border: none;
+  border-radius: $radius-s;
+  background: none;
+  color: $text;
+  cursor: pointer;
+  @include focus-ring;
+
+  &:active {
+    background: $surface-raised;
+  }
+}
+
+.disc {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid $team-good;
+  background: radial-gradient(circle at 50% 28%, #2a3042, $surface 78%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 600 20px/1 $font-serif;
+}
+
+.evil .disc {
+  border-color: $team-evil-text;
+}
+
+.dead {
+  opacity: 0.7;
+
+  .disc {
+    border-style: dashed;
+    border-color: $dead-text;
+    background: $dead-bg;
+    color: $dead-text;
+  }
+}
+
+.name,
+.role {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.name {
+  font: 500 12px/15px $font-sans;
+}
+
+.role {
+  font: 400 11px/14px $font-sans;
+  color: $text-muted;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  text-align: center;
+  font: 400 13px/18px $font-sans;
+  color: $text-muted;
+}

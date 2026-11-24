@@ -1,22 +1,26 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Loading } from '@/components/Loading/Loading';
-import { AUTH_ROUTES } from '@/config/routes.config';
-import { getErrorStatus } from '@/utils/api.utils';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Loading } from '@common/components/Loading/Loading';
+import { AUTH_ROUTES } from '@common/config/routes.config';
+import { getErrorCode } from '@common/api/errors';
 import { useAuth } from '@auth/hooks/useAuth';
 import { useGameQuery } from '@games/api/useGameQuery';
+import { useGameRealtime } from '@games/hooks/useGameRealtime';
 import { StorytellerLobby } from '@games/components/StorytellerLobby/StorytellerLobby';
 import { WaitingRoom } from '@games/components/WaitingRoom/WaitingRoom';
-import { GameStarted } from '@games/components/GameStarted/GameStarted';
 import { PlayerDistribution } from '@games/components/PlayerDistribution/PlayerDistribution';
 import { StorytellerDistribution } from '@games/components/StorytellerDistribution/StorytellerDistribution';
 import { StorytellerNight } from '@games/components/StorytellerNight/StorytellerNight';
 import { PlayerNight } from '@games/components/PlayerNight/PlayerNight';
 import { DayView } from '@games/components/DayView/DayView';
+import { EndView } from '@games/components/EndView/EndView';
+import { PausedView } from '@games/components/PausedView/PausedView';
+import { ConnectionBanner } from '@games/components/ConnectionBanner/ConnectionBanner';
+import type { Game as GameData } from '@games/types/game.types';
 import styles from './Game.module.scss';
 
 /**
@@ -28,6 +32,8 @@ export const Game = () => {
   const navigate = useNavigate();
   const { userId } = useAuth();
   const { data: game, isLoading, error } = useGameQuery(gameId);
+  // Signaux du serveur : chaque changement de la partie recharge l'écran
+  const isLive = useGameRealtime(gameId);
 
   useEffect(() => {
     document.title = game ? `Partie ${game.room_code} · BotC` : 'Partie · BotC';
@@ -35,8 +41,8 @@ export const Game = () => {
 
   // Après une exclusion, la partie répond 404 alors que l'ancienne version reste en cache :
   // l'erreur l'emporte sur les données.
-  const status = getErrorStatus(error);
-  const isGone = status === 404 || status === 400;
+  const code = getErrorCode(error);
+  const isGone = code === 'GAME_NOT_FOUND' || code === 'INVALID_PATH_PARAM';
 
   if (isLoading) {
     return (
@@ -80,6 +86,24 @@ export const Game = () => {
   }
 
   const isStoryteller = game.storyteller_id === userId;
+  const isPlaying = game.status !== 'Lobby' && game.status !== 'Ended';
+  return (
+    <>
+      {game.paused && game.status !== 'Ended' ? (
+        <PausedView game={game} isStoryteller={isStoryteller} />
+      ) : (
+        <PhaseScreen game={game} isStoryteller={isStoryteller} />
+      )}
+      <ConnectionBanner
+        offline={!isLive}
+        storytellerAway={isPlaying && !isStoryteller && !game.storyteller_online}
+      />
+    </>
+  );
+};
+
+// Écran de la phase en cours, selon la place du compte
+const PhaseScreen = ({ game, isStoryteller }: { game: GameData; isStoryteller: boolean }) => {
   switch (game.status) {
     case 'Lobby':
       return isStoryteller ? <StorytellerLobby game={game} /> : <WaitingRoom game={game} />;
@@ -92,12 +116,12 @@ export const Game = () => {
     case 'FirstNight':
     case 'Night':
       return isStoryteller ? <StorytellerNight game={game} /> : <PlayerNight game={game} />;
-    // Le conseil et le vote (étape 7) s'afficheront ici ; en attendant, l'écran du jour
+    // Jour, conseil et vote
     case 'Day':
     case 'Council':
     case 'Voting':
       return <DayView game={game} isStoryteller={isStoryteller} />;
-    default:
-      return <GameStarted game={game} />;
+    case 'Ended':
+      return <EndView game={game} isStoryteller={isStoryteller} />;
   }
 };

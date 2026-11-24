@@ -1,4 +1,4 @@
-import type { PhaseVariant } from '@/components/PhaseBar/PhaseBar';
+import type { PhaseVariant } from '@common/components/PhaseBar/PhaseBar';
 import type { Game, GameStatus } from '../types/game.types';
 
 // Libellé court de la phase, avec la manche quand elle a un sens (« Nuit 3 », « Jour 2 »)

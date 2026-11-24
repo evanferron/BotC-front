@@ -1,0 +1,36 @@
+// Badges d'équipe et de type (design/Navigation-Vibrations.dc.html)
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 14px;
+  border: 1px solid;
+  font: 600 12px/16px $font-sans;
+  white-space: nowrap;
+  flex: none;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+  }
+}
+
+.good {
+  color: $team-good;
+  border-color: $team-good;
+  background: $team-good-veil;
+}
+
+.evil {
+  color: $team-evil-text;
+  border-color: $team-evil-text;
+  background: $danger-veil;
+}
+
+.neutral {
+  color: $text;
+  border-color: $line-control;
+}

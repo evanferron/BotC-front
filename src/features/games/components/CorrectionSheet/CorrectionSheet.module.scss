@@ -1,0 +1,91 @@
+// Fiche de correction (design/Correction.dc.html) : dense, chaque contrôle garde 44 px
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  @include micro;
+}
+
+.hint {
+  @include body-small;
+}
+
+.role_row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.role_value {
+  flex: 1;
+  min-width: 0;
+  font: 600 20px/24px $font-serif;
+  color: $text;
+}
+
+.note {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: $radius-s;
+  border: 1.5px solid $line-control;
+  background: $bg-sunken;
+  color: $text;
+  font: 400 15px/22px $font-sans;
+  resize: vertical;
+  outline: none;
+
+  &::placeholder {
+    color: $text-faint;
+  }
+
+  &:focus {
+    border-color: $accent-hi;
+  }
+}
+
+// Statuts : boutons à bascule, icône et libellé (design/Correction.dc.html)
+.tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.token {
+  min-height: $target-min;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  border-radius: $radius-full;
+  border: 1.5px solid $line-control;
+  background: $bg-sunken;
+  color: $text;
+  font: 500 14px/1.2 $font-sans;
+  cursor: pointer;
+  @include focus-ring;
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  &[aria-pressed="true"] {
+    border-color: $accent-hi;
+    background: rgba($accent, 0.2);
+  }
+}
+
+.kick {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.kick_hint {
+  @include body-small;
+}

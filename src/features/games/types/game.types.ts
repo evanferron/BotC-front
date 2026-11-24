@@ -1,3 +1,5 @@
+import type { CharacterType } from '@scripts/types/script.types';
+
 // Phase de la partie. L'API sérialise l'enum Rust tel quel (PascalCase), pas en MAJUSCULES comme en base.
 export type GameStatus =
   'Lobby' | 'Distribution' | 'FirstNight' | 'Day' | 'Council' | 'Voting' | 'Night' | 'Ended';
@@ -14,6 +16,12 @@ export interface Game {
   player_count: number;
   current_round: number;
   winner: Alignment | null;
+  // Raison de la fin, annoncée avec le camp vainqueur
+  end_reason: string | null;
+  // Mise en pause par le conteur : rien n'avance jusqu'à la reprise
+  paused: boolean;
+  // Le conteur a un écran ouvert sur la partie (renseigné par GET /games/{id} seulement)
+  storyteller_online: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -26,6 +34,10 @@ export interface Player {
   seat_position: number | null;
   is_alive: boolean;
   has_ghost_vote: boolean;
+  // Parti en cours de partie : sa place reste, le conteur agit pour lui
+  has_left: boolean;
+  // A un écran ouvert sur la partie
+  is_online: boolean;
   joined_at: string;
 }
 
@@ -44,8 +56,6 @@ export interface CreateGamePayload {
 // ---------------------------------------------------------------------------
 // Distribution
 // ---------------------------------------------------------------------------
-
-export type CharacterType = 'Townsfolk' | 'Outsider' | 'Minion' | 'Demon';
 
 // Rôle tel qu'un joueur peut le voir (RoleSummary côté API)
 export interface RoleSummary {

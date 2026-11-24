@@ -39,6 +39,12 @@ export interface Night {
   is_first_night: boolean;
   steps: NightStep[];
   demon_bluffs: RoleSummary[];
+  // Toutes les étapes sont traitées : le conteur peut lever le jour
+  resolved: boolean;
+  // Morts calculés par la nuit automatique, à confirmer au lever du jour
+  proposed_deaths: string[];
+  // Joueurs dont la nuit attend encore le choix
+  waiting_count: number;
 }
 
 // Choix d'un joueur, selon le gabarit

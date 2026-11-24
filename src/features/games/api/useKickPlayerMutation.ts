@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ENV } from '@/config/api.config';
-import { axiosInstance } from '@/config/axios.config';
-import { showError, showSuccess } from '@/services/toast.service';
+import { ENV } from '@common/config/api.config';
+import { axiosInstance } from '@common/api/http';
+import { showError, showSuccess } from '@common/utils/toast.utils';
 import type { Player } from '../types/game.types';
 import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 
 interface KickPlayerPayload {
   gameId: string;
-  player: Player;
+  player: Pick<Player, 'id' | 'pseudo'>;
 }
 
 const kickPlayer = async ({ gameId, player }: KickPlayerPayload) => {
@@ -24,7 +24,8 @@ export const useKickPlayerMutation = () => {
     },
     onSuccess: (_data, { gameId, player }) => {
       showSuccess(`${player.pseudo} a quitté la table`);
-      return queryClient.invalidateQueries({ queryKey: GAMES_KEYS.players(gameId) });
+      // En cours de partie, le grimoire et la nuit montrent aussi le départ
+      return queryClient.invalidateQueries({ queryKey: GAMES_KEYS.details(gameId) });
     },
   });
 };

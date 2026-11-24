@@ -1,0 +1,35 @@
+.card {
+  gap: 10px;
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $accent-hi;
+  font: 600 16px/20px $font-sans;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 18px;
+  list-style: disc;
+  @include body-small;
+}
+
+.hint {
+  @include body-small;
+  color: $text;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}

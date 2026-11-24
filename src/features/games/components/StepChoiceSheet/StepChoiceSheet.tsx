@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Sheet } from '@/components/Sheet/Sheet';
-import { Button } from '@/components/Button/Button';
+import { Sheet } from '@common/components/Sheet/Sheet';
+import { Button } from '@common/components/Button/Button';
 import type { Player, RoleSummary } from '../../types/game.types';
 import type { NightStep, StepChoice } from '../../types/night.types';
 import { getChoiceShape, isChoiceComplete, toStepChoice } from '../../utils/night.utils';

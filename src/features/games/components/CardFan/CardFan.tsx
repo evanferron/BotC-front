@@ -1,5 +1,5 @@
-import { Dial } from '@/components/Dial/Dial';
-import { cx } from '@/utils/className.utils';
+import { Dial } from '@common/components/Dial/Dial';
+import { cx } from '@common/utils/className.utils';
 import styles from './CardFan.module.scss';
 
 interface CardFanProps {

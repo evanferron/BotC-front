@@ -1,0 +1,8 @@
+node_modules
+dist
+design
+.git
+.env
+.env.*
+*.log
+storybook-static

@@ -52,11 +52,15 @@ export const getStepStatusLabel = (status: ActionStatus): string => {
 
 // Titre d'une étape : nom du rôle, ou étape d'équipe
 export const getStepTitle = (step: NightStep): string => {
+  if (isMayorBounce(step)) return 'Le Démon attaque le Maire';
   if (step.role) return step.role.name;
   if (step.action_type === 'minion_info') return 'Sbires : se reconnaître';
   if (step.action_type === 'demon_info') return 'Démon : Sbires et bluffs';
   return 'Étape ajoutée';
 };
+
+// Décision du conteur quand le Démon attaque un Maire en état d'agir
+export const isMayorBounce = (step: NightStep) => step.action_type === 'mayor_bounce';
 
 export const isTeamInfoStep = (step: NightStep) =>
   step.action_type === 'minion_info' || step.action_type === 'demon_info';

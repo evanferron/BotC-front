@@ -1,4 +1,4 @@
-import { getErrorStatus, isNetworkError } from '@/utils/api.utils';
+import { getErrorCode, isNetworkError } from '@common/api/errors';
 
 export const AUTH_ERROR_MESSAGES = {
   INVALID_CREDENTIALS: 'Pseudo ou mot de passe incorrect.',
@@ -11,6 +11,6 @@ export const AUTH_ERROR_MESSAGES = {
 // Message commun aux erreurs qui ne dépendent pas du formulaire
 export const getCommonAuthError = (error: unknown): string => {
   if (isNetworkError(error)) return AUTH_ERROR_MESSAGES.NETWORK;
-  if (getErrorStatus(error) === 429) return AUTH_ERROR_MESSAGES.TOO_MANY_REQUESTS;
+  if (getErrorCode(error) === 'RATE_LIMITED') return AUTH_ERROR_MESSAGES.TOO_MANY_REQUESTS;
   return AUTH_ERROR_MESSAGES.UNKNOWN;
 };

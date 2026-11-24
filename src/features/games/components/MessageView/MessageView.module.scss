@@ -13,6 +13,8 @@
 .content {
   @include title-3;
   max-width: 300px;
+  // Le grimoire de l'Espion tient sur plusieurs lignes
+  white-space: pre-line;
 }
 
 .big {

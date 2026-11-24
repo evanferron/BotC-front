@@ -1,0 +1,9 @@
+.label {
+  @include micro;
+}
+
+.kinds {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

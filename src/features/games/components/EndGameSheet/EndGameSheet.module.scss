@@ -1,0 +1,53 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  @include micro;
+}
+
+.reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.reason {
+  min-height: $target-min;
+  padding: 0 14px;
+  border-radius: $radius-full;
+  border: 1.5px solid $line-control;
+  background: $bg-sunken;
+  color: $text;
+  font: 500 14px/1.2 $font-sans;
+  text-align: left;
+  cursor: pointer;
+  @include focus-ring;
+
+  &[aria-pressed="true"] {
+    background: rgba($accent, 0.2);
+    border-color: $accent;
+  }
+}
+
+.text {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: $radius-s;
+  border: 1.5px solid $line-control;
+  background: $bg-sunken;
+  color: $text;
+  font: 400 15px/22px $font-sans;
+  resize: vertical;
+  outline: none;
+
+  &::placeholder {
+    color: $text-faint;
+  }
+
+  &:focus {
+    border-color: $accent-hi;
+  }
+}

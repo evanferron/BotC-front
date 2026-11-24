@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, IdCard } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { Dial } from '@/components/Dial/Dial';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { Dial } from '@common/components/Dial/Dial';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
@@ -24,6 +24,7 @@ import { MyRoleSheet } from '../MyRoleSheet/MyRoleSheet';
 import { PlayerPicker } from '../PlayerPicker/PlayerPicker';
 import { RoleCard } from '../RoleCard/RoleCard';
 import { RolePicker } from '../RolePicker/RolePicker';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './PlayerNight.module.scss';
 
 interface PlayerNightProps {
@@ -77,14 +78,16 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
   const prompt = promptData?.prompt;
   const unread = messages.find((m) => !m.read_at);
   const myRole = distribution?.my_role;
+  // La mort est publique : l'écran de nuit d'un mort ne trahit rien de ce qui se passe
+  const isDead = players.find((p) => p.user_id === userId)?.is_alive === false;
   const selectedPlayers = selection.stepId === prompt?.step_id ? selection.players : [];
   const selectedRoles = selection.stepId === prompt?.step_id ? selection.roles : [];
 
   const header = (
     <PhaseBar
-      title="Nuit"
+      title={getPhaseLabel(game)}
       variant="night"
-      tag={getPhaseLabel(game)}
+      tag={isDead ? 'Mort' : undefined}
       actions={
         <>
           {myRole && !isRevealing && (
@@ -92,6 +95,7 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
               <IdCard aria-hidden="true" />
             </PhaseBarAction>
           )}
+          <ScriptRolesAction game={game} />
           <PhaseBarAction
             aria-label="Retour à mes parties"
             onClick={() => void navigate(AUTH_ROUTES.GAMES)}
@@ -228,7 +232,19 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
     );
   }
 
-  // 11a : attente neutre, identique pour tous
+  // 22b : un mort n'est plus réveillé (sauf demande du Conteur, traitée plus haut)
+  if (isDead) {
+    return (
+      <Screen header={header} centered>
+        <Dial size="xl" angle={0} />
+        <h2 className={styles.title}>La nuit continue sans vous.</h2>
+        <p className={styles.text}>Restez silencieux. Gardez les yeux ouverts si vous voulez.</p>
+        {roleSheet}
+      </Screen>
+    );
+  }
+
+  // 11a : attente neutre, identique pour tous les vivants
   return (
     <Screen header={header} centered>
       <Dial size="xl" angle={0} />

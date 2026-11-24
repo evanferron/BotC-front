@@ -1,23 +1,26 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { Screen } from '@/components/Screen/Screen';
-import { PhaseBar, PhaseBarAction } from '@/components/PhaseBar/PhaseBar';
-import { Button } from '@/components/Button/Button';
-import { ProgressBar } from '@/components/ProgressBar/ProgressBar';
-import { ConfirmSheet } from '@/components/ConfirmSheet/ConfirmSheet';
-import { Loading } from '@/components/Loading/Loading';
-import { ENV } from '@/config/api.config';
-import { AUTH_ROUTES } from '@/config/routes.config';
+import { ArrowLeft, ChevronRight, Layers } from 'lucide-react';
+import { Screen } from '@common/components/Screen/Screen';
+import { PhaseBar, PhaseBarAction } from '@common/components/PhaseBar/PhaseBar';
+import { Button } from '@common/components/Button/Button';
+import { ProgressBar } from '@common/components/ProgressBar/ProgressBar';
+import { ConfirmSheet } from '@common/components/ConfirmSheet/ConfirmSheet';
+import { Loading } from '@common/components/Loading/Loading';
+import { ENV } from '@common/config/api.config';
+import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
+import { useScriptName } from '@scripts/api/useScriptsQuery';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useKickPlayerMutation } from '../../api/useKickPlayerMutation';
 import { useStartGameMutation } from '../../api/useStartGameMutation';
 import { useDevFillMutation } from '../../api/useDevFillMutation';
-import { getScriptName } from '../../constants/SCRIPTS';
+import { useCompositionQuery } from '../../api/useCompositionQuery';
 import type { Game, Player } from '../../types/game.types';
+import { CompositionSheet } from '../CompositionSheet/CompositionSheet';
 import { PlayerList } from '../PlayerList/PlayerList';
 import { RoomCodeCard } from '../RoomCodeCard/RoomCodeCard';
+import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './StorytellerLobby.module.scss';
 
 interface StorytellerLobbyProps {
@@ -29,9 +32,12 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { data: players, isLoading } = usePlayersQuery(game.id, true);
+  const scriptName = useScriptName(game.script_id);
   const { mutateAsync: kickPlayer, isPending: isKicking } = useKickPlayerMutation();
   const { mutateAsync: startGame, isPending: isStarting } = useStartGameMutation();
   const { mutate: devFill, isPending: isFilling } = useDevFillMutation();
+  const { data: composition } = useCompositionQuery(game.id);
+  const [isCompositionOpen, setIsCompositionOpen] = useState(false);
 
   // Joueur dont l'exclusion attend confirmation
   const [playerToKick, setPlayerToKick] = useState<Player>();
@@ -69,12 +75,15 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
           title="Lobby"
           tag="Lobby"
           actions={
-            <PhaseBarAction
-              aria-label="Retour à mes parties"
-              onClick={() => void navigate(AUTH_ROUTES.GAMES)}
-            >
-              <ArrowLeft aria-hidden="true" />
-            </PhaseBarAction>
+            <>
+              <ScriptRolesAction game={game} />
+              <PhaseBarAction
+                aria-label="Retour à mes parties"
+                onClick={() => void navigate(AUTH_ROUTES.GAMES)}
+              >
+                <ArrowLeft aria-hidden="true" />
+              </PhaseBarAction>
+            </>
           }
         />
       }
@@ -102,12 +111,29 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
     >
       <RoomCodeCard roomCode={game.room_code} />
 
+      <button
+        type="button"
+        className={styles.composition}
+        onClick={() => setIsCompositionOpen(true)}
+      >
+        <Layers aria-hidden="true" className={styles.composition_icon} />
+        <span className={styles.composition_text}>
+          <span className={styles.composition_title}>Composition</span>
+          <small>
+            {!composition || composition.random
+              ? 'Tirée au hasard au lancement'
+              : `Choisie · ${composition.cards.length} rôles`}
+          </small>
+        </span>
+        <ChevronRight aria-hidden="true" className={styles.composition_icon} />
+      </button>
+
       <section className={styles.section} aria-labelledby="lobby-count">
         <div className={styles.count_row}>
           <h2 id="lobby-count" className={styles.count}>
             {joined} / {game.player_count} joueurs
           </h2>
-          <span className={styles.script}>{getScriptName(game.script_id)}</span>
+          <span className={styles.script}>{scriptName}</span>
         </div>
         <ProgressBar value={joined} max={game.player_count} label="Joueurs présents" />
 
@@ -133,6 +159,10 @@ export const StorytellerLobby = ({ game }: StorytellerLobbyProps) => {
         onConfirm={() => void handleKick()}
         onCancel={closeKickSheet}
       />
+
+      {isCompositionOpen && (
+        <CompositionSheet game={game} onClose={() => setIsCompositionOpen(false)} />
+      )}
 
       <ConfirmSheet
         open={isStartSheetOpen}

@@ -1,6 +1,6 @@
-import { Sheet } from '@/components/Sheet/Sheet';
-import { Button } from '@/components/Button/Button';
-import { Loading } from '@/components/Loading/Loading';
+import { Sheet } from '@common/components/Sheet/Sheet';
+import { Button } from '@common/components/Button/Button';
+import { Loading } from '@common/components/Loading/Loading';
 import { useCardsQuery } from '../../api/useCardsQuery';
 import { RoleCard } from '../RoleCard/RoleCard';
 import styles from './MyRoleSheet.module.scss';

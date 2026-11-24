@@ -23,3 +23,46 @@
   @include body-small;
   text-align: center;
 }
+
+// Accès à la composition (design/C1-Creation 02b), modifiable jusqu'au lancement
+.composition {
+  width: 100%;
+  min-height: $target-std;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  border: 1px solid $line;
+  border-radius: $radius-m;
+  background: $surface;
+  color: $text;
+  text-align: left;
+  cursor: pointer;
+  @include focus-ring;
+
+  &:active {
+    background: $surface-raised;
+  }
+}
+
+.composition_icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: $text-muted;
+}
+
+.composition_text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  small {
+    @include body-small;
+  }
+}
+
+.composition_title {
+  font: 600 16px/20px $font-sans;
+}
