@@ -14,7 +14,7 @@ import { useNightStepMutation } from '../../api/useNightStepMutation';
 import { useEndNightMutation } from '../../api/useEndNightMutation';
 import type { Game, Player, RoleSummary } from '../../types/game.types';
 import type { NightStep, StepChoice } from '../../types/night.types';
-import { getStepTitle, isOpenStatus } from '../../utils/night.utils';
+import { getStepTitle, isMayorBounce, isOpenStatus } from '../../utils/night.utils';
 import { AddStepSheet } from '../AddStepSheet/AddStepSheet';
 import { EndNightSheet } from '../EndNightSheet/EndNightSheet';
 import { NightStepList } from '../NightStepList/NightStepList';
@@ -76,7 +76,9 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
   const steps = night?.steps ?? [];
   // Ce qui retient la nuit : un joueur qui n'a pas répondu, ou une étape ajoutée par le conteur
   const blocking = steps.filter(
-    (s) => s.status === 'WaitingPlayer' || (s.action_type === 'custom' && isOpenStatus(s.status))
+    (s) =>
+      s.status === 'WaitingPlayer' ||
+      ((s.action_type === 'custom' || isMayorBounce(s)) && isOpenStatus(s.status))
   );
   const openSteps = steps.filter((s) => isOpenStatus(s.status)).length;
   const title = `Nuit ${night?.round ?? game.current_round}`;
@@ -188,35 +190,24 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
           <h3 id="night-help" className={styles.label}>
             À débloquer
           </h3>
-          {blocking.map((step) => (
-            <div key={step.id} className={styles.help_row}>
-              <div className={styles.help_text}>
-                <span className={styles.help_title}>
-                  {getStepTitle(step)}
-                  {step.actor && <span className={styles.actor}> · {step.actor.pseudo}</span>}
-                </span>
-                <small>{describeBlocking(step, players, roles)}</small>
-              </div>
-              <div className={styles.help_actions}>
-                {step.status === 'Pending' && (
-                  <Button
-                    fullWidth={false}
-                    disabled={isRunning}
-                    onClick={() => void run(step, 'activate')}
-                  >
-                    Lancer
-                  </Button>
-                )}
-                {step.status === 'Received' && (
+          {blocking.map((step) =>
+            isMayorBounce(step) ? (
+              <div key={step.id} className={styles.help_row}>
+                <div className={styles.help_text}>
+                  <span className={styles.help_title}>
+                    {getStepTitle(step)}
+                    {step.actor && <span className={styles.actor}> · {step.actor.pseudo}</span>}
+                  </span>
+                  <small>Vous pouvez faire mourir quelqu’un d’autre à sa place, ou personne.</small>
+                </div>
+                <div className={styles.help_actions}>
                   <Button
                     fullWidth={false}
                     disabled={isRunning}
                     onClick={() => void run(step, 'resolve', { decision: 'Accepted' })}
                   >
-                    Accepter
+                    Le Maire meurt
                   </Button>
-                )}
-                {step.action_kind !== 'Confirm' && step.status !== 'Pending' && (
                   <Button
                     variant="secondary"
                     fullWidth={false}
@@ -225,20 +216,70 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
                       setOpenSheet('choice');
                     }}
                   >
-                    {step.status === 'Received' ? 'Modifier' : 'Choisir à sa place'}
+                    Un autre meurt
                   </Button>
-                )}
-                <Button
-                  variant="ghost"
-                  fullWidth={false}
-                  disabled={isRunning}
-                  onClick={() => void run(step, 'skip')}
-                >
-                  Passer
-                </Button>
+                  <Button
+                    variant="ghost"
+                    fullWidth={false}
+                    disabled={isRunning}
+                    onClick={() => void run(step, 'resolve', { decision: 'Ignored' })}
+                  >
+                    Personne ne meurt
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            ) : (
+              <div key={step.id} className={styles.help_row}>
+                <div className={styles.help_text}>
+                  <span className={styles.help_title}>
+                    {getStepTitle(step)}
+                    {step.actor && <span className={styles.actor}> · {step.actor.pseudo}</span>}
+                  </span>
+                  <small>{describeBlocking(step, players, roles)}</small>
+                </div>
+                <div className={styles.help_actions}>
+                  {step.status === 'Pending' && (
+                    <Button
+                      fullWidth={false}
+                      disabled={isRunning}
+                      onClick={() => void run(step, 'activate')}
+                    >
+                      Lancer
+                    </Button>
+                  )}
+                  {step.status === 'Received' && (
+                    <Button
+                      fullWidth={false}
+                      disabled={isRunning}
+                      onClick={() => void run(step, 'resolve', { decision: 'Accepted' })}
+                    >
+                      Accepter
+                    </Button>
+                  )}
+                  {step.action_kind !== 'Confirm' && step.status !== 'Pending' && (
+                    <Button
+                      variant="secondary"
+                      fullWidth={false}
+                      onClick={() => {
+                        setHelpedStep(step);
+                        setOpenSheet('choice');
+                      }}
+                    >
+                      {step.status === 'Received' ? 'Modifier' : 'Choisir à sa place'}
+                    </Button>
+                  )}
+                  <Button
+                    variant="ghost"
+                    fullWidth={false}
+                    disabled={isRunning}
+                    onClick={() => void run(step, 'skip')}
+                  >
+                    Passer
+                  </Button>
+                </div>
+              </div>
+            )
+          )}
         </section>
       )}
 
