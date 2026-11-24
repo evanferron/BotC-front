@@ -21,6 +21,7 @@ import { NightStepList } from '../NightStepList/NightStepList';
 import { SendInfoSheet } from '../SendInfoSheet/SendInfoSheet';
 import { StepChoiceSheet } from '../StepChoiceSheet/StepChoiceSheet';
 import { GrimoireAction } from '../GrimoireAction/GrimoireAction';
+import { PauseAction } from '../PauseAction/PauseAction';
 import styles from './StorytellerNight.module.scss';
 
 interface StorytellerNightProps {
@@ -117,6 +118,7 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
           <PhaseBarAction aria-label="Terminer la nuit" onClick={() => setOpenSheet('end')}>
             <Sunrise aria-hidden="true" />
           </PhaseBarAction>
+          <PauseAction game={game} />
           <GrimoireAction game={game} />
           <PhaseBarAction
             aria-label="Retour à mes parties"

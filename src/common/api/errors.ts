@@ -47,6 +47,7 @@ export type ErrorCode =
   | 'CARD_NOT_AVAILABLE'
   | 'INVALID_COMPOSITION'
   | 'NOTHING_TO_UNDO'
+  | 'GAME_PAUSED'
   // Métier : nuit
   | 'NIGHT_STEP_NOT_FOUND'
   | 'INVALID_STEP_STATE'

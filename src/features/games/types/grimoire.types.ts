@@ -20,6 +20,8 @@ export interface GrimoirePlayer {
   alignment: Alignment | null;
   note: string | null;
   tokens: TokenKind[];
+  // Parti en cours de partie : le conteur agit pour lui
+  has_left: boolean;
 }
 
 // Correction : seuls les champs présents changent ; null efface les champs facultatifs

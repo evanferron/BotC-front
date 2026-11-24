@@ -78,3 +78,14 @@
     background: rgba($accent, 0.2);
   }
 }
+
+.kick {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.kick_hint {
+  @include body-small;
+}

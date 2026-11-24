@@ -13,6 +13,7 @@ import { useReadMessageMutation } from '../../api/useReadMessageMutation';
 import type { Game } from '../../types/game.types';
 import { getPhaseLabel, getPhaseVariant } from '../../utils/game.utils';
 import { GrimoireAction } from '../GrimoireAction/GrimoireAction';
+import { PauseAction } from '../PauseAction/PauseAction';
 import { MessageView } from '../MessageView/MessageView';
 import { MyRoleSheet } from '../MyRoleSheet/MyRoleSheet';
 import { PlayerDay } from '../PlayerDay/PlayerDay';
@@ -66,6 +67,7 @@ export const DayView = ({ game, isStoryteller }: DayViewProps) => {
               <IdCard aria-hidden="true" />
             </PhaseBarAction>
           )}
+          {isStoryteller && <PauseAction game={game} />}
           {isStoryteller ? <GrimoireAction game={game} /> : <ScriptRolesAction game={game} />}
           <PhaseBarAction
             aria-label="Retour à mes parties"

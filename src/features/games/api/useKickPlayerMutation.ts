@@ -7,7 +7,7 @@ import { GAMES_ENDPOINTS, GAMES_KEYS } from './GAMES_CONF';
 
 interface KickPlayerPayload {
   gameId: string;
-  player: Player;
+  player: Pick<Player, 'id' | 'pseudo'>;
 }
 
 const kickPlayer = async ({ gameId, player }: KickPlayerPayload) => {
@@ -24,7 +24,8 @@ export const useKickPlayerMutation = () => {
     },
     onSuccess: (_data, { gameId, player }) => {
       showSuccess(`${player.pseudo} a quitté la table`);
-      return queryClient.invalidateQueries({ queryKey: GAMES_KEYS.players(gameId) });
+      // En cours de partie, le grimoire et la nuit montrent aussi le départ
+      return queryClient.invalidateQueries({ queryKey: GAMES_KEYS.details(gameId) });
     },
   });
 };

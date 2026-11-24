@@ -19,6 +19,7 @@ import { cx } from '@common/utils/className.utils';
 import { getTeamLabel } from '@scripts/utils/role.utils';
 import { useGrimoireQuery } from '../../api/useGrimoireQuery';
 import { useCorrectPlayerMutation } from '../../api/useCorrectPlayerMutation';
+import { useKickPlayerMutation } from '../../api/useKickPlayerMutation';
 import { useReorderSeatsMutation } from '../../api/useReorderSeatsMutation';
 import { useScriptRolesQuery } from '../../api/useScriptRolesQuery';
 import type { Game } from '../../types/game.types';
@@ -73,6 +74,7 @@ const GrimoireList = ({ players, onSelect }: GrimoireListProps) => (
             </span>
             {player.shown_role && <small>Croit être {player.shown_role.name}</small>}
             {player.registered_role && <small>Perçu comme {player.registered_role.name}</small>}
+            {player.has_left && <small>A quitté la table · vous agissez pour lui</small>}
           </span>
           <span className={styles.states}>
             <TokenBadges tokens={player.tokens} />
@@ -101,6 +103,7 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
   const { data: roles = [] } = useScriptRolesQuery(game.id);
   const { mutateAsync: correct, isPending } = useCorrectPlayerMutation();
   const { mutateAsync: reorder, isPending: isReordering } = useReorderSeatsMutation();
+  const { mutateAsync: kick, isPending: isKicking } = useKickPlayerMutation();
   const [view, setView] = useState<GrimoireView>('list');
   const [isReorganising, setIsReorganising] = useState(false);
   const [selectedId, setSelectedId] = useState<string>();
@@ -113,6 +116,15 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
     try {
       await correct({ gameId: game.id, playerId: player.id, correction });
       showSuccess(`${player.pseudo} corrigé`);
+      setSelectedId(undefined);
+    } catch {
+      // Toast affiché par la mutation
+    }
+  };
+
+  const exclude = async (player: GrimoirePlayer) => {
+    try {
+      await kick({ gameId: game.id, player });
       setSelectedId(undefined);
     } catch {
       // Toast affiché par la mutation
@@ -197,6 +209,11 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
           roles={roles}
           isLoading={isPending}
           onApply={(correction) => void apply(selected, correction)}
+          // Exclure en cours de partie (23f) ; un joueur déjà parti ne peut plus l'être
+          onKick={
+            game.status !== 'Ended' && !selected.has_left ? () => void exclude(selected) : undefined
+          }
+          isKicking={isKicking}
           onClose={() => setSelectedId(undefined)}
         />
       )}

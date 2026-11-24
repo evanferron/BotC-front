@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Sheet } from '@common/components/Sheet/Sheet';
 import { Button } from '@common/components/Button/Button';
 import { Segmented } from '@common/components/Segmented/Segmented';
+import { HoldButton } from '@common/components/HoldButton/HoldButton';
 import { CHARACTER_TYPES, getTeamLabel } from '@scripts/utils/role.utils';
 import type { Alignment, RoleSummary } from '../../types/game.types';
 import type { GrimoirePlayer, PlayerStateCorrection, TokenKind } from '../../types/grimoire.types';
@@ -16,6 +17,9 @@ interface CorrectionSheetProps {
   roles: RoleSummary[];
   isLoading: boolean;
   onApply: (correction: PlayerStateCorrection) => void;
+  // Exclure le joueur de la table (absent : exclusion impossible)
+  onKick?: () => void;
+  isKicking?: boolean;
   onClose: () => void;
 }
 
@@ -85,6 +89,8 @@ export const CorrectionSheet = ({
   roles,
   isLoading,
   onApply,
+  onKick,
+  isKicking = false,
   onClose,
 }: CorrectionSheetProps) => {
   const [isAlive, setIsAlive] = useState(player.is_alive);
@@ -242,6 +248,16 @@ export const CorrectionSheet = ({
           onChange={(event) => setNote(event.target.value)}
         />
       </label>
+      {onKick && (
+        <div className={styles.kick}>
+          <HoldButton isLoading={isKicking} onConfirm={onKick}>
+            Maintenir pour exclure {player.pseudo}
+          </HoldButton>
+          <small className={styles.kick_hint}>
+            Il quitte la table. Son rôle reste dans le grimoire et vous agissez pour lui.
+          </small>
+        </div>
+      )}
     </Sheet>
   );
 };

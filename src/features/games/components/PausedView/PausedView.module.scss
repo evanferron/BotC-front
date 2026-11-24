@@ -1,0 +1,8 @@
+.title {
+  @include title-1;
+}
+
+.text {
+  @include body-small;
+  max-width: 280px;
+}

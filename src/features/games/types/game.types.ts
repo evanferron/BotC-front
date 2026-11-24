@@ -18,6 +18,10 @@ export interface Game {
   winner: Alignment | null;
   // Raison de la fin, annoncée avec le camp vainqueur
   end_reason: string | null;
+  // Mise en pause par le conteur : rien n'avance jusqu'à la reprise
+  paused: boolean;
+  // Le conteur a un écran ouvert sur la partie (renseigné par GET /games/{id} seulement)
+  storyteller_online: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -30,6 +34,10 @@ export interface Player {
   seat_position: number | null;
   is_alive: boolean;
   has_ghost_vote: boolean;
+  // Parti en cours de partie : sa place reste, le conteur agit pour lui
+  has_left: boolean;
+  // A un écran ouvert sur la partie
+  is_online: boolean;
   joined_at: string;
 }
 
