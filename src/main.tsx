@@ -9,6 +9,8 @@ import { configureHttpAuth } from '@common/api/http';
 import { Router } from '@app/router';
 import { ENV } from '@common/config/api.config';
 import { queryClient } from '@app/queryClient';
+import { UpdatePrompt } from '@app/pwa/UpdatePrompt';
+import { listenForInstallPrompt } from '@common/utils/install.utils';
 import '@fontsource/cormorant-garamond/500.css';
 import '@fontsource/cormorant-garamond/600.css';
 import '@fontsource/cormorant-garamond/500-italic.css';
@@ -21,6 +23,8 @@ import '@common/styles/index.scss';
 
 // Assemblage : le client HTTP partagé reçoit l'authentification avant toute requête
 configureHttpAuth(httpAuth);
+// Avant le premier rendu : le navigateur n'annonce l'installation possible qu'une fois
+listenForInstallPrompt();
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -55,6 +59,7 @@ createRoot(rootElement).render(
           error: { duration: 5000, iconTheme: { primary: '#EE7F8B', secondary: '#0E1016' } },
         }}
       />
+      <UpdatePrompt />
       {ENV === 'DEV' && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   </StrictMode>

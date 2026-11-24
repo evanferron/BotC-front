@@ -55,6 +55,7 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
+    "@vite-pwa/assets-generator": "^2.0.0",
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/browser-playwright": "^4.0.18",
     "@vitest/coverage-v8": "^4.0.18",
@@ -73,6 +74,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.53.1",
     "vite": "^7.2.4",
+    "vite-plugin-pwa": "^2.0.0",
     "vitest": "^4.0.18"
   }
 }

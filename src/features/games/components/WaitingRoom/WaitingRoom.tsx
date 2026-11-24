@@ -11,6 +11,7 @@ import { useUserQuery } from '@auth/api/useUserQuery';
 import { usePlayersQuery } from '../../api/usePlayersQuery';
 import { useLeaveGameMutation } from '../../api/useLeaveGameMutation';
 import type { Game } from '../../types/game.types';
+import { InstallCard } from '../InstallCard/InstallCard';
 import { PlayerList } from '../PlayerList/PlayerList';
 import { ScriptRolesAction } from '../ScriptRolesAction/ScriptRolesAction';
 import styles from './WaitingRoom.module.scss';
@@ -75,6 +76,7 @@ export const WaitingRoom = ({ game }: WaitingRoomProps) => {
       </div>
       <p className={styles.text}>En attendant le Conteur.</p>
       <ProgressBar value={joined} max={game.player_count} label="Joueurs présents" />
+      <InstallCard />
 
       {isLoading ? (
         <Loading label="Chargement des joueurs…" />
