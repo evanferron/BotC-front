@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { ArrowDownUp, BookOpen, ChevronRight, Ghost, NotebookPen, Skull } from 'lucide-react';
+import {
+  ArrowDownUp,
+  BookOpen,
+  ChevronRight,
+  Ghost,
+  NotebookPen,
+  ScrollText,
+  Skull,
+} from 'lucide-react';
 import { Button } from '@common/components/Button/Button';
 import { FullScreenSheet } from '@common/components/FullScreenSheet/FullScreenSheet';
 import { Loading } from '@common/components/Loading/Loading';
@@ -18,6 +26,7 @@ import type { GrimoirePlayer, PlayerStateCorrection } from '../../types/grimoire
 import { CorrectionSheet } from '../CorrectionSheet/CorrectionSheet';
 import { EndGameSheet } from '../EndGameSheet/EndGameSheet';
 import { GrimoireCircle } from '../GrimoireCircle/GrimoireCircle';
+import { JournalSheet } from '../JournalSheet/JournalSheet';
 import { GameScriptRolesSheet } from '../ScriptRolesAction/ScriptRolesAction';
 import { SeatOrderList } from '../SeatOrderList/SeatOrderList';
 import { TokenBadges } from '../TokenBadges/TokenBadges';
@@ -97,6 +106,7 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
   const [selectedId, setSelectedId] = useState<string>();
   const [showRoles, setShowRoles] = useState(false);
   const [isEnding, setIsEnding] = useState(false);
+  const [showJournal, setShowJournal] = useState(false);
   const selected = players?.find((p) => p.id === selectedId);
 
   const apply = async (player: GrimoirePlayer, correction: PlayerStateCorrection) => {
@@ -145,6 +155,13 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
       >
         Rôles du script · en jeu et absents
       </Button>
+      <Button
+        variant="ghost"
+        leadingIcon={<ScrollText aria-hidden="true" />}
+        onClick={() => setShowJournal(true)}
+      >
+        Journal · tout voir, annuler
+      </Button>
       <Segmented label="Affichage" options={VIEW_OPTIONS} value={view} onChange={setView} />
       {(isLoading || !players) && <Loading label="Lecture du grimoire…" />}
       {players && view === 'circle' && (
@@ -168,6 +185,7 @@ export const GrimoireSheet = ({ game, onClose }: GrimoireSheetProps) => {
           </Button>
         </>
       )}
+      {showJournal && <JournalSheet game={game} onClose={() => setShowJournal(false)} />}
       {isEnding && <EndGameSheet game={game} onClose={() => setIsEnding(false)} />}
       {showRoles && (
         <GameScriptRolesSheet game={game} isStoryteller onClose={() => setShowRoles(false)} />
