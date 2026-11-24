@@ -15,12 +15,7 @@ import { useCardsQuery } from '@games/api/distribution.api';
 import type { Game } from '@games/types/game.types';
 import type { ActionKind } from '@games/types/night.types';
 import { getPhaseLabel } from '@games/utils/game.utils';
-import {
-  cannotChooseSelf,
-  getChoiceShape,
-  isChoiceComplete,
-  toStepChoice,
-} from '@games/utils/night.utils';
+import { getChoiceShape, isChoiceComplete, toStepChoice } from '@games/utils/night.utils';
 import { hasSeenRole, markRoleSeen } from '@games/utils/roleSeen.utils';
 import { MessageView } from '@games/components/shared/MessageView/MessageView';
 import { MyRoleSheet } from '@games/components/shared/MyRoleSheet/MyRoleSheet';
@@ -169,10 +164,10 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
     const shape = getChoiceShape(kind);
     const texts = PROMPT_TEXTS[kind];
     const complete = isChoiceComplete(kind, selectedPlayers, selectedRoles);
-    // La demande porte toujours sur le rôle que le joueur croit avoir
-    const choosable = cannotChooseSelf(myRole?.id)
-      ? players.filter((p) => p.user_id !== userId)
-      : players;
+    // Certains rôles ne peuvent pas se désigner (le Moine) : le serveur le dit avec la demande
+    const choosable = prompt.can_choose_self
+      ? players
+      : players.filter((p) => p.user_id !== userId);
     const names = [
       ...selectedPlayers.map((id) => players.find((p) => p.id === id)?.pseudo),
       ...selectedRoles.map((id) => roles.find((r) => r.id === id)?.name),

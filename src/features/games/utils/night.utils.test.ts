@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import {
-  cannotChooseSelf,
   getChoiceShape,
   isChoiceComplete,
   isOpenStatus,
@@ -46,15 +45,6 @@ describe('forme d’un choix', () => {
       target_role_id: undefined,
     });
     expect(toStepChoice([], ['imp']).target_role_id).toBe('imp');
-  });
-});
-
-describe('cannotChooseSelf', () => {
-  it('interdit au Moine de se choisir, pas aux autres rôles', () => {
-    expect(cannotChooseSelf('monk')).toBe(true);
-    expect(cannotChooseSelf('poisoner')).toBe(false);
-    expect(cannotChooseSelf(undefined)).toBe(false);
-    expect(cannotChooseSelf(null)).toBe(false);
   });
 });
 

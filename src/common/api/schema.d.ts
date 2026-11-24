@@ -1192,6 +1192,7 @@ export interface components {
       | 'USER_NOT_FOUND'
       | 'PSEUDO_ALREADY_USED'
       | 'INVALID_CURRENT_PASSWORD'
+      | 'ACCOUNT_IN_ACTIVE_GAME'
       | 'SCRIPT_NOT_FOUND'
       | 'GAME_NOT_FOUND'
       | 'ROOM_CODE_NOT_FOUND'
@@ -1405,6 +1406,11 @@ export interface components {
       /** @description Rôle de l'étape, ou `minion_info`, `demon_info`, `custom`. */
       action_type: string;
       actor?: components['schemas']['StepActor'] | null;
+      /**
+       * @description Le joueur de l'étape peut se désigner lui-même (le Moine : non), y compris quand le conteur
+       *     choisit à sa place.
+       */
+      can_choose_self: boolean;
       /** Format: uuid */
       id: string;
       /** @description Consigne du script pour le conteur. */
@@ -1568,6 +1574,8 @@ export interface components {
     /** @description Demande en cours pour le joueur. Ne révèle ni le rôle ni la place de l'étape dans la nuit. */
     PromptResponse: {
       action_kind: components['schemas']['ActionKind'];
+      /** @description Le joueur peut se désigner lui-même (le Moine : non) : l'écran grise sa propre ligne. */
+      can_choose_self: boolean;
       /** Format: uuid */
       step_id: string;
     };
@@ -4650,6 +4658,15 @@ export interface operations {
         };
       };
       404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** @description Partie non terminée (ACCOUNT_IN_ACTIVE_GAME) */
+      409: {
         headers: {
           [name: string]: unknown;
         };
