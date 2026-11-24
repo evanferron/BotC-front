@@ -18,6 +18,9 @@ import { StorytellerNight } from '@games/components/StorytellerNight/Storyteller
 import { PlayerNight } from '@games/components/PlayerNight/PlayerNight';
 import { DayView } from '@games/components/DayView/DayView';
 import { EndView } from '@games/components/EndView/EndView';
+import { PausedView } from '@games/components/PausedView/PausedView';
+import { ConnectionBanner } from '@games/components/ConnectionBanner/ConnectionBanner';
+import type { Game as GameData } from '@games/types/game.types';
 import styles from './Game.module.scss';
 
 /**
@@ -30,7 +33,7 @@ export const Game = () => {
   const { userId } = useAuth();
   const { data: game, isLoading, error } = useGameQuery(gameId);
   // Signaux du serveur : chaque changement de la partie recharge l'écran
-  useGameRealtime(gameId);
+  const isLive = useGameRealtime(gameId);
 
   useEffect(() => {
     document.title = game ? `Partie ${game.room_code} · BotC` : 'Partie · BotC';
@@ -83,6 +86,24 @@ export const Game = () => {
   }
 
   const isStoryteller = game.storyteller_id === userId;
+  const isPlaying = game.status !== 'Lobby' && game.status !== 'Ended';
+  return (
+    <>
+      {game.paused && game.status !== 'Ended' ? (
+        <PausedView game={game} isStoryteller={isStoryteller} />
+      ) : (
+        <PhaseScreen game={game} isStoryteller={isStoryteller} />
+      )}
+      <ConnectionBanner
+        offline={!isLive}
+        storytellerAway={isPlaying && !isStoryteller && !game.storyteller_online}
+      />
+    </>
+  );
+};
+
+// Écran de la phase en cours, selon la place du compte
+const PhaseScreen = ({ game, isStoryteller }: { game: GameData; isStoryteller: boolean }) => {
   switch (game.status) {
     case 'Lobby':
       return isStoryteller ? <StorytellerLobby game={game} /> : <WaitingRoom game={game} />;
