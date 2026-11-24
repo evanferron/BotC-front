@@ -2,13 +2,18 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { ENV } from '@common/config/api.config';
 import { axiosInstance } from '@common/api/http';
 import type { Credentials, User } from '../types/auth.types';
+import { AccountCreatedError } from '../utils/authError.utils';
 import { AUTH_ENDPOINTS, AUTH_KEYS } from './AUTH_CONF';
 import { login } from './useLoginMutation';
 
 // Crée le compte puis connecte directement l'utilisateur
 const register = async (credentials: Credentials) => {
   await axiosInstance.post<User>(AUTH_ENDPOINTS.register, credentials);
-  return login(credentials);
+  try {
+    return await login(credentials);
+  } catch (error) {
+    throw new AccountCreatedError(error);
+  }
 };
 
 export const useRegisterMutation = () => {

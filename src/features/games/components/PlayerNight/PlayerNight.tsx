@@ -17,7 +17,12 @@ import { useCardsQuery } from '../../api/useCardsQuery';
 import type { Game } from '../../types/game.types';
 import type { ActionKind } from '../../types/night.types';
 import { getPhaseLabel } from '../../utils/game.utils';
-import { getChoiceShape, isChoiceComplete, toStepChoice } from '../../utils/night.utils';
+import {
+  cannotChooseSelf,
+  getChoiceShape,
+  isChoiceComplete,
+  toStepChoice,
+} from '../../utils/night.utils';
 import { hasSeenRole, markRoleSeen } from '../../utils/roleSeen.utils';
 import { MessageView } from '../MessageView/MessageView';
 import { MyRoleSheet } from '../MyRoleSheet/MyRoleSheet';
@@ -58,7 +63,7 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
   const { data: messages = [] } = useMessagesQuery(game.id, true);
   const { data: distribution } = useCardsQuery(game.id);
   const { mutateAsync: respond, isPending: isResponding } = useRespondMutation();
-  const { mutate: readMessage } = useReadMessageMutation();
+  const { mutate: readMessage, isPending: isReading } = useReadMessageMutation();
 
   // Première nuit : le joueur découvre d'abord sa carte, s'il ne l'a pas encore vue
   const [isRevealing, setIsRevealing] = useState(
@@ -143,7 +148,13 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
         header={header}
         centered
         footer={
-          <Button size="xl" onClick={() => readMessage({ gameId: game.id, messageId: unread.id })}>
+          // Le message lu disparaît aussitôt (mise à jour optimiste) : sans ce verrou, un double
+          // appui validerait aussi le message suivant sans qu'il ait été lu
+          <Button
+            size="xl"
+            disabled={isReading}
+            onClick={() => readMessage({ gameId: game.id, messageId: unread.id })}
+          >
             Compris
           </Button>
         }
@@ -160,6 +171,10 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
     const shape = getChoiceShape(kind);
     const texts = PROMPT_TEXTS[kind];
     const complete = isChoiceComplete(kind, selectedPlayers, selectedRoles);
+    // La demande porte toujours sur le rôle que le joueur croit avoir
+    const choosable = cannotChooseSelf(myRole?.id)
+      ? players.filter((p) => p.user_id !== userId)
+      : players;
     const names = [
       ...selectedPlayers.map((id) => players.find((p) => p.id === id)?.pseudo),
       ...selectedRoles.map((id) => roles.find((r) => r.id === id)?.name),
@@ -206,7 +221,7 @@ export const PlayerNight = ({ game }: PlayerNightProps) => {
         <p className={styles.text}>{texts.text}</p>
         {shape.players > 0 && (
           <PlayerPicker
-            players={players}
+            players={choosable}
             selected={selectedPlayers}
             max={shape.players}
             currentUserId={userId}

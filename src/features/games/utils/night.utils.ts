@@ -26,6 +26,13 @@ export const isChoiceComplete = (kind: ActionKind, playerIds: string[], roleIds:
   return playerIds.length === shape.players && roleIds.length === shape.roles;
 };
 
+// Rôles dont la capacité interdit de se choisir soi-même (le Moine protège « un joueur, pas
+// lui-même »). Le serveur doit aussi le refuser : cette liste ne sert qu'à griser le choix.
+const NOT_SELF_ROLES = new Set(['monk']);
+
+export const cannotChooseSelf = (roleId: string | null | undefined) =>
+  !!roleId && NOT_SELF_ROLES.has(roleId);
+
 // Corps envoyé à l'API à partir de la sélection
 export const toStepChoice = (playerIds: string[], roleIds: string[]): StepChoice => ({
   target_id: playerIds[0],

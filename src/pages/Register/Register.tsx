@@ -7,7 +7,11 @@ import { Button } from '@common/components/Button/Button';
 import { PUBLIC_ROUTES } from '@common/config/routes.config';
 import { getErrorCode } from '@common/api/errors';
 import { useRegisterMutation } from '@auth/api/useRegisterMutation';
-import { AUTH_ERROR_MESSAGES, getCommonAuthError } from '@auth/utils/authError.utils';
+import {
+  AUTH_ERROR_MESSAGES,
+  AccountCreatedError,
+  getCommonAuthError,
+} from '@auth/utils/authError.utils';
 import {
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
@@ -45,7 +49,14 @@ export const Register = () => {
       // La redirection est faite par PublicLayout dès que la session existe
       await registerRequest({ pseudo: cleanedPseudo, password });
     } catch (err) {
-      if (getErrorCode(err) === 'PSEUDO_ALREADY_USED') {
+      if (err instanceof AccountCreatedError) {
+        // Compte créé : on passe à la connexion, pseudo prérempli, sans perdre la destination
+        const state = (location.state as Record<string, unknown> | null) ?? {};
+        void navigate(PUBLIC_ROUTES.LOGIN, {
+          replace: true,
+          state: { ...state, pseudo: cleanedPseudo, accountCreated: true },
+        });
+      } else if (getErrorCode(err) === 'PSEUDO_ALREADY_USED') {
         setPseudoError(AUTH_ERROR_MESSAGES.PSEUDO_TAKEN);
       } else {
         setFormError(getCommonAuthError(err));

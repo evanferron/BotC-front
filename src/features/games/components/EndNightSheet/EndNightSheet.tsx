@@ -10,38 +10,65 @@ interface EndNightSheetProps {
   openSteps: number;
   // Morts calculés par la nuit automatique : cochés d'avance
   proposedDeaths?: string[];
+  // Toutes les étapes sont traitées
+  resolved: boolean;
+  // Joueurs dont on attend encore le choix
+  waitingCount: number;
   isLoading: boolean;
   onConfirm: (deaths: string[]) => void;
   onClose: () => void;
 }
+
+const plural = (n: number, word: string) => `${n} ${word}${n > 1 ? 's' : ''}`;
 
 // Écran 10c : le conteur désigne les morts de la nuit, puis lève le jour
 export const EndNightSheet = ({
   players,
   openSteps,
   proposedDeaths = [],
+  resolved,
+  waitingCount,
   isLoading,
   onConfirm,
   onClose,
 }: EndNightSheetProps) => {
-  const [deaths, setDeaths] = useState<string[]>(proposedDeaths);
+  // Choix du conteur. Tant qu'il n'a rien touché, la sélection suit les morts calculés, qui
+  // peuvent arriver ou changer pendant que la fiche est ouverte (réponse tardive, annulation).
+  const [edited, setEdited] = useState<string[]>();
   const alive = players.filter((p) => p.is_alive);
-  let remaining = '';
-  if (openSteps === 1) remaining = ' 1 étape non traitée sera passée.';
-  if (openSteps > 1) remaining = ` ${openSteps} étapes non traitées seront passées.`;
+  const deaths = (edited ?? proposedDeaths).filter((id) => alive.some((p) => p.id === id));
+
+  const lines = [
+    proposedDeaths.length > 0
+      ? 'Les morts calculés par la nuit sont cochés ; corrigez si besoin.'
+      : 'Touchez les joueurs morts cette nuit.',
+    'Vous les annoncez à voix haute.',
+  ];
+  if (!resolved && waitingCount > 0) {
+    lines.push(
+      `La nuit n'est pas finie : ${plural(waitingCount, 'joueur')} n'a pas encore répondu, son choix sera ignoré.`
+    );
+  }
+  if (openSteps > 0) {
+    lines.push(
+      openSteps === 1
+        ? '1 étape non traitée sera passée.'
+        : `${openSteps} étapes non traitées seront passées.`
+    );
+  }
 
   return (
     <Sheet
       open
       title="Terminer la nuit ?"
-      description={`${proposedDeaths.length > 0 ? 'Les morts calculés par la nuit sont cochés ; corrigez si besoin.' : 'Touchez les joueurs morts cette nuit.'} Vous les annoncez à voix haute.${remaining}`}
+      description={lines.join(' ')}
       onClose={onClose}
       footer={
         <>
           <Button isLoading={isLoading} onClick={() => onConfirm(deaths)}>
             {deaths.length === 0
               ? 'Lever le jour sans mort'
-              : `Lever le jour · ${deaths.length} mort${deaths.length > 1 ? 's' : ''}`}
+              : `Lever le jour · ${plural(deaths.length, 'mort')}`}
           </Button>
           <Button variant="secondary" onClick={onClose}>
             Annuler
@@ -53,7 +80,7 @@ export const EndNightSheet = ({
         players={alive}
         selected={deaths}
         max={alive.length}
-        onChange={setDeaths}
+        onChange={setEdited}
         label="Morts de la nuit"
       />
     </Sheet>

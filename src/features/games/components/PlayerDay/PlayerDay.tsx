@@ -102,7 +102,13 @@ export const PlayerDay = ({ game, players, header }: PlayerDayProps) => {
       );
       footer = (
         <>
-          <Button variant="danger" size="xl" isLoading={isVoting} onClick={() => sendVote(true)}>
+          <Button
+            variant="danger"
+            size="xl"
+            isLoading={isVoting && variables?.isYes === true}
+            disabled={isVoting}
+            onClick={() => sendVote(true)}
+          >
             Utiliser ma voix : pour
           </Button>
           <Button variant="secondary" disabled={isVoting} onClick={() => sendVote(false)}>

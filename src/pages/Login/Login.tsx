@@ -10,13 +10,20 @@ import { useLoginMutation } from '@auth/api/useLoginMutation';
 import { AUTH_ERROR_MESSAGES, getCommonAuthError } from '@auth/utils/authError.utils';
 import styles from './Login.module.scss';
 
+// Arrivée depuis l'inscription quand le compte a été créé mais la connexion a échoué
+interface LoginState {
+  pseudo?: string;
+  accountCreated?: boolean;
+}
+
 // Écran 01a de la maquette (C1-Creation) : le compte se fait au pseudo, pas à l'e-mail
 export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { mutateAsync: loginRequest, isPending } = useLoginMutation();
+  const loginState = location.state as LoginState | null;
 
-  const [pseudo, setPseudo] = useState('');
+  const [pseudo, setPseudo] = useState(loginState?.pseudo ?? '');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string>();
 
@@ -69,7 +76,11 @@ export const Login = () => {
       <div className={styles.intro}>
         <span className={styles.eyebrow}>Blood on the Clocktower</span>
         <h2 className={styles.title}>Bon retour à la table.</h2>
-        <p className={styles.text}>Un compte est nécessaire pour créer ou rejoindre une partie.</p>
+        <p className={styles.text} role={loginState?.accountCreated ? 'status' : undefined}>
+          {loginState?.accountCreated
+            ? AUTH_ERROR_MESSAGES.ACCOUNT_CREATED
+            : 'Un compte est nécessaire pour créer ou rejoindre une partie.'}
+        </p>
       </div>
       <TextField
         id="login-pseudo"

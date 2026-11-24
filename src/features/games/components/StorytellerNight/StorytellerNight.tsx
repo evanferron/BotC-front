@@ -314,6 +314,8 @@ export const StorytellerNight = ({ game }: StorytellerNightProps) => {
           players={players}
           openSteps={openSteps}
           proposedDeaths={deaths}
+          resolved={night.resolved}
+          waitingCount={night.waiting_count}
           isLoading={isEnding}
           onConfirm={(selected) => void handleEndNight(selected)}
           onClose={closeSheet}

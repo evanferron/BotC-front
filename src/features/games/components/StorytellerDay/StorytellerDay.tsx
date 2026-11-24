@@ -128,7 +128,11 @@ export const StorytellerDay = ({ game, players, header }: StorytellerDayProps) =
       const result = await slay({ gameId: game.id, shooterId, targetId });
       const target = playerName(players, targetId);
       if (result.winner) {
-        showSuccess(`${target} meurt. Fin de partie : victoire du bon camp.`, { duration: 8000 });
+        // Démon tué : le bon camp gagne ; deux vivants restants : le mauvais camp gagne
+        showSuccess(
+          `${target} meurt. Fin de partie : victoire ${result.winner === 'Good' ? 'du bon' : 'du mauvais'} camp.`,
+          { duration: 8000 }
+        );
       } else if (result.target_died) {
         showInfo(`${target} meurt. Annoncez-le : la nuit tombe.`, { duration: 8000 });
       } else {

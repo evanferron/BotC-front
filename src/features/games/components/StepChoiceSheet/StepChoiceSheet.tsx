@@ -3,7 +3,12 @@ import { Sheet } from '@common/components/Sheet/Sheet';
 import { Button } from '@common/components/Button/Button';
 import type { Player, RoleSummary } from '../../types/game.types';
 import type { NightStep, StepChoice } from '../../types/night.types';
-import { getChoiceShape, isChoiceComplete, toStepChoice } from '../../utils/night.utils';
+import {
+  cannotChooseSelf,
+  getChoiceShape,
+  isChoiceComplete,
+  toStepChoice,
+} from '../../utils/night.utils';
 import { PlayerPicker } from '../PlayerPicker/PlayerPicker';
 import { RolePicker } from '../RolePicker/RolePicker';
 
@@ -38,6 +43,11 @@ export const StepChoiceSheet = ({
   const [roleIds, setRoleIds] = useState<string[]>([]);
   const shape = getChoiceShape(step.action_kind);
   const complete = isChoiceComplete(step.action_kind, playerIds, roleIds);
+  // Choisir à la place du Moine : lui-même n'est pas un choix possible
+  const choosable =
+    cannotChooseSelf(step.role?.id) && step.actor
+      ? players.filter((p) => p.id !== step.actor?.id)
+      : players;
 
   return (
     <Sheet
@@ -66,7 +76,7 @@ export const StepChoiceSheet = ({
     >
       {shape.players > 0 && (
         <PlayerPicker
-          players={players}
+          players={choosable}
           selected={playerIds}
           max={shape.players}
           onChange={setPlayerIds}
