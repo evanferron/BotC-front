@@ -1,29 +1,18 @@
-// Type de personnage. L'API sérialise l'enum Rust tel quel (PascalCase).
-export type CharacterType = 'Townsfolk' | 'Outsider' | 'Minion' | 'Demon';
+import type { ApiSchemas } from '@common/api/api.types';
 
-export type Team = 'Good' | 'Evil';
+// Type de personnage
+export type CharacterType = ApiSchemas['CharacterType'];
 
-// Réponse de GET /scripts (ScriptResponse côté API)
-export interface ScriptSummary {
-  id: string;
-  name: string;
-  description: string | null;
-}
+export type Team = ApiSchemas['Alignment'];
 
-// Rôle public d'un script (ScriptRoleResponse) : ni ordre de nuit, ni consignes au conteur
-export interface ScriptRole {
-  id: string;
-  name: string;
-  character_type: CharacterType;
-  // Équipe de départ : un Étranger est dans la bonne équipe
-  default_alignment: Team;
-  ability_description: string | null;
-}
+// Réponse de GET /scripts
+export type ScriptSummary = ApiSchemas['ScriptResponse'];
 
-// Réponse de GET /scripts/{id} (ScriptDetailResponse)
-export interface ScriptDetail extends ScriptSummary {
-  roles: ScriptRole[];
-}
+// Rôle public d'un script : ni ordre de nuit, ni consignes au conteur
+export type ScriptRole = ApiSchemas['ScriptRoleResponse'];
+
+// Réponse de GET /scripts/{id}
+export type ScriptDetail = ApiSchemas['ScriptDetailResponse'];
 
 // Rôle épinglé en haut de la liste : le rôle du joueur, sans son équipe réelle
 export interface PinnedRole {

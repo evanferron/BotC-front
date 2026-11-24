@@ -9,7 +9,7 @@ import { Card } from '@common/components/Card/Card';
 import { PlayerDisc } from '@common/components/PlayerDisc/PlayerDisc';
 import { AUTH_ROUTES, buildGameRoute } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
-import { useJoinGameMutation } from '@games/api/useJoinGameMutation';
+import { useJoinGameMutation } from '@games/api/games.api';
 import {
   normalizeRoomCode,
   ROOM_CODE_LENGTH,

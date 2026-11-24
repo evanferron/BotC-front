@@ -1,24 +1,11 @@
-import type { Alignment, RoleSummary } from './game.types';
+import type { ApiSchemas } from '@common/api/api.types';
+import type { Alignment } from './game.types';
 
-// Joueur révélé à la fin (RevealedPlayer côté API) : tout est public
-export interface RevealedPlayer {
-  id: string;
-  pseudo: string;
-  seat_position: number | null;
-  is_alive: boolean;
-  role: RoleSummary | null;
-  // Rôle que le joueur croyait avoir, s'il différait (l'Ivrogne)
-  shown_role: RoleSummary | null;
-  alignment: Alignment | null;
-}
+// Joueur révélé à la fin : tout est public (`shown_role` : rôle qu'il croyait avoir, l'Ivrogne)
+export type RevealedPlayer = ApiSchemas['RevealedPlayer'];
 
 // Réponse de GET /games/{id}/summary : seulement une fois la partie terminée
-export interface GameSummary {
-  winner: Alignment | null;
-  reason: string | null;
-  rounds: number;
-  players: RevealedPlayer[];
-}
+export type GameSummary = ApiSchemas['SummaryResponse'];
 
 export interface EndGamePayload {
   gameId: string;

@@ -1,69 +1,32 @@
-import type { RoleSummary } from './game.types';
+import type { ApiSchemas } from '@common/api/api.types';
 
-// Gabarit d'action d'une étape (ActionKind côté API)
-export type ActionKind = 'None' | 'ChooseOnePlayer' | 'ChooseTwoPlayers' | 'ChooseRole' | 'Confirm';
+// Gabarit d'action d'une étape
+export type ActionKind = ApiSchemas['ActionKind'];
 
-// Avancement d'une étape (ActionStatus côté API)
-export type ActionStatus =
-  'Pending' | 'WaitingPlayer' | 'Received' | 'Accepted' | 'Modified' | 'Ignored' | 'Skipped';
+// Avancement d'une étape
+export type ActionStatus = ApiSchemas['ActionStatus'];
 
-// Joueur réveillé par une étape
-export interface StepActor {
-  id: string;
-  pseudo: string;
-  is_alive: boolean;
-  // Le joueur croit avoir ce rôle sans l'avoir (l'Ivrogne)
-  believes_role: boolean;
-}
+// Joueur réveillé par une étape (`believes_role` : il croit avoir ce rôle sans l'avoir, l'Ivrogne)
+export type StepActor = ApiSchemas['StepActor'];
 
-// Étape de nuit, vue par le conteur
-export interface NightStep {
-  id: string;
-  step_order: number;
-  // Rôle de l'étape, ou minion_info, demon_info, custom
-  action_type: string;
-  action_kind: ActionKind;
-  status: ActionStatus;
-  role: RoleSummary | null;
-  reminder: string | null;
-  actor: StepActor | null;
-  target_id: string | null;
-  second_target_id: string | null;
-  target_role_id: string | null;
-  storyteller_note: string | null;
-}
+// Étape de nuit, vue par le conteur (`action_type` : rôle de l'étape, ou minion_info, demon_info, custom)
+export type NightStep = ApiSchemas['NightStepResponse'];
 
 // Réponse de GET /games/{id}/night
-export interface Night {
-  round: number;
-  is_first_night: boolean;
-  steps: NightStep[];
-  demon_bluffs: RoleSummary[];
-  // Toutes les étapes sont traitées : le conteur peut lever le jour
-  resolved: boolean;
-  // Morts calculés par la nuit automatique, à confirmer au lever du jour
-  proposed_deaths: string[];
-  // Joueurs dont la nuit attend encore le choix
-  waiting_count: number;
-}
+export type Night = ApiSchemas['NightResponse'];
 
 // Choix d'un joueur, selon le gabarit
-export interface StepChoice {
-  target_id?: string;
-  second_target_id?: string;
-  target_role_id?: string;
-}
+export type StepChoice = ApiSchemas['StepChoice'];
 
-export type StepDecision = 'Accepted' | 'Modified' | 'Ignored';
+export type StepDecision = ApiSchemas['StepDecision'];
 
 // Réponse de GET /games/{id}/night/prompt : même forme pour tous les joueurs
-export interface NightPrompt {
-  prompt: { step_id: string; action_kind: ActionKind } | null;
-}
+export type NightPrompt = ApiSchemas['NightPromptResponse'];
 
-export type MessageKind = 'Text' | 'Players' | 'Roles' | 'Number' | 'YesNo' | 'TeamInfo';
+export type MessageKind = ApiSchemas['MessageKind'];
 
-// Données d'un message selon son type
+// Données d'un message selon son type. Le back les stocke en JSON libre (`serde_json::Value`) :
+// le schéma ne les décrit pas, d'où ce type écrit à la main.
 export interface MessagePayload {
   player_ids?: string[];
   role_ids?: string[];
@@ -76,23 +39,11 @@ export interface MessagePayload {
 }
 
 // Message du conteur, vu par son destinataire
-export interface PlayerMessage {
-  id: string;
-  round_number: number;
-  kind: MessageKind;
-  content: string | null;
+export type PlayerMessage = Omit<ApiSchemas['MessageResponse'], 'payload'> & {
   payload: MessagePayload;
-  created_at: string;
-  read_at: string | null;
-}
+};
 
-// Corps de POST /games/{id}/players/{player_id}/messages
-export interface SendMessagePayload {
+// Corps de POST /games/{id}/players/{player_id}/messages (TeamInfo est réservé à l'app)
+export type SendMessagePayload = Omit<ApiSchemas['SendMessageRequest'], 'kind'> & {
   kind: Exclude<MessageKind, 'TeamInfo'>;
-  content?: string;
-  player_ids?: string[];
-  role_ids?: string[];
-  number?: number;
-  answer?: boolean;
-  night_action_id?: string;
-}
+};

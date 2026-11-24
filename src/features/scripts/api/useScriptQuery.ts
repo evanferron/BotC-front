@@ -25,4 +25,12 @@ export const useScriptQuery = (scriptId: string | undefined) =>
     initialData: () => (scriptId ? readCache<ScriptDetail>(cacheKey(scriptId))?.data : undefined),
     initialDataUpdatedAt: () =>
       scriptId ? readCache<ScriptDetail>(cacheKey(scriptId))?.savedAt : undefined,
+    meta: { errorMessage: 'Impossible de récupérer les rôles du script' },
   });
+
+/**
+ * Rôles d'un script, pour les écrans de partie : même source et même cache que la liste des
+ * rôles consultable hors partie. `undefined` tant qu'ils ne sont pas chargés.
+ */
+export const useScriptRoles = (scriptId: string | undefined) =>
+  useScriptQuery(scriptId).data?.roles;

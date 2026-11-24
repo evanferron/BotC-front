@@ -34,6 +34,8 @@ export default [
       'build',
       'coverage',
       '.vite',
+      // Généré par `npm run gen:api` depuis openapi.json du back
+      'src/common/api/schema.d.ts',
     ],
   },
 

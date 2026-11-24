@@ -1,40 +1,16 @@
-import type { GameStatus } from './game.types';
+import type { ApiSchemas } from '@common/api/api.types';
 
-// Statut d'une nomination (NominationStatus côté API)
-export type NominationStatus = 'Nominated' | 'Voting' | 'Closed' | 'Cancelled';
+// Statut d'une nomination
+export type NominationStatus = ApiSchemas['NominationStatus'];
 
 // Vote public d'un joueur : à la table, les mains se lèvent
-export interface DayVote {
-  voter_id: string;
-  is_yes: boolean;
-  used_ghost_vote: boolean;
-}
+export type DayVote = ApiSchemas['VoteResponse'];
 
-export interface Nomination {
-  id: string;
-  nominee_id: string;
-  nominator_id: string | null;
-  status: NominationStatus;
-  // En direct pendant le vote, définitif à la clôture
-  yes_count: number;
-  no_count: number;
-  votes: DayVote[];
-  executed: boolean;
-}
+// Nomination du jour (`yes_count` en direct pendant le vote, définitif à la clôture)
+export type Nomination = ApiSchemas['NominationResponse'];
 
 // Réponse de GET /games/{id}/day : identique pour tous les membres
-export interface Day {
-  round: number;
-  status: GameStatus;
-  alive_count: number;
-  // Voix pour nécessaires pour monter sur l'échafaud
-  threshold: number;
-  // Vivants, et morts qui ont encore leur vote fantôme
-  eligible_voter_ids: string[];
-  nominations: Nomination[];
-  // Joueur exécuté si le jour finissait maintenant
-  on_the_block: string | null;
-}
+export type Day = ApiSchemas['DayResponse'];
 
 export interface NominatePayload {
   gameId: string;
@@ -44,12 +20,7 @@ export interface NominatePayload {
   suppressAbilities: boolean;
 }
 
-export interface NominateResponse {
-  nomination: Nomination;
-  // Renseigné si la Vierge s'est déclenchée : le jour est fini
-  virgin: { executed_player_id: string } | null;
-  game_status: GameStatus;
-}
+export type NominateResponse = ApiSchemas['NominateResponse'];
 
 export interface EndDayPayload {
   gameId: string;
@@ -58,11 +29,7 @@ export interface EndDayPayload {
   suppressAbilities: boolean;
 }
 
-export interface EndDayResponse {
-  executed_player_id: string | null;
-  game_status: GameStatus;
-  winner: 'Good' | 'Evil' | null;
-}
+export type EndDayResponse = ApiSchemas['EndDayResponse'];
 
 // Tir du Pourfendeur annoncé à voix haute, saisi par le conteur
 export interface SlayPayload {
@@ -71,9 +38,4 @@ export interface SlayPayload {
   targetId: string;
 }
 
-export interface SlayResponse {
-  // La cible meurt : le jour se termine (nuit, ou fin de partie)
-  target_died: boolean;
-  game_status: GameStatus;
-  winner: 'Good' | 'Evil' | null;
-}
+export type SlayResponse = ApiSchemas['SlayResponse'];
