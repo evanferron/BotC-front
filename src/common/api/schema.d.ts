@@ -762,23 +762,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/games/{id}/roles': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Rôles du script de la partie. */
-    get: operations['get_script_roles'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/api/games/{id}/seats': {
     parameters: {
       query?: never;
@@ -1094,9 +1077,12 @@ export interface components {
     };
     /** @description État du jour, identique pour tous les membres : tout y est public. */
     DayResponse: {
-      /** Format: int32 */
+      /**
+       * Format: int32
+       * @description Vivants encore à table : base du seuil (un joueur parti ne vote plus).
+       */
       alive_count: number;
-      /** @description Joueurs qui peuvent encore voter : vivants, et morts avec leur vote fantôme. */
+      /** @description Joueurs qui peuvent encore voter, encore à table : vivants, et morts avec leur vote fantôme. */
       eligible_voter_ids: string[];
       /** @description Nominations du jour, dans l'ordre (les annulées sont exclues). */
       nominations: components['schemas']['NominationResponse'][];
@@ -1110,7 +1096,8 @@ export interface components {
       status: components['schemas']['GameStatus'];
       /**
        * Format: int32
-       * @description Voix pour nécessaires pour monter sur l'échafaud.
+       * @description Voix pour nécessaires pour monter sur l'échafaud : la moitié de `alive_count`, arrondie
+       *     au-dessus.
        */
       threshold: number;
     };
@@ -1199,6 +1186,7 @@ export interface components {
       | 'PLAYER_NOT_FOUND'
       | 'GAME_ALREADY_STARTED'
       | 'GAME_FULL'
+      | 'REMOVED_FROM_GAME'
       | 'TABLE_INCOMPLETE'
       | 'WRONG_PHASE'
       | 'NOT_YOUR_TURN'
@@ -4074,36 +4062,6 @@ export interface operations {
       };
       /** @description Partie pas en cours (WRONG_PHASE) */
       409: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse'];
-        };
-      };
-    };
-  };
-  get_script_roles: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description UUID du game */
-        id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['RoleSummary'][];
-        };
-      };
-      404: {
         headers: {
           [name: string]: unknown;
         };

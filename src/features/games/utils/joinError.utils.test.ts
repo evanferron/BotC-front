@@ -21,6 +21,9 @@ describe('getJoinErrorMessage', () => {
       JOIN_ERROR_MESSAGES.STARTED
     );
     expect(getJoinErrorMessage(apiError(409, 'CONFLICT'))).toBe(JOIN_ERROR_MESSAGES.STORYTELLER);
+    expect(getJoinErrorMessage(apiError(403, 'REMOVED_FROM_GAME'))).toBe(
+      JOIN_ERROR_MESSAGES.REMOVED
+    );
   });
 
   it('distingue le réseau coupé d’une erreur inconnue', () => {
