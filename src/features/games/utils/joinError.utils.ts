@@ -5,6 +5,7 @@ export const JOIN_ERROR_MESSAGES = {
   FULL: 'Cette table est complète.',
   STARTED: 'La partie a déjà commencé : il n’est plus possible de la rejoindre.',
   STORYTELLER: 'Vous êtes le Conteur de cette table : ouvrez-la depuis vos parties.',
+  REMOVED: 'Le Conteur vous a exclu de cette table.',
   NETWORK: 'Serveur injoignable. Vérifiez votre connexion.',
   UNKNOWN: 'Impossible de rejoindre la table. Réessayez.',
 } as const;
@@ -22,6 +23,8 @@ export const getJoinErrorMessage = (error: unknown): string => {
       return JOIN_ERROR_MESSAGES.FULL;
     case 'GAME_ALREADY_STARTED':
       return JOIN_ERROR_MESSAGES.STARTED;
+    case 'REMOVED_FROM_GAME':
+      return JOIN_ERROR_MESSAGES.REMOVED;
     // Seul conflit restant de POST /games/join : le conteur qui rejoint sa propre table
     case 'CONFLICT':
       return JOIN_ERROR_MESSAGES.STORYTELLER;

@@ -1,12 +1,9 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from "eslint-plugin-storybook";
-
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
-import eslintPluginReact from 'eslint-plugin-react'
+import eslintReact from '@eslint-react/eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier'
 
 // Interdit, par zone, les imports vers les couches du dessus. Un import relatif qui remonte de
@@ -37,6 +34,8 @@ export default [
       'build',
       'coverage',
       '.vite',
+      // Généré par `npm run gen:api` depuis openapi.json du back
+      'src/common/api/schema.d.ts',
     ],
   },
 
@@ -47,11 +46,22 @@ export default [
   ...tseslint.configs.recommended,
   ...tseslint.configs.stylistic,
 
-  // Configuration React
+  // Configuration React (@eslint-react : règles React et JSX, compatibles ESLint 10)
+  {
+    files: ['**/*.{ts,tsx}'],
+    ...eslintReact.configs['recommended-typescript'],
+  },
+  // Les hooks restent vérifiés par le plugin officiel (react-hooks) : pas de doublon
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      '@eslint-react/rules-of-hooks': 'off',
+      '@eslint-react/exhaustive-deps': 'off',
+    },
+  },
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     plugins: {
-      react: eslintPluginReact,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
@@ -66,22 +76,7 @@ export default [
         ecmaFeatures: { jsx: true },
       },
     },
-    settings: {
-      react: { version: 'detect' },
-    },
     rules: {
-      // ==================== RÈGLES REACT ====================
-      'react/react-in-jsx-scope': 'off',          // React 19 — import React non requis
-      'react/prop-types': 'off',                  // TypeScript couvre ça
-      'react/jsx-uses-react': 'off',
-      'react/jsx-uses-vars': 'error',
-      'react/jsx-key': ['error', { checkFragmentShorthand: true }],
-      'react/jsx-no-duplicate-props': 'error',
-      'react/jsx-no-undef': 'error',
-      'react/self-closing-comp': 'warn',
-      'react/jsx-pascal-case': 'warn',
-      'react/no-array-index-key': 'warn',         // Utiliser des IDs, pas les indices
-
       // ==================== RÈGLES REACT HOOKS ====================
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
@@ -156,5 +151,4 @@ export default [
   ]),
 
   eslintConfigPrettier,
-  ...storybook.configs["flat/recommended"],
 ]

@@ -8,8 +8,8 @@ import { Card } from '@common/components/Card/Card';
 import { Loading } from '@common/components/Loading/Loading';
 import { AUTH_ROUTES } from '@common/config/routes.config';
 import { useAuth } from '@auth/hooks/useAuth';
-import { useGamesQuery } from '@games/api/useGamesQuery';
-import { GameCard } from '@games/components/GameCard/GameCard';
+import { useGamesQuery } from '@games/api/games.api';
+import { GameCard } from '@games/components/list/GameCard/GameCard';
 import styles from './Games.module.scss';
 
 // Écran 23c « Mes parties » (C7-Journal-Parties-Cas) : accueil une fois connecté

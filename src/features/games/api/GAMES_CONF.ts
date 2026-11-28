@@ -11,7 +11,6 @@ export const GAMES_ENDPOINTS = {
   pick: (id: string, position: number) => `${GAMES_ENDPOINT}/${id}/cards/${position}/pick`,
   // Développement uniquement : route absente du serveur en production
   devFill: (id: string) => `${GAMES_ENDPOINT}/${id}/dev/fill`,
-  roles: (id: string) => `${GAMES_ENDPOINT}/${id}/roles`,
   night: (id: string) => `${GAMES_ENDPOINT}/${id}/night`,
   nightStep: (id: string, stepId: string, action: 'activate' | 'resolve' | 'skip') =>
     `${GAMES_ENDPOINT}/${id}/night/steps/${stepId}/${action}`,
@@ -57,11 +56,9 @@ export const GAMES_ENDPOINTS = {
 export const GAMES_KEYS = {
   all: ['games'] as const,
   lists: () => [...GAMES_KEYS.all, 'lists'] as const,
-  list: () => [...GAMES_KEYS.lists()] as const,
   details: (id: string) => [...GAMES_KEYS.all, 'details', id] as const,
   players: (id: string) => [...GAMES_KEYS.details(id), 'players'] as const,
   cards: (id: string) => [...GAMES_KEYS.details(id), 'cards'] as const,
-  roles: (id: string) => [...GAMES_KEYS.details(id), 'roles'] as const,
   night: (id: string) => [...GAMES_KEYS.details(id), 'night'] as const,
   prompt: (id: string) => [...GAMES_KEYS.details(id), 'prompt'] as const,
   messages: (id: string) => [...GAMES_KEYS.details(id), 'messages'] as const,

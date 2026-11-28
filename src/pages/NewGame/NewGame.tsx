@@ -9,7 +9,7 @@ import { Pill } from '@common/components/Pill/Pill';
 import { Stepper } from '@common/components/Stepper/Stepper';
 import { Loading } from '@common/components/Loading/Loading';
 import { AUTH_ROUTES, buildGameRoute, buildScriptRolesRoute } from '@common/config/routes.config';
-import { useCreateGameMutation } from '@games/api/useCreateGameMutation';
+import { useCreateGameMutation } from '@games/api/games.api';
 import {
   DEFAULT_PLAYERS,
   DEFAULT_SCRIPT_ID,

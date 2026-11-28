@@ -22,14 +22,14 @@ interface PinnedRoleRowProps {
  */
 export const PinnedRoleRow = ({ role }: PinnedRoleRowProps) => {
   const [revealed, setRevealed] = useState(false);
-  const timer = useRef<number | undefined>(undefined);
+  const timerRef = useRef<number | undefined>(undefined);
 
-  const clear = () => window.clearTimeout(timer.current);
+  const clear = () => window.clearTimeout(timerRef.current);
   useEffect(() => clear, []);
 
   const start = () => {
     clear();
-    timer.current = window.setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       setRevealed(true);
       vibrate(HAPTICS.reveal);
     }, HOLD_DELAY);

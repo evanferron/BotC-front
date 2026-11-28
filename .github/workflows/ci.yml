@@ -1,0 +1,48 @@
+name: CI
+
+# Contrôle qualité bloquant : format, lint, types, tests, build de production.
+# Les types de l'API (src/common/api/schema.d.ts) sont générés depuis BotC-back, dépôt privé : leur
+# fraîcheur est garantie côté back par tests/openapi.rs, ils ne sont pas régénérés ici.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Un nouveau commit sur une PR annule le run précédent de cette PR ; les runs de main vont au bout
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Format, lint, types, tests & build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 26
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      - name: Prettier
+        run: npm run format:check
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Types
+        run: npm run type-check
+
+      - name: Tests
+        run: npm test
+
+      # Même commande que le Dockerfile : manifeste, service worker et icônes de la PWA compris
+      - name: Build
+        run: npm run build
